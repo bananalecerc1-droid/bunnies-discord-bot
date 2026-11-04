@@ -1,0 +1,95 @@
+<%- contentFor('body') %>
+
+<main class="rules-ui embed-studio-page embed-rules-page">
+  <header class="rules-page-header">
+    <div>
+      <div class="rules-breadcrumb"><span>WORKSPACE</span><i class="fas fa-chevron-right"></i><strong>EMBED MANAGER</strong></div>
+      <div class="rules-title-row">
+        <div class="rules-title-icon"><i class="fas fa-message"></i></div>
+        <div>
+          <span class="rules-eyebrow">MESSAGE TOOLS</span>
+          <h1>Build reusable Discord messages.</h1>
+        </div>
+      </div>
+      <p>Keep announcements, onboarding, and community prompts organized with one simple editor and a clear preview.</p>
+    </div>
+    <div class="rules-header-actions">
+      <div class="rules-status"><span class="rules-status-dot"></span><span>Workspace ready</span></div>
+      <button type="button" id="addEmbedButtonTop" class="rules-button rules-button-primary"><i class="fas fa-plus"></i><span>New embed</span></button>
+    </div>
+  </header>
+
+  <section class="rules-stat-grid" aria-label="Embed manager overview">
+    <div class="rules-stat-card">
+      <span class="rules-stat-icon purple"><i class="fas fa-layer-group"></i></span>
+      <div class="rules-stat-copy"><span>Saved templates</span><strong id="embedLibraryTotal">0</strong><small>ready to reuse</small></div>
+    </div>
+    <div class="rules-stat-card">
+      <span class="rules-stat-icon blue"><i class="fas fa-pen-ruler"></i></span>
+      <div class="rules-stat-copy"><span>Editor</span><strong id="editorModeStat">New embed</strong><small id="editorModeStatHint">start from a blank canvas</small></div>
+    </div>
+    <div class="rules-stat-card">
+      <span class="rules-stat-icon green"><i class="fas fa-eye"></i></span>
+      <div class="rules-stat-copy"><span>Preview</span><strong id="embedPreviewState">Live</strong><small>updates as you type</small></div>
+    </div>
+    <div class="rules-stat-card">
+      <span class="rules-stat-icon rose"><i class="fas fa-bolt"></i></span>
+      <div class="rules-stat-copy"><span>Actions</span><strong id="embedButtonCount">0</strong><small>buttons in this message</small></div>
+    </div>
+  </section>
+
+  <div id="embedStudioStatus" class="embed-status-message" role="status"></div>
+
+  <div class="embed-workspace">
+    <aside class="rules-card embed-library embed-panel">
+      <div class="embed-panel-head">
+        <div><span class="embed-panel-kicker">YOUR LIBRARY</span><h2>Saved messages</h2></div>
+        <button type="button" id="addEmbedButton" class="embed-add-button" aria-label="Create new embed"><i class="fas fa-plus"></i></button>
+      </div>
+      <p class="embed-panel-copy">Reuse polished messages without rebuilding them every time.</p>
+      <div class="embed-library-count"><span><i class="fas fa-layer-group"></i> Templates</span><b id="embedLibraryCount">0</b></div>
+      <div id="savedEmbedList" class="saved-embed-list"><div class="saved-empty"><i class="fas fa-inbox"></i><span>No saved embeds yet.</span><small>Create your first reusable message.</small></div></div>
+      <div class="embed-library-footer"><i class="fas fa-cloud"></i><span>Saved with your bot configuration.</span></div>
+    </aside>
+
+    <section class="rules-card embed-editor-panel embed-panel">
+      <div class="embed-panel-toolbar"><div><i class="fas fa-pen-ruler"></i><b>MESSAGE EDITOR</b><span>/</span><span id="editorModeLabel">NEW EMBED</span></div><small><i class="fas fa-bolt"></i> Live preview enabled</small></div>
+      <form id="embedForm" class="embed-form" novalidate>
+        <div class="embed-form-intro"><div class="embed-step">01</div><div><h2>Message details</h2><p>Start with the content your community will read first.</p></div><span class="embed-required"><i class="fas fa-circle"></i> Required fields are marked</span></div>
+        <div class="embed-form-row two-col">
+          <label class="studio-field"><span>MESSAGE NAME <em>(FOR YOUR REFERENCE)</em></span><input id="embedName" required pattern="[A-Za-z0-9_-]{1,64}" placeholder="e.g. announcement, welcome-msg"><small>Letters, numbers, hyphens and underscores only.</small></label>
+          <label class="studio-field"><span>LOAD FROM LIBRARY</span><div class="custom-select-wrap"><select id="embedSelector" class="studio-select"><option value="">New embed</option></select><i class="fas fa-chevron-down"></i></div></label>
+        </div>
+        <label class="studio-field"><span>TITLE</span><input id="embedTitle" maxlength="256" placeholder="Give your message a clear headline"></label>
+        <label class="studio-field"><span>DESCRIPTION</span><textarea id="embedDescription" maxlength="4096" rows="4" placeholder="Write the main message here..."></textarea><small>Dynamic values: <code>{user}</code>, <code>{username}</code>, <code>{server}</code>, and <code>{memberCount}</code>.</small></label>
+        <label class="studio-field"><span>MESSAGE CONTENT <em>(OPTIONAL)</em></span><input id="embedContent" maxlength="2000" placeholder="Text shown above the embed"></label>
+
+        <div class="embed-section-divider"><span>02</span><div><b>Visual identity</b><small>Add the details that make this message recognizable.</small></div></div>
+        <div class="embed-form-row two-col">
+          <label class="studio-field"><span>FOOTER <em>(OPTIONAL)</em></span><input id="embedFooterText" maxlength="2048" placeholder="Footer text or {memberCount} members"></label>
+          <label class="studio-field"><span>LINK URL <em>(OPTIONAL)</em></span><input id="embedUrl" type="url" placeholder="https://example.com"></label>
+        </div>
+        <div class="embed-form-row two-col">
+          <label class="studio-field"><span>THUMBNAIL URL <em>(OPTIONAL)</em></span><input id="embedThumbnailUrl" type="url" placeholder="https://..."></label>
+          <label class="studio-field"><span>IMAGE URL <em>(OPTIONAL)</em></span><input id="embedImageUrl" type="url" placeholder="https://..."></label>
+        </div>
+        <div class="embed-color-row"><div><span>ACCENT COLOR</span><small>Choose a color that fits the message.</small></div><div class="embed-color-controls"><button type="button" class="embed-color-preset" data-color="#777BC9" style="--preset:#777BC9" aria-label="Purple"></button><button type="button" class="embed-color-preset" data-color="#3B82F6" style="--preset:#3B82F6" aria-label="Blue"></button><button type="button" class="embed-color-preset" data-color="#10B981" style="--preset:#10B981" aria-label="Green"></button><button type="button" class="embed-color-preset" data-color="#F59E0B" style="--preset:#F59E0B" aria-label="Amber"></button><button type="button" class="embed-color-preset" data-color="#EF476F" style="--preset:#EF476F" aria-label="Pink"></button><label class="embed-color-picker"><input id="embedColor" type="color" value="#777BC9"><span><i class="fas fa-plus"></i></span></label><output id="embedColorValue">#777BC9</output></div></div>
+
+        <div class="embed-advanced-section"><div class="embed-advanced-heading"><div class="embed-section-number">03</div><div><h3>Buttons <em>MAX 5</em></h3><p>Give members a clear next action.</p></div><button type="button" id="addEmbedButtonInline" class="rules-button rules-button-quiet"><i class="fas fa-plus"></i><span>Add button</span></button></div><div id="embedButtonList" class="embed-button-list"></div><div id="embedButtonEmpty" class="editor-empty"><i class="fas fa-plus"></i><span>No buttons yet. Add one when your message needs an action.</span></div></div>
+        <div class="embed-advanced-section"><div class="embed-advanced-heading"><div class="embed-section-number">04</div><div><h3>Select menu <em>MAX 10</em></h3><p>Let members choose an option and receive a response.</p></div><button type="button" id="addSelectOption" class="rules-button rules-button-quiet"><i class="fas fa-plus"></i><span>Add option</span></button></div><input id="selectMenuPlaceholder" class="studio-input-lite" maxlength="150" placeholder="Choose an option..."><div id="selectOptionList" class="select-option-list"></div><div id="selectOptionEmpty" class="editor-empty"><i class="fas fa-list"></i><span>No select options yet.</span></div></div>
+        <div class="embed-advanced-section"><div class="embed-advanced-heading"><div class="embed-section-number">05</div><div><h3>Reaction roles <em>MAX 20</em></h3><p>Connect an emoji to a role members can claim.</p></div><button type="button" id="addReactionRole" class="rules-button rules-button-quiet"><i class="fas fa-plus"></i><span>Add role</span></button></div><div id="reactionRoleList" class="reaction-role-list"></div><div id="reactionRoleEmpty" class="editor-empty"><i class="fas fa-face-smile"></i><span>No reaction roles yet.</span></div></div>
+
+        <div class="embed-actions"><button type="submit" class="rules-button rules-button-primary"><i class="fas fa-check"></i><span>Save embed</span></button><button type="button" id="saveAndSendEmbed" class="rules-button rules-button-secondary"><i class="fas fa-paper-plane"></i><span>Save &amp; send</span></button><button type="button" id="deleteEmbed" class="rules-button rules-button-danger"><i class="fas fa-trash"></i><span>Delete</span></button></div>
+      </form>
+    </section>
+
+    <aside class="rules-card embed-preview-panel embed-panel">
+      <div class="embed-preview-head"><span><i class="fas fa-eye"></i> LIVE PREVIEW</span><small><i class="fas fa-circle"></i> UP TO DATE</small></div>
+      <p class="embed-preview-copy">See how the message will appear in Discord before you send it.</p>
+      <div id="embedPreview" class="discord-preview"><div class="fresh-discord-channel"><span class="fresh-channel-icon">#</span><span>your-channel</span></div><div id="previewContent" class="discord-message-content"></div><article id="previewCard" class="discord-embed-card"><div class="discord-embed-accent"></div><div class="discord-embed-inner"><div id="previewThumbnail" class="discord-thumbnail"></div><div class="discord-embed-title" id="previewTitle">(no title)</div><div class="discord-embed-description" id="previewDescription">Your embed description will appear here.</div><div id="previewImage" class="discord-image"></div><div id="previewFooter" class="discord-footer"></div></div></article><div id="previewButtons" class="discord-preview-buttons"></div></div>
+      <div class="preview-note"><i class="fas fa-circle-info"></i><span>Images appear when Discord can fetch the URL.</span></div>
+    </aside>
+
+    <section class="rules-card send-panel embed-panel"><div class="send-heading"><span class="send-icon"><i class="fas fa-paper-plane"></i></span><div><b>SEND A SAVED MESSAGE</b><small>Save the embed first, then send it to any channel.</small></div></div><div class="send-controls"><div class="channel-input-wrap"><span>#</span><input id="sendChannelId" placeholder="Paste a Discord channel ID..." aria-label="Discord channel ID"></div><button type="button" id="sendEmbedOnly" class="rules-button rules-button-primary"><i class="fas fa-bolt"></i><span>Send now</span></button></div><p class="send-help"><i class="fas fa-shield-halved"></i> Only users with dashboard access can send messages.</p></section>
+  </div>
+</main>

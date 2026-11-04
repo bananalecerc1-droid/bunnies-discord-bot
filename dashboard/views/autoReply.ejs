@@ -1,0 +1,240 @@
+<%- contentFor('body') %>
+
+<div class="stats-grid">
+    <div class="stat-card blue-glow">
+        <div class="stat-icon text-blue-500">
+            <i class="fas fa-comment"></i>
+        </div>
+        <div class="stat-content">
+            <h3 class="stat-value" id="activeSections">0</h3>
+            <p class="stat-label"><%= locale.dashboard.autoReply.stats.activeSections %></p>
+        </div>
+    </div>
+    
+    <div class="stat-card green-glow">
+        <div class="stat-icon text-green-500">
+            <i class="fas fa-reply"></i>
+        </div>
+        <div class="stat-content">
+            <h3 class="stat-value" id="totalTriggers">0</h3>
+            <p class="stat-label"><%= locale.dashboard.autoReply.stats.totalTriggers %></p>
+        </div>
+    </div>
+
+    <div class="stat-card purple-glow">
+        <div class="stat-icon text-purple-500">
+            <i class="fas fa-clock"></i>
+        </div>
+        <div class="stat-content">
+            <h3 class="stat-value" id="cooldown">0s</h3>
+            <p class="stat-label"><%= locale.dashboard.autoReply.stats.cooldown %></p>
+        </div>
+    </div>
+
+    <div class="stat-card red-glow">
+        <div class="stat-icon text-red-500">
+            <i class="fas fa-percentage"></i>
+        </div>
+        <div class="stat-content">
+            <h3 class="stat-value" id="chance">0%</h3>
+            <p class="stat-label"><%= locale.dashboard.autoReply.stats.chance %></p>
+        </div>
+    </div>
+</div>
+
+<div class="bg-gray-900 rounded-lg p-6">
+    <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-semibold text-white"><%= locale.dashboard.autoReply.title %></h2>
+        <label class="switch-large">
+            <input type="checkbox" id="autoreply-enabled" <%= settings.autoReply?.enabled ? 'checked' : '' %>>
+            <span class="slider-large"></span>
+        </label>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-gray-800 rounded-lg p-4">
+            <div class="flex items-center justify-between mb-4">
+                <span class="text-gray-300"><%= locale.dashboard.autoReply.settings.mentionUser %></span>
+                <label class="switch-large">
+                    <input type="checkbox" id="autoreply-mention-user"
+                           <%= settings.autoReply?.mentionUser ? 'checked' : '' %>>
+                    <span class="slider-large"></span>
+                </label>
+            </div>
+
+            <div class="flex items-center justify-between mb-4">
+                <span class="text-gray-300"><%= locale.dashboard.autoReply.settings.replyToMessage %></span>
+                <label class="switch-large">
+                    <input type="checkbox" id="autoreply-reply-to-message"
+                           <%= settings.autoReply?.replyToMessage ? 'checked' : '' %>>
+                    <span class="slider-large"></span>
+                </label>
+            </div>
+
+            <div class="flex items-center justify-between">
+                <span class="text-gray-300"><%= locale.dashboard.autoReply.settings.caseSensitive %></span>
+                <label class="switch-large">
+                    <input type="checkbox" id="autoreply-case-sensitive"
+                           <%= settings.autoReply?.caseSensitive ? 'checked' : '' %>>
+                    <span class="slider-large"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="bg-gray-800 rounded-lg p-4">
+            <div class="mb-4">
+                <label class="block text-gray-300 mb-2"><%= locale.dashboard.autoReply.settings.matchType %></label>
+                <select id="autoreply-match-type" class="w-full rounded-lg p-2 border">
+                    <option value="exact" <%= settings.autoReply?.matchType === 'exact' ? 'selected' : '' %>>
+                        <%= locale.dashboard.autoReply.settings.matchTypes.exact %>
+                    </option>
+                    <option value="includes" <%= settings.autoReply?.matchType === 'includes' ? 'selected' : '' %>>
+                        <%= locale.dashboard.autoReply.settings.matchTypes.includes %>
+                    </option>
+                    <option value="startsWith" <%= settings.autoReply?.matchType === 'startsWith' ? 'selected' : '' %>>
+                        <%= locale.dashboard.autoReply.settings.matchTypes.startsWith %>
+                    </option>
+                    <option value="endsWith" <%= settings.autoReply?.matchType === 'endsWith' ? 'selected' : '' %>>
+                        <%= locale.dashboard.autoReply.settings.matchTypes.endsWith %>
+                    </option>
+                </select>
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-gray-300 mb-2"><%= locale.dashboard.autoReply.settings.chance %></label>
+                <div class="flex items-center gap-2">
+                    <input type="range" id="autoreply-chance" class="flex-1 accent-blue-500"
+                           min="0" max="100" step="1"
+                           value="<%= settings.autoReply?.chance || 100 %>">
+                    <span id="chance-value" class="text-gray-300 min-w-[4rem] text-right">
+                        <%= settings.autoReply?.chance || 100 %>%
+                    </span>
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-gray-300 mb-2"><%= locale.dashboard.autoReply.settings.cooldown %></label>
+                <div class="flex items-center gap-2">
+                    <input type="number" id="autoreply-cooldown" 
+                           class="flex-1 bg-gray-700 text-gray-300 rounded-lg p-2 border border-gray-600"
+                           value="<%= Math.floor((settings.autoReply?.cooldown || 60000) / 1000) %>"
+                           min="1">
+                    <span class="text-gray-300"><%= currentLang === 'ar' ? 'ثواني' : 'seconds' %></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-8">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xl font-semibold text-white"><%= locale.dashboard.autoReply.settings.sectionsTitle %></h3>
+            <button id="add-section-btn" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
+                <i class="fas fa-plus <%= currentLang === 'ar' ? 'ml-2' : 'mr-2' %>"></i>
+                <%= locale.dashboard.autoReply.settings.addSection %>
+            </button>
+        </div>
+
+        <div id="sections-container" class="space-y-4">
+            <% Object.entries(settings.autoReply?.sections || {}).forEach(([sectionName, section]) => { %>
+                <div class="bg-gray-800 rounded-lg p-4" data-section="<%= sectionName %>">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center gap-4">
+                            <label class="switch-large">
+                                <input type="checkbox" class="section-enabled"
+                                       <%= section.enabled ? 'checked' : '' %>>
+                                <span class="slider-large"></span>
+                            </label>
+                            <input type="text" class="section-name bg-gray-700 text-gray-300 rounded-lg p-2 border border-gray-600" 
+                                   value="<%= sectionName %>"
+                                   placeholder="<%= locale.dashboard.autoReply.settings.sectionNamePlaceholder %>">
+                        </div>
+                        <button class="delete-section text-red-500 hover:text-red-600">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-gray-300 mb-2"><%= locale.dashboard.autoReply.settings.triggers %></label>
+                            <div class="flex gap-2 mb-2">
+                                <input type="text" class="trigger-input flex-1 bg-gray-700 text-gray-300 rounded-lg p-2 border border-gray-600" 
+                                       placeholder="<%= locale.dashboard.autoReply.settings.triggerPlaceholder %>">
+                                <button class="add-trigger px-3 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                            <div class="triggers-list space-y-2">
+                                <% section.triggers.forEach(trigger => { %>
+                                    <div class="trigger-item flex items-center justify-between bg-gray-700 p-2 rounded-lg">
+                                        <span class="text-gray-300"><%= trigger %></span>
+                                        <button class="remove-trigger text-red-500 hover:text-red-600">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                <% }) %>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-gray-300 mb-2"><%= locale.dashboard.autoReply.settings.responses %></label>
+                            <div class="flex gap-2 mb-2">
+                                <input type="text" class="response-input flex-1 bg-gray-700 text-gray-300 rounded-lg p-2 border border-gray-600" 
+                                       placeholder="<%= locale.dashboard.autoReply.settings.responsePlaceholder %>">
+                                <button class="add-response px-3 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                            <div class="responses-list space-y-2">
+                                <% section.responses.forEach(response => { %>
+                                    <div class="response-item flex items-center justify-between bg-gray-700 p-2 rounded-lg">
+                                        <span class="text-gray-300"><%= response %></span>
+                                        <button class="remove-response text-red-500 hover:text-red-600">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                <% }) %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+</div>
+
+<div class="save-bar" id="saveBar">
+    <div class="save-bar-content">
+        <div class="save-bar-text">
+            <i class="fas fa-info-circle"></i>
+            <span><%= locale.dashboard.common.unsavedChanges %></span>
+        </div>
+        <div class="save-bar-buttons">
+            <button class="reset-button" id="resetAutoReplySettings">
+                <i class="fas fa-undo"></i>
+                <%= locale.dashboard.common.resetDefaults %>
+            </button>
+            <button class="save-button" id="saveAutoReplySettings">
+                <i class="fas fa-save"></i>
+                <%= locale.dashboard.common.saveChanges %>
+            </button>
+        </div>
+    </div>
+</div> 
+
+<script>
+    // Make locale data available to JavaScript
+    window.locale = {
+        dashboard: {
+            autoReply: {
+                settings: {
+                    newSectionDefault: '<%= locale.dashboard.autoReply.settings.newSectionDefault || "New Section" %>',
+                    sectionNamePlaceholder: '<%= locale.dashboard.autoReply.settings.sectionNamePlaceholder || "Section Name" %>',
+                    triggers: '<%= locale.dashboard.autoReply.settings.triggers || "Triggers" %>',
+                    responses: '<%= locale.dashboard.autoReply.settings.responses || "Responses" %>',
+                    triggerPlaceholder: '<%= locale.dashboard.autoReply.settings.triggerPlaceholder || "Enter trigger text" %>',
+                    responsePlaceholder: '<%= locale.dashboard.autoReply.settings.responsePlaceholder || "Enter response text" %>'
+                }
+            }
+        }
+    };
+</script> 

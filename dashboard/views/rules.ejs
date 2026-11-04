@@ -1,0 +1,287 @@
+<%- contentFor('body') %>
+
+<div class="space-y-6">
+    <div class="stats-grid">
+        <div class="stat-card blue-glow">
+            <div class="stat-icon text-blue-500">
+                <i class="fas fa-book"></i>
+            </div>
+            <div class="stat-content">
+                <h3 class="stat-value" id="activeSections">0</h3>
+                <p class="stat-label"><%= locale.dashboard.rules.stats.activeSections %></p>
+            </div>
+        </div>
+        
+        <div class="stat-card green-glow">
+            <div class="stat-icon text-green-500">
+                <i class="fas fa-list"></i>
+            </div>
+            <div class="stat-content">
+                <h3 class="stat-value" id="totalRules">0</h3>
+                <p class="stat-label"><%= locale.dashboard.rules.stats.totalRules %></p>
+            </div>
+        </div>
+
+        <div class="stat-card purple-glow">
+            <div class="stat-icon text-purple-500">
+                <i class="fas fa-toggle-on"></i>
+            </div>
+            <div class="stat-content">
+                <h3 class="stat-value" id="interfaceType">Buttons</h3>
+                <p class="stat-label"><%= locale.dashboard.rules.stats.interfaceType %></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white"><%= locale.dashboard.rules.title %></h2>
+            <div class="flex items-center space-x-4">
+                <button id="addSection" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all">
+                    <i class="fas fa-plus mr-2"></i>
+                    <%= locale.dashboard.rules.sections.add %>
+                </button>
+                <button id="enableAllSections" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all">
+                    <i class="fas fa-check-circle mr-2"></i>
+                    <%= locale.dashboard.rules.enableAll %>
+                </button>
+                <button id="disableAllSections" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all">
+                    <i class="fas fa-times-circle mr-2"></i>
+                    <%= locale.dashboard.rules.disableAll %>
+                </button>
+            </div>
+        </div>
+
+        <div class="px-4">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md">
+                <div class="section-header">
+                    <div class="section-title">
+                        <div class="section-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <h3><%= locale.dashboard.rules.globalSettings %></h3>
+                    </div>
+                    <label class="switch-large">
+                        <input type="checkbox" id="rules-enabled" 
+                               <%= settings.rules?.enabled ? 'checked' : '' %>>
+                        <span class="slider-large"></span>
+                    </label>
+                </div>
+
+                <div class="mt-4">
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-2">
+                        <%= locale.dashboard.rules.interface.title %>
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="form-group">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                <%= locale.dashboard.rules.interface.type %>
+                            </label>
+                            <select id="rules-interface-type" class="input-field">
+                                <option value="buttons"><%= locale.dashboard.rules.interface.buttons %></option>
+                                <option value="select"><%= locale.dashboard.rules.interface.select %></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                <%= locale.dashboard.rules.interface.style %>
+                            </label>
+                            <select id="rules-interface-style" class="input-field">
+                                <option value="Primary">Primary</option>
+                                <option value="Secondary">Secondary</option>
+                                <option value="Success">Success</option>
+                                <option value="Danger">Danger</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-2">
+                        <%= locale.dashboard.rules.mainEmbed.title %>
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="form-group">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                <%= locale.dashboard.rules.mainEmbed.title %>
+                            </label>
+                            <input type="text" id="rules-embed-title" class="input-field"
+                                   value="<%= settings.rules?.mainEmbed?.title || '' %>">
+                        </div>
+                        <div class="form-group">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                <%= locale.dashboard.rules.mainEmbed.color %>
+                            </label>
+                            <input type="color" id="rules-embed-color" class="input-field"
+                                   value="<%= settings.rules?.mainEmbed?.color || '#777bc9' %>">
+                        </div>
+                        <div class="form-group col-span-2">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                <%= locale.dashboard.rules.mainEmbed.description %>
+                            </label>
+                            <textarea id="rules-embed-description" class="input-field" rows="3"><%= settings.rules?.mainEmbed?.description || '' %></textarea>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-medium text-gray-800 dark:text-white">
+                                <%= locale.dashboard.rules.mainEmbed.thumbnail %>
+                            </h4>
+                            <label class="switch">
+                                <input type="checkbox" id="rules-embed-thumbnail-enabled" 
+                                       <%= settings.rules?.mainEmbed?.thumbnail?.enabled ? 'checked' : '' %>>
+                                <span class="switch-slider"></span>
+                            </label>
+                        </div>
+                        <input type="text" id="rules-embed-thumbnail-url" 
+                               class="input-field mt-2" 
+                               value="<%= settings.rules?.mainEmbed?.thumbnail?.url || '' %>"
+                               placeholder="<%= locale.dashboard.rules.mainEmbed.thumbnailUrl %>">
+                    </div>
+
+                    <div class="mt-4 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-medium text-gray-800 dark:text-white">
+                                <%= locale.dashboard.rules.mainEmbed.image %>
+                            </h4>
+                            <label class="switch">
+                                <input type="checkbox" id="rules-embed-image-enabled"
+                                       <%= settings.rules?.mainEmbed?.image?.enabled ? 'checked' : '' %>>
+                                <span class="switch-slider"></span>
+                            </label>
+                        </div>
+                        <input type="text" id="rules-embed-image-url" 
+                               class="input-field mt-2" 
+                               value="<%= settings.rules?.mainEmbed?.image?.url || '' %>"
+                               placeholder="<%= locale.dashboard.rules.mainEmbed.imageUrl %>">
+                    </div>
+
+                    <div class="mt-4 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                        <h4 class="font-medium text-gray-800 dark:text-white mb-2">
+                            <%= locale.dashboard.rules.mainEmbed.footer %>
+                        </h4>
+                        <div class="grid grid-cols-1 gap-4">
+                            <input type="text" id="rules-embed-footer-text" 
+                                   class="input-field" 
+                                   value="<%= settings.rules?.mainEmbed?.footer?.text || '' %>"
+                                   placeholder="<%= locale.dashboard.rules.mainEmbed.footerText %>">
+                            <input type="text" id="rules-embed-footer-icon" 
+                                   class="input-field" 
+                                   value="<%= settings.rules?.mainEmbed?.footer?.iconUrl || '' %>"
+                                   placeholder="<%= locale.dashboard.rules.mainEmbed.footerIcon %>">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="rulesSections" class="mt-6 space-y-4">
+            <% (settings.rules?.sections || []).forEach((section, index) => { %>
+                <div class="rule-section bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-4 <%= !section.enabled ? 'opacity-50' : '' %>">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-4">
+                            <label class="switch-large">
+                                <input type="checkbox" class="section-toggle" <%= section.enabled ? 'checked' : '' %>>
+                                <span class="slider-large"></span>
+                            </label>
+                            <input type="text" class="section-name input-field w-48" 
+                                   value="<%= section.name %>" placeholder="Section Name" required
+                                   maxlength="15">
+                            <div class="text-xs text-gray-500 name-counter">0/15</div>
+                        </div>
+                        <button class="delete-section text-red-500 hover:text-red-600">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div class="form-group">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                Emoji
+                            </label>
+                            <div class="relative">
+                                <input type="text" class="section-emoji input-field emoji-picker-input" 
+                                       value="<%= section.emoji %>" required maxlength="2">
+                                <button type="button" class="emoji-picker-btn px-3 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors absolute right-2 top-1/2 transform -translate-y-1/2">
+                                    <i class="far fa-smile"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                Description
+                            </label>
+                            <input type="text" class="section-description input-field" 
+                                   value="<%= section.description %>" required maxlength="100">
+                            <div class="text-xs text-gray-500 description-counter">0/100</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            Rules
+                        </label>
+                        <div class="rules-container">
+                            <div class="flex items-center gap-2">
+                                <textarea class="rule-input input-field flex-1" rows="10" required
+                                          maxlength="4096"><%= Array.isArray(section.rules) ? section.rules.join('\n') : section.rules %></textarea>
+                            </div>
+                            <div class="text-xs text-gray-500 mt-1 rules-counter">0/4096</div>
+                        </div>
+                    </div>
+
+                    <div class="embed-settings mt-4">
+                        <h4 class="text-lg font-semibold text-gray-800 dark:text-white mb-2">
+                            Embed Settings
+                        </h4>
+                        <div class="grid grid-cols-1 gap-4">
+                            <div class="form-group">
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    Color
+                                </label>
+                                <input type="color" class="section-embed-color input-field" 
+                                       value="<%= section.embed?.color || '#777bc9' %>">
+                            </div>
+
+                            <div class="mt-4 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                                <h5 class="font-medium text-gray-800 dark:text-white mb-2">
+                                    Footer
+                                </h5>
+                                <div class="grid grid-cols-1 gap-4">
+                                    <div class="form-group">
+                                        <input type="text" class="section-embed-footer-text input-field"
+                                               value="<%= section.embed?.footer?.text || '' %>"
+                                               placeholder="Footer Text" maxlength="2048">
+                                        <div class="text-xs text-gray-500 mt-1 footer-counter">0/2048</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+
+    <div class="save-bar" id="saveBar">
+        <div class="save-bar-content">
+            <div class="save-bar-text">
+                <i class="fas fa-info-circle"></i>
+                <span><%= locale.dashboard.common.unsavedChanges %></span>
+            </div>
+            <div class="save-bar-buttons">
+                <button class="reset-button" id="resetRulesSettings">
+                    <i class="fas fa-undo"></i>
+                    <%= locale.dashboard.common.resetDefaults %>
+                </button>
+                <button class="save-button" id="saveRulesSettings">
+                    <i class="fas fa-save"></i>
+                    <%= locale.dashboard.common.saveChanges %>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>window.settings = <%- JSON.stringify(settings || {}).replace(/</g, '\u003c') %>;</script>

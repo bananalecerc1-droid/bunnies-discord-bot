@@ -1,0 +1,198 @@
+<%- contentFor('body') %>
+
+<div class="main-content" dir="<%= currentLang === 'ar' ? 'rtl' : 'ltr' %>">
+    <div class="feature-header bg-gradient-to-r from-blue-600 to-purple-600 text-white p-8 rounded-2xl mb-8">
+        <div class="relative">
+            <div class="absolute -top-24 -right-24 w-64 h-64 bg-white opacity-10 rounded-full"></div>
+            <div class="absolute -bottom-32 -left-32 w-96 h-96 bg-white opacity-10 rounded-full"></div>
+            <div class="relative z-10">
+                <h1 class="text-4xl font-bold mb-4 flex items-center <%= currentLang === 'ar' ? 'flex-row-reverse' : '' %>">
+                    <i class="<%= featureIcon %> <%= currentLang === 'ar' ? 'ml-4' : 'mr-4' %> text-yellow-300"></i>
+                    <%= locale.comingSoon.features[feature].title %>
+                </h1>
+                <div class="flex items-center <%= currentLang === 'ar' ? 'flex-row-reverse' : '' %> space-x-4 <%= currentLang === 'ar' ? 'space-x-reverse' : '' %>">
+                    <div class="bg-yellow-500 text-white text-sm px-4 py-1 rounded-full animate-pulse flex items-center font-semibold <%= currentLang === 'ar' ? 'flex-row-reverse' : '' %>">
+                        <i class="fas fa-clock <%= currentLang === 'ar' ? 'ml-2' : 'mr-2' %>"></i>
+                        <%= locale.comingSoon.title || 'Coming Soon' %>
+                    </div>
+                    <p class="text-lg text-white/80"><%= locale.comingSoon.features[feature].subtitle %></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="feature-preview mb-10">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-gray-800 rounded-xl overflow-hidden shadow-xl p-6 flex items-center justify-center <%= currentLang === 'ar' ? 'md:order-last' : '' %>">
+                <div class="relative w-full h-64">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <i class="<%= featureIcon %> text-9xl text-gray-700 opacity-20"></i>
+                    </div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="text-center">
+                            <h3 class="text-2xl font-bold text-white mb-4"><%= locale.dashboard.common.inDevelopment || 'In Development' %></h3>
+                            <div class="loader">
+                                <div class="flex justify-center space-x-2">
+                                    <div class="w-4 h-4 bg-blue-500 rounded-full animate-bounce"></div>
+                                    <div class="w-4 h-4 bg-purple-500 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                                    <div class="w-4 h-4 bg-pink-500 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-gray-800 rounded-xl shadow-xl p-6">
+                <h2 class="text-2xl font-bold text-white mb-4"><%= locale.dashboard.common.aboutFeature || 'About This Feature' %></h2>
+                <p class="text-gray-300 mb-6"><%= locale.comingSoon.features[feature].description %></p>
+                
+                <div class="space-y-4">
+                    <h3 class="text-xl font-semibold text-white"><%= locale.dashboard.common.keyFeatures || 'Key Features' %></h3>
+                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <% Object.entries(locale.comingSoon.features[feature].features).forEach(([key, value]) => { %>
+                            <li class="flex items-center <%= currentLang === 'ar' ? 'flex-row-reverse' : '' %> <%= currentLang === 'ar' ? 'space-x-reverse' : '' %> space-x-2 text-gray-300">
+                                <i class="fas fa-check-circle text-green-500 <%= currentLang === 'ar' ? 'ml-2' : 'mr-2' %>"></i>
+                                <span><%= value %></span>
+                            </li>
+                        <% }) %>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="mb-10">
+        <div class="bg-gray-800 rounded-xl shadow-xl p-6">
+            <h2 class="text-2xl font-bold text-white mb-4"><%= locale.comingSoon.developmentStatus.title || 'Development Progress' %></h2>
+            <div class="space-y-4 mb-6">
+                <div>
+                    <div class="flex justify-between mb-1">
+                        <span class="text-gray-300"><%= locale.comingSoon.developmentStatus.designPhase || 'Design Phase' %></span>
+                        <span class="text-gray-300" id="design-percentage">100%</span>
+                    </div>
+                    <div class="w-full bg-gray-700 rounded-full h-2.5">
+                        <div class="bg-green-500 h-2.5 rounded-full" id="design-bar" style="width: 100%"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex justify-between mb-1">
+                        <span class="text-gray-300"><%= locale.comingSoon.developmentStatus.development || 'Development' %></span>
+                        <span class="text-gray-300" id="development-percentage">65%</span>
+                    </div>
+                    <div class="w-full bg-gray-700 rounded-full h-2.5">
+                        <div class="bg-blue-500 h-2.5 rounded-full" id="development-bar" style="width: 65%"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex justify-between mb-1">
+                        <span class="text-gray-300"><%= locale.comingSoon.developmentStatus.testing || 'Testing' %></span>
+                        <span class="text-gray-300" id="testing-percentage">30%</span>
+                    </div>
+                    <div class="w-full bg-gray-700 rounded-full h-2.5">
+                        <div class="bg-yellow-500 h-2.5 rounded-full" id="testing-bar" style="width: 30%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="mb-10">
+        <div class="bg-gray-800 rounded-xl shadow-xl p-6">
+            <h2 class="text-2xl font-bold text-white mb-4"><%= currentLang === 'ar' ? 'تابع التحديثات' : 'Stay Updated' %></h2>
+            <p class="text-gray-300 mb-6"><%= currentLang === 'ar' ? 'تابعنا للحصول على آخر التحديثات حول هذه الميزة والميزات الأخرى القادمة.' : 'Follow us to get the latest updates about this feature and other upcoming features.' %></p>
+            
+            
+        </div>
+    </div>
+</div>
+
+<button id="back-to-top" class="fixed bottom-8 <%= currentLang === 'ar' ? 'left-8' : 'right-8' %> bg-blue-600 text-white p-3 rounded-full shadow-lg z-50 hidden">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+    </svg>
+</button>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const backToTopButton = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('hidden');
+            } else {
+                backToTopButton.classList.add('hidden');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        randomProgress();
+
+        if (window.location.pathname.includes('/welcome') || 
+            window.location.pathname.includes('/selectroles') || 
+            window.location.pathname.includes('/games') || 
+            window.location.pathname.includes('/automod') || 
+            window.location.pathname.includes('/autolines') || 
+            window.location.pathname.includes('/leveling')) {
+            randomProgress();
+        }
+    });
+    
+    function randomProgress() {
+        const designPercent = Math.floor(Math.random() * 16) + 85;
+        document.getElementById('design-percentage').textContent = `${designPercent}%`;
+        document.getElementById('design-bar').style.width = `${designPercent}%`;
+        
+        const devPercent = Math.floor(Math.random() * 41) + 40;
+        document.getElementById('development-percentage').textContent = `${devPercent}%`;
+        document.getElementById('development-bar').style.width = `${devPercent}%`;
+        
+        const testPercent = Math.floor(Math.random() * 41) + 10;
+        document.getElementById('testing-percentage').textContent = `${testPercent}%`;
+        document.getElementById('testing-bar').style.width = `${testPercent}%`;
+    }
+</script>
+
+<style>
+.animate-fade-in {
+    animation: fadeIn 0.6s ease-in-out forwards;
+}
+
+.animate-fade-out {
+    animation: fadeOut 0.3s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(20px); }
+}
+
+.feature-header, .feature-preview, .faq-section {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+[dir="rtl"] .space-x-reverse {
+    --tw-space-x-reverse: 1;
+}
+
+[dir="rtl"] .space-x-4 > * + * {
+    margin-right: 1rem;
+    margin-left: 0;
+}
+
+.faq-question {
+    cursor: pointer;
+}
+</style> 

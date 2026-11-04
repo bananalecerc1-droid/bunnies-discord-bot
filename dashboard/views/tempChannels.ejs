@@ -1,0 +1,225 @@
+<%- contentFor('body') %>
+
+<div class="stats-grid">
+    <div class="stat-card blue-glow">
+        <div class="stat-icon text-blue-500">
+            <i class="fas fa-microphone"></i>
+        </div>
+        <div class="stat-content">
+            <h3 class="stat-value" id="activeChannels">0</h3>
+            <p class="stat-label"><%= locale.dashboard.tempChannels.stats.activeChannels %></p>
+        </div>
+    </div>
+    
+    <div class="stat-card green-glow">
+        <div class="stat-icon text-green-500">
+            <i class="fas fa-users"></i>
+        </div>
+        <div class="stat-content">
+            <h3 class="stat-value" id="totalUsers">0</h3>
+            <p class="stat-label"><%= locale.dashboard.tempChannels.stats.totalUsers %></p>
+        </div>
+    </div>
+
+    <div class="stat-card purple-glow">
+        <div class="stat-icon text-purple-500">
+            <i class="fas fa-clock"></i>
+        </div>
+        <div class="stat-content">
+            <h3 class="stat-value" id="avgDuration">0m</h3>
+            <p class="stat-label"><%= locale.dashboard.tempChannels.stats.avgDuration %></p>
+        </div>
+    </div>
+
+    <div class="stat-card red-glow">
+        <div class="stat-icon text-red-500">
+            <i class="fas fa-plus-circle"></i>
+        </div>
+        <div class="stat-content">
+            <h3 class="stat-value" id="totalCreated">0</h3>
+            <p class="stat-label"><%= locale.dashboard.tempChannels.stats.totalCreated %></p>
+        </div>
+    </div>
+</div>
+
+<div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mt-6">
+    <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-bold text-gray-800 dark:text-white">
+            <%= locale.dashboard.tempChannels.title %>
+        </h2>
+        <label class="switch-large">
+            <input type="checkbox" id="tempchannels-enabled" 
+                   <%= settings.tempChannels?.enabled ? 'checked' : '' %>>
+            <span class="slider-large"></span>
+        </label>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="form-group">
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <%= locale.dashboard.tempChannels.settings.parentChannel %>
+            </label>
+            <select id="tempchannels-parent-channel" class="input-field">
+                <option value="">Select Voice Channel</option>
+                <% channels.forEach(channel => { %>
+                    <option value="<%= channel.id %>"
+                            <%= settings.tempChannels?.parentChannelId === channel.id ? 'selected' : '' %>>
+                        <%= channel.name %>
+                    </option>
+                <% }) %>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <%= locale.dashboard.tempChannels.settings.category %>
+            </label>
+            <select id="tempchannels-category" class="input-field">
+                <option value="">Select Category</option>
+                <% categories.forEach(category => { %>
+                    <option value="<%= category.id %>"
+                            <%= settings.tempChannels?.category === category.id ? 'selected' : '' %>>
+                        <%= category.name %>
+                    </option>
+                <% }) %>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <%= locale.dashboard.tempChannels.settings.defaultName %>
+            </label>
+            <input type="text" id="tempchannels-default-name" class="input-field"
+                   value="<%= settings.tempChannels?.defaultName || '🔊 {user}\'s Channel' %>"
+                   placeholder="<%= locale.dashboard.tempChannels.settings.defaultNamePlaceholder %>">
+            <p class="text-sm text-gray-500 mt-1">
+                <%= locale.dashboard.tempChannels.settings.defaultNameHelp %>
+            </p>
+        </div>
+
+        <div class="form-group">
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <%= locale.dashboard.tempChannels.settings.userLimit %>
+            </label>
+            <input type="number" id="tempchannels-user-limit" class="input-field"
+                   value="<%= settings.tempChannels?.defaultUserLimit || 0 %>"
+                   min="0" max="99">
+            <p class="text-sm text-gray-500 mt-1">
+                <%= locale.dashboard.tempChannels.settings.userLimitHelp %>
+            </p>
+        </div>
+    </div>
+
+    <div class="mb-6">
+        <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">
+            <%= locale.dashboard.tempChannels.settings.channelSettingsTitle %>
+        </h3>
+        <div class="channel-settings-group">
+            <div class="settings-toggle-label">
+                <span class="text-gray-700 dark:text-gray-300">
+                    <%= locale.dashboard.tempChannels.settings.multipleAllowed %>
+                </span>
+                <label class="switch-large">
+                    <input type="checkbox" id="tempchannels-multiple-allowed"
+                           class="form-checkbox"
+                           <%= settings.tempChannels?.multipleAllowed ? 'checked' : '' %>>
+                    <span class="slider-large"></span>
+                </label>
+            </div>
+
+            <div class="settings-toggle-label">
+                <span class="text-gray-700 dark:text-gray-300">
+                    <%= locale.dashboard.tempChannels.settings.fullPermissions %>
+                </span>
+                <label class="switch-large">
+                    <input type="checkbox" id="tempchannels-full-permissions"
+                           class="form-checkbox"
+                           <%= settings.tempChannels?.fullPermissions ? 'checked' : '' %>>
+                    <span class="slider-large"></span>
+                </label>
+            </div>
+
+            <div class="settings-toggle-label">
+                <span class="text-gray-700 dark:text-gray-300">
+                    <%= locale.dashboard.tempChannels.settings.deleteWhenEmpty %>
+                </span>
+                <label class="switch-large">
+                    <input type="checkbox" id="tempchannels-delete-empty"
+                           class="form-checkbox"
+                           <%= settings.tempChannels?.deleteWhenEmpty ? 'checked' : '' %>>
+                    <span class="slider-large"></span>
+                </label>
+            </div>
+
+            <div class="form-group mt-6 mb-0">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <%= locale.dashboard.tempChannels.settings.deleteDelay %>
+                </label>
+                <div class="flex items-center gap-2">
+                    <input type="number" id="tempchannels-delete-delay" class="input-field"
+                           value="<%= Math.floor((settings.tempChannels?.deleteDelay || 5000) / 1000) %>"
+                           min="1">
+                    <span class="text-sm text-gray-500">seconds</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-6">
+        <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">
+            <%= locale.dashboard.tempChannels.settings.permissionsTitle %>
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="form-group">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <%= locale.dashboard.tempChannels.settings.allowedRoles %>
+                </label>
+                <select multiple id="tempchannels-allowed-roles" class="input-field min-h-[120px]" size="6">
+                    <% roles.forEach(role => { %>
+                        <option value="<%= role.id %>"
+                                <%= settings.tempChannels?.permissions?.enabledRoleIds?.includes(role.id) ? 'selected' : '' %>
+                                data-role-color="<%= role.color %>" style="color: <%= role.color %>">
+                            <%= role.name %>
+                        </option>
+                    <% }) %>
+                </select>
+                <p class="text-sm text-gray-500 mt-1">Hold Ctrl/Cmd to select multiple roles</p>
+            </div>
+
+            <div class="form-group">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <%= locale.dashboard.tempChannels.settings.blacklistedRoles %>
+                </label>
+                <select multiple id="tempchannels-blacklisted-roles" class="input-field min-h-[120px]" size="6">
+                    <% roles.forEach(role => { %>
+                        <option value="<%= role.id %>"
+                                <%= settings.tempChannels?.permissions?.disabledRoleIds?.includes(role.id) ? 'selected' : '' %>
+                                data-role-color="<%= role.color %>" style="color: <%= role.color %>">
+                            <%= role.name %>
+                        </option>
+                    <% }) %>
+                </select>
+                <p class="text-sm text-gray-500 mt-1">Hold Ctrl/Cmd to select multiple roles</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="save-bar" id="saveBar">
+    <div class="save-bar-content">
+        <div class="save-bar-text">
+            <i class="fas fa-info-circle"></i>
+            <span><%= locale.dashboard.common.unsavedChanges %></span>
+        </div>
+        <div class="save-bar-buttons">
+            <button class="reset-button" id="resetTempChannelsSettings">
+                <i class="fas fa-undo"></i>
+                <%= locale.dashboard.common.resetDefaults %>
+            </button>
+            <button class="save-button" id="saveTempChannelsSettings">
+                <i class="fas fa-save"></i>
+                <%= locale.dashboard.common.saveChanges %>
+            </button>
+        </div>
+    </div>
+</div> 

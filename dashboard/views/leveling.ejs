@@ -1,0 +1,119 @@
+<%- contentFor('body') %>
+
+<div class="stats-grid">
+    <div class="stat-card blue-glow">
+        <div class="stat-icon text-blue-500"><i class="fas fa-comment"></i></div>
+        <div class="stat-content">
+            <h3 class="stat-value"><%= settings.leveling?.xpPerMessage?.min || 0 %>-<%= settings.leveling?.xpPerMessage?.max || 0 %></h3>
+            <p class="stat-label">XP per Message</p>
+        </div>
+    </div>
+    <div class="stat-card green-glow">
+        <div class="stat-icon text-green-500"><i class="fas fa-microphone"></i></div>
+        <div class="stat-content">
+            <h3 class="stat-value"><%= settings.leveling?.xpPerVoiceMinute || 0 %></h3>
+            <p class="stat-label">XP per Voice Minute</p>
+        </div>
+    </div>
+    <div class="stat-card purple-glow">
+        <div class="stat-icon text-purple-500"><i class="fas fa-clock"></i></div>
+        <div class="stat-content">
+            <h3 class="stat-value"><%= Math.round((settings.leveling?.messageCooldown || 0) / 1000) %>s</h3>
+            <p class="stat-label">Message Cooldown</p>
+        </div>
+    </div>
+    <div class="stat-card red-glow">
+        <div class="stat-icon text-red-500"><i class="fas fa-medal"></i></div>
+        <div class="stat-content">
+            <h3 class="stat-value"><%= (settings.leveling?.roleRewards || []).length %></h3>
+            <p class="stat-label"><%= locale.dashboard.leveling.roleRewards %></p>
+        </div>
+    </div>
+</div>
+
+<div class="bg-gray-900 rounded-lg p-6 mt-6">
+    <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-semibold text-white"><%= locale.dashboard.leveling.levelingSystem %></h2>
+        <label class="switch-large">
+            <input type="checkbox" id="leveling-enabled" <%= settings.leveling?.enabled ? 'checked' : '' %>>
+            <span class="slider-large"></span>
+        </label>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-gray-800 rounded-lg p-4">
+            <h3 class="text-white font-medium mb-3">Message XP</h3>
+            <label class="text-gray-400 text-sm">Minimum XP</label>
+            <input type="number" id="xp-min" class="form-input w-full mb-3" value="<%= settings.leveling?.xpPerMessage?.min || 15 %>">
+            <label class="text-gray-400 text-sm">Maximum XP</label>
+            <input type="number" id="xp-max" class="form-input w-full mb-3" value="<%= settings.leveling?.xpPerMessage?.max || 25 %>">
+            <label class="text-gray-400 text-sm">Cooldown (seconds)</label>
+            <input type="number" id="xp-cooldown" class="form-input w-full" value="<%= Math.round((settings.leveling?.messageCooldown || 60000) / 1000) %>">
+        </div>
+
+        <div class="bg-gray-800 rounded-lg p-4">
+            <h3 class="text-white font-medium mb-3"><%= locale.dashboard.leveling.ignoredRolesTitle %></h3>
+            <p class="text-gray-500 text-xs mb-3"><%= locale.dashboard.leveling.ignoredRolesDescription %></p>
+            <select id="ignored-roles" class="form-input w-full" multiple size="5"></select>
+            <p class="text-gray-500 text-xs mt-2"><%= locale.dashboard.leveling.ignoredRolesHint %></p>
+        </div>
+
+        <div class="bg-gray-800 rounded-lg p-4">
+            <h3 class="text-white font-medium mb-3">Voice XP</h3>
+            <label class="text-gray-400 text-sm">XP per minute in voice</label>
+            <input type="number" id="xp-voice" class="form-input w-full mb-3" value="<%= settings.leveling?.xpPerVoiceMinute || 10 %>">
+            <p class="text-gray-500 text-xs">Muted/deafened or AFK-channel time doesn't count.</p>
+        </div>
+
+        <div class="bg-gray-800 rounded-lg p-4 md:col-span-2">
+            <div class="flex items-center justify-between mb-3">
+                <h3 class="text-white font-medium">Level-Up Announcement</h3>
+                <label class="switch-large">
+                    <input type="checkbox" id="levelup-enabled" <%= settings.leveling?.levelUpMessage?.enabled ? 'checked' : '' %>>
+                    <span class="slider-large"></span>
+                </label>
+            </div>
+            <label class="text-gray-400 text-sm">Channel (leave empty to post in the channel it happened)</label>
+            <select id="levelup-channel" class="form-input w-full mb-3">
+                <option value="">-- Same channel --</option>
+            </select>
+            <label class="text-gray-400 text-sm">Message (use {mention}, {user}, {level}, {server})</label>
+            <textarea id="levelup-content" class="form-input w-full" rows="2"><%= settings.leveling?.levelUpMessage?.content || '🎉 {mention} just reached **Level {level}**!' %></textarea>
+        </div>
+
+        <div class="bg-gray-800 rounded-lg p-4 md:col-span-2">
+            <div class="flex items-center justify-between mb-3">
+                <h3 class="text-white font-medium"><%= locale.dashboard.leveling.roleRewards %></h3>
+                <label class="flex items-center text-gray-400 text-sm">
+                    <input type="checkbox" id="remove-lower-rewards" class="mr-2" <%= settings.leveling?.removeLowerRewards ? 'checked' : '' %>>
+                    <%= locale.dashboard.leveling.keepHighest %>
+                </label>
+            </div>
+            <div id="role-rewards-list" class="space-y-2 mb-3"></div>
+            <div class="flex gap-2">
+                <input type="number" id="new-reward-level" placeholder="Level" class="form-input w-24">
+                <select id="new-reward-role" class="form-input flex-1">
+                    <option value=""><%= locale.dashboard.leveling.selectRole %></option>
+                </select>
+                <button id="add-reward-btn" class="btn-primary px-4">Add</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-6 flex justify-end">
+        <button id="save-leveling-btn" class="btn-primary px-6 py-2"><%= locale.dashboard.leveling.saveSettings %></button>
+    </div>
+</div>
+
+<div class="bg-gray-900 rounded-lg p-6 mt-6">
+    <h2 class="text-2xl font-semibold text-white mb-4">🏆 <%= locale.dashboard.leveling.leaderboard %></h2>
+    <div id="leaderboard-list" class="space-y-2"></div>
+</div>
+
+<script>
+    window.settings = <%- JSON.stringify(settings || {}).replace(/</g, '\u003c') %>;
+    window.leaderboard = <%- JSON.stringify(leaderboard || []).replace(/</g, '\u003c') %>;
+    window.dashboardText = <%- JSON.stringify(locale.dashboard.leveling).replace(/</g, '\u003c') %>;
+    window.ignoredRoleIds = <%- JSON.stringify(settings.leveling?.ignoredRoles || []).replace(/</g, '\u003c') %>;
+</script>
+<script src="/js/leveling.js"></script>

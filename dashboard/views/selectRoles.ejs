@@ -1,0 +1,71 @@
+<%- contentFor('body') %>
+
+<script>
+    window.settings = <%- JSON.stringify(settings || {}).replace(/</g, '\\u003c') %>;
+    window.channels = <%- JSON.stringify(channels || []).replace(/</g, '\\u003c') %>;
+    window.roles = <%- JSON.stringify(roles || []).replace(/</g, '\\u003c') %>;
+</script>
+
+<div class="bg-gray-900 rounded-lg p-6">
+    <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-semibold text-white">Select Roles Manager</h2>
+        <button id="new-menu-btn" class="btn-primary px-4 py-2"><i class="fas fa-plus mr-1"></i> New Menu</button>
+    </div>
+    <div id="menus-list" class="space-y-3"></div>
+</div>
+
+<div id="menu-editor" class="bg-gray-900 rounded-lg p-6 mt-6 hidden">
+    <h2 class="text-xl font-semibold text-white mb-4" id="editor-title">New Role Menu</h2>
+    <input type="hidden" id="menu-id">
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+            <label class="text-gray-400 text-sm">Title</label>
+            <input type="text" id="menu-title" class="form-input w-full mb-3" placeholder="Choose your roles">
+
+            <label class="text-gray-400 text-sm">Description</label>
+            <textarea id="menu-description" class="form-input w-full mb-3" rows="2" placeholder="Pick the roles you want below."></textarea>
+
+            <label class="text-gray-400 text-sm">Embed color</label>
+            <input type="color" id="menu-color" class="form-input w-full mb-3" value="#777bc9">
+        </div>
+
+        <div>
+            <label class="text-gray-400 text-sm">Channel to post in</label>
+            <select id="menu-channel" class="form-input w-full mb-3">
+                <option value="">-- Select channel --</option>
+            </select>
+
+            <label class="text-gray-400 text-sm">Menu type</label>
+            <select id="menu-type" class="form-input w-full mb-3">
+                <option value="select">Dropdown (select menu)</option>
+                <option value="buttons">Buttons</option>
+            </select>
+
+            <label class="flex items-center text-gray-400 text-sm mb-3">
+                <input type="checkbox" id="menu-multiple" class="mr-2">
+                Allow multiple roles at once (dropdown only)
+            </label>
+        </div>
+    </div>
+
+    <div class="bg-gray-800 rounded-lg p-4 mt-2">
+        <h3 class="text-white font-medium mb-3">Options</h3>
+        <div id="options-list" class="space-y-2 mb-3"></div>
+        <div class="flex gap-2">
+            <input type="text" id="new-option-label" placeholder="Label" class="form-input flex-1">
+            <select id="new-option-role" class="form-input flex-1">
+                <option value="">-- Select role --</option>
+            </select>
+            <input type="text" id="new-option-emoji" placeholder="Emoji (optional)" class="form-input w-32">
+            <button id="add-option-btn" class="btn-primary px-4">Add</button>
+        </div>
+    </div>
+
+    <div class="mt-6 flex justify-end gap-2">
+        <button id="cancel-editor-btn" class="px-6 py-2 rounded-lg bg-gray-700 text-white">Cancel</button>
+        <button id="save-menu-btn" class="btn-primary px-6 py-2">Save Menu</button>
+    </div>
+</div>
+
+<script src="/js/selectRoles.js"></script>

@@ -1,0 +1,73 @@
+<%- contentFor('body') %>
+
+<main class="welcome-studio-page dropdown-editor-page" dir="<%= currentLang === 'ar' ? 'rtl' : 'ltr' %>">
+    <header class="dropdown-editor-header">
+        <div>
+            <div class="dropdown-eyebrow"><%= currentLang === 'ar' ? 'إجراء واحد واضح' : 'ONE CLEAR ACTION' %></div>
+            <h1><%= currentLang === 'ar' ? 'قائمة الترحيب' : 'Welcome menu' %></h1>
+            <p><%= currentLang === 'ar' ? 'اسمح للأعضاء باختيار إجابة أو فتح قناة أو تبديل رتبة.' : 'Let members choose an answer, open a channel, or toggle a role.' %></p>
+        </div>
+        <div class="dropdown-header-controls">
+            <label class="welcome-enable-control">
+                <input id="welcomeEnabledToggle" type="checkbox">
+                <span><%= currentLang === 'ar' ? 'تفعيل رسائل الترحيب' : 'Enable welcome messages' %></span>
+            </label>
+            <label class="welcome-channel-control">
+                <span class="sr-only"><%= currentLang === 'ar' ? 'قناة الترحيب' : 'Welcome channel' %></span>
+                <select id="welcomeChannelSelect" aria-label="<%= currentLang === 'ar' ? 'قناة الترحيب' : 'Welcome channel' %>">
+                    <option value=""><%= currentLang === 'ar' ? 'Choose a channel...' : 'Choose a channel...' %></option>
+                </select>
+            </label>
+        </div>
+    </header>
+
+    <div id="welcomeStudioStatus" class="welcome-status-message hidden" role="status" aria-live="polite"></div>
+
+    <form id="welcomeForm" class="dropdown-editor-form" novalidate>
+        <input id="welcomeEnabled" type="hidden" value="false">
+        <input id="welcomeChannelId" type="hidden" value="">
+        <input id="welcomeMentionUser" type="hidden" value="false">
+        <input id="welcomeTitle" type="hidden" value="">
+        <input id="welcomeDescription" type="hidden" value="">
+
+        <div id="welcomeMenuFields" class="dropdown-settings">
+            <div class="dropdown-field-grid">
+                <label class="dropdown-field">
+                    <span><%= currentLang === 'ar' ? 'عنوان القائمة' : 'MENU TITLE' %></span>
+                    <input id="menuTitle" maxlength="256" value="Server Menu" placeholder="<%= currentLang === 'ar' ? 'قائمة الخادم' : 'Server Menu' %>">
+                </label>
+                <label class="dropdown-field">
+                    <span><%= currentLang === 'ar' ? 'النص البديل للقائمة' : 'MENU PLACEHOLDER' %></span>
+                    <input id="welcomeDropdownPlaceholder" maxlength="150" placeholder="<%= currentLang === 'ar' ? 'اختر خياراً...' : 'Choose an option...' %>">
+                </label>
+            </div>
+
+            <div class="dropdown-field-grid welcome-embed-settings-grid">
+                <label class="dropdown-field">
+                    <span><%= currentLang === 'ar' ? 'لون التضمين' : 'EMBED COLOR' %></span>
+                    <div class="welcome-color-picker">
+                        <input id="menuColor" type="color" value="#777BC9" aria-label="<%= currentLang === 'ar' ? 'لون التضمين' : 'Embed color' %>">
+                        <output id="menuColorValue">#777BC9</output>
+                    </div>
+                    <small><%= currentLang === 'ar' ? 'اختر لون الشريط الجانبي للقائمة.' : 'Choose the color of the menu embed accent.' %></small>
+                </label>
+                <label class="dropdown-field">
+                    <span><%= currentLang === 'ar' ? 'رابط صورة التضمين' : 'EMBED IMAGE URL' %></span>
+                    <input id="menuImageUrl" type="url" maxlength="512" autocomplete="off" placeholder="https://example.com/image.png">
+                    <small><%= currentLang === 'ar' ? 'استخدم رابط صورة عام يمكن لـ Discord الوصول إليه.' : 'Use a public image URL that Discord can access.' %></small>
+                </label>
+            </div>
+
+            <label class="dropdown-field dropdown-description-field">
+                <span><%= currentLang === 'ar' ? 'وصف القائمة' : 'MENU DESCRIPTION' %></span>
+                <textarea id="menuDescription" maxlength="4096" rows="3" placeholder="<%= currentLang === 'ar' ? 'اختر خياراً أدناه.' : 'Choose an option below.' %>"><%= currentLang === 'ar' ? 'اختر خياراً أدناه.' : 'Choose an option below.' %></textarea>
+            </label>
+
+        </div>
+
+        <div class="dropdown-editor-actions">
+            <button type="submit" class="dropdown-save-button"><i class="fas fa-check"></i> <%= currentLang === 'ar' ? 'حفظ القائمة' : 'Save welcome menu' %></button>
+            <span><%= currentLang === 'ar' ? 'يتم حفظ التغييرات في خادمك المتصل.' : 'Changes are saved to your connected server.' %></span>
+        </div>
+    </form>
+</main>

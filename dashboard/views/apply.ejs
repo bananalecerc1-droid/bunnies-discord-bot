@@ -1,0 +1,527 @@
+<div class="space-y-6">
+    <div class="stats-grid">
+        <div class="stat-card blue-glow">
+            <div class="stat-icon text-blue-500">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="stat-content">
+                <h3 class="stat-value" id="activePositions">0</h3>
+                <p class="stat-label"><%= locale.dashboard.apply.stats.activePositions %></p>
+            </div>
+        </div>
+        
+        <div class="stat-card green-glow">
+            <div class="stat-icon text-green-500">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="stat-content">
+                <h3 class="stat-value" id="totalAccepted">0</h3>
+                <p class="stat-label"><%= locale.dashboard.apply.stats.totalAccepted %></p>
+            </div>
+        </div>
+
+        <div class="stat-card purple-glow">
+            <div class="stat-icon text-purple-500">
+                <i class="fas fa-clock"></i>
+            </div>
+            <div class="stat-content">
+                <h3 class="stat-value" id="avgCooldown">0h</h3>
+                <p class="stat-label"><%= locale.dashboard.apply.stats.avgCooldown %></p>
+            </div>
+        </div>
+
+        <div class="stat-card red-glow">
+            <div class="stat-icon text-red-500">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <div class="stat-content">
+                <h3 class="stat-value" id="reviewerRoles">0</h3>
+                <p class="stat-label"><%= locale.dashboard.apply.stats.reviewerRoles %></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white"><%= locale.dashboard.apply.title %></h2>
+            <div class="flex items-center space-x-4">
+                <button id="addPosition" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all">
+                    <i class="fas fa-plus mr-2"></i>
+                    <%= locale.dashboard.apply.addPosition %>
+                </button>
+                <button id="enableAllPositions" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all">
+                    <i class="fas fa-check-circle mr-2"></i>
+                    <%= locale.dashboard.apply.enableAll %>
+                </button>
+                <button id="disableAllPositions" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all">
+                    <i class="fas fa-times-circle mr-2"></i>
+                    <%= locale.dashboard.apply.disableAll %>
+                </button>
+            </div>
+        </div>
+
+        <div class="px-4">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md">
+                <div class="section-header">
+                    <div class="section-title">
+                        <div class="section-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <h3><%= locale.dashboard.apply.globalSettings %></h3>
+                    </div>
+                    <label class="switch-large">
+                        <input type="checkbox" id="apply-enabled" 
+                               <%= settings.apply?.enabled ? 'checked' : '' %>>
+                        <span class="slider-large"></span>
+                    </label>
+                </div>
+
+                <div class="p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="form-group">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                <%= locale.dashboard.apply.embedColor %>
+                            </label>
+                            <input type="color" id="apply-embed-color" 
+                                   value="<%= settings.apply?.embed?.color || '#777bc9' %>"
+                                   class="w-full h-10 rounded-lg cursor-pointer">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                <%= locale.dashboard.apply.thumbnailUrl %>
+                            </label>
+                            <input type="text" id="apply-embed-thumbnail"
+                                   value="<%= settings.apply?.embed?.thumbnail || '' %>"
+                                   class="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                <%= locale.dashboard.apply.footerText %>
+                            </label>
+                            <input type="text" id="apply-embed-footer"
+                                   value="<%= settings.apply?.embed?.footer || '' %>"
+                                   class="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                <%= locale.dashboard.apply.footerIcon %>
+                            </label>
+                            <input type="text" id="apply-embed-footerIcon"
+                                   value="<%= settings.apply?.embed?.footerIcon || '' %>"
+                                   class="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="px-4 mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <% (settings.apply?.positions || []).forEach((position, index) => { %>
+                <div class="position-card bg-white dark:bg-gray-800 rounded-lg shadow-md" data-position="<%= index %>">
+                    <div class="section-header">
+                        <div class="section-title">
+                            <div class="section-icon">
+                                <span class="text-xl"><%= position.emoji %></span>
+                            </div>
+                            <h3><%= position.name %></h3>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <button class="delete-position text-red-500 hover:text-red-600"
+                                    data-position="<%= index %>">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                            <label class="switch-large">
+                                <input type="checkbox" class="position-toggle"
+                                       data-position="<%= index %>"
+                                       <%= position.enabled ? 'checked' : '' %>>
+                                <span class="slider-large"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="p-6 space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="form-group">
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    <%= locale.dashboard.apply.positionName %>
+                                </label>
+                                <input type="text" class="position-name input-field"
+                                       value="<%= position.name %>"
+                                       data-position="<%= index %>">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    <%= locale.dashboard.apply.emoji %>
+                                </label>
+                                <div class="flex items-center gap-2">
+                                    <input type="text" class="position-emoji input-field flex-1"
+                                           value="<%= position.emoji %>"
+                                           data-position="<%= index %>">
+                                    <button type="button" class="emoji-picker-btn px-3 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors">
+                                        <i class="fas fa-smile"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="form-group">
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    <%= locale.dashboard.apply.positionColor %>
+                                </label>
+                                <input type="color" class="position-color input-field"
+                                       value="<%= position.color %>"
+                                       data-position="<%= index %>">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    <%= locale.dashboard.apply.logChannel %>
+                                </label>
+                                <select class="position-logChannel input-field"
+                                        data-position="<%= index %>">
+                                    <option value="">Select Log Channel</option>
+                                    <% channels.forEach(channel => { %>
+                                        <option value="<%= channel.id %>"
+                                                <%= position.logChannel === channel.id ? 'selected' : '' %>>
+                                            #<%= channel.name %>
+                                        </option>
+                                    <% }) %>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                <%= locale.dashboard.apply.reviewerRoles %>
+                            </label>
+                            <select multiple class="position-reviewerRoles input-field min-h-[120px]"
+                                    data-position="<%= index %>">
+                                <% roles.forEach(role => { %>
+                                    <option value="<%= role.id %>"
+                                            <%= position.reviewers.roles.includes(role.id) ? 'selected' : '' %>
+                                            data-role-color="<%= role.color %>" style="color: <%= role.color %>">
+                                        <%= role.name %>
+                                    </option>
+                                <% }) %>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                <%= locale.dashboard.apply.questions %>
+                            </label>
+                            <div class="questions-container space-y-2" data-position="<%= index %>">
+                                <% position.questions.forEach((question, qIndex) => { %>
+                                    <div class="flex items-center gap-2">
+                                        <input type="text" class="question-input input-field flex-1"
+                                               value="<%= question %>"
+                                               data-position="<%= index %>"
+                                               data-question="<%= qIndex %>">
+                                        <button type="button" class="delete-question px-2 py-1 text-red-500 hover:text-red-600">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                <% }) %>
+                            </div>
+                            <button type="button" class="add-question mt-2 text-blue-500 hover:text-blue-600">
+                                <i class="fas fa-plus mr-1"></i> Add Question
+                            </button>
+                        </div>
+
+                        <div class="requirements-section space-y-4">
+                            <h4 class="text-lg font-semibold text-gray-800 dark:text-white">
+                                <%= locale.dashboard.apply.requirements %>
+                            </h4>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="form-group">
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                        <%= locale.dashboard.apply.minimumAccountAge %>
+                                    </label>
+                                    <div class="flex items-center gap-2">
+                                        <input type="number" class="position-minAge input-field"
+                                               value="<%= position.requirements.minimumAge %>"
+                                               min="0"
+                                               data-position="<%= index %>">
+                                        <span class="text-sm text-gray-500">days</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                        <%= locale.dashboard.apply.minimumGuildAge %>
+                                    </label>
+                                    <div class="flex items-center gap-2">
+                                        <input type="number" class="position-minGuildAge input-field"
+                                               value="<%= position.requirements.minimumGuildAge / 86400000 %>"
+                                               min="0"
+                                               data-position="<%= index %>">
+                                        <span class="text-sm text-gray-500">days</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    <%= locale.dashboard.apply.requiredRoles %>
+                                </label>
+                                <select multiple class="position-requiredRoles input-field"
+                                        data-position="<%= index %>">
+                                    <% roles.forEach(role => { %>
+                                        <option value="<%= role.id %>"
+                                                <%= position.requirements.requiredRoles.includes(role.id) ? 'selected' : '' %>
+                                                data-role-color="<%= role.color %>" style="color: <%= role.color %>">
+                                            <%= role.name %>
+                                        </option>
+                                    <% }) %>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    <%= locale.dashboard.apply.blacklistedRoles %>
+                                </label>
+                                <select multiple class="position-blacklistedRoles input-field"
+                                        data-position="<%= index %>">
+                                    <% roles.forEach(role => { %>
+                                        <option value="<%= role.id %>"
+                                                <%= position.requirements.blacklistedRoles.includes(role.id) ? 'selected' : '' %>
+                                                data-role-color="<%= role.color %>" style="color: <%= role.color %>">
+                                            <%= role.name %>
+                                        </option>
+                                    <% }) %>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    <%= locale.dashboard.apply.acceptRoles %>
+                                </label>
+                                <select multiple class="position-acceptRoles input-field"
+                                        data-position="<%= index %>">
+                                    <% roles.forEach(role => { %>
+                                        <option value="<%= role.id %>"
+                                                <%= position.acceptRoles?.includes(role.id) ? 'selected' : '' %>
+                                                data-role-color="<%= role.color %>" style="color: <%= role.color %>">
+                                            <%= role.name %>
+                                        </option>
+                                    <% }) %>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    <%= locale.dashboard.apply.acceptMessage %>
+                                </label>
+                                <textarea class="position-acceptMessage input-field"
+                                          data-position="<%= index %>"
+                                          rows="3"><%= position.acceptMessage %></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+
+        <div id="newPositionForm" class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-6">
+            <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-4">
+                <%= locale.dashboard.apply.addPosition %>
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="form-group">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <%= locale.dashboard.apply.positionName %>
+                    </label>
+                    <input type="text" id="new-position-name" class="input-field" required 
+                           maxlength="15" placeholder="Max 15 characters">
+                </div>
+
+                <div class="form-group">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <%= locale.dashboard.apply.emoji %>
+                    </label>
+                    <div class="relative">
+                        <input type="text" id="new-position-emoji" class="input-field emoji-picker-input" required>
+                        <button type="button" class="emoji-picker-btn px-3 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors absolute right-2 top-1/2 transform -translate-y-1/2">
+                            <i class="far fa-smile"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <%= locale.dashboard.apply.positionColor %>
+                    </label>
+                    <input type="color" id="new-position-color" class="w-full h-10 rounded-lg cursor-pointer" 
+                           value="#777bc9">
+                </div>
+
+                <div class="form-group">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <%= locale.dashboard.apply.logChannel %>
+                    </label>
+                    <select id="new-position-logChannel" class="input-field" required>
+                        <option value="">Select a channel</option>
+                        <% channels.forEach(channel => { %>
+                            <option value="<%= channel.id %>"><%= channel.name %></option>
+                        <% }) %>
+                    </select>
+                </div>
+
+                <div class="form-group col-span-2">
+                    <h4 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">
+                        <%= locale.dashboard.apply.requirements %>
+                    </h4>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div class="form-group">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                <%= locale.dashboard.apply.minimumAccountAge %>
+                            </label>
+                            <div class="flex items-center gap-2">
+                                <input type="number" id="new-position-minAge" class="input-field" 
+                                       min="0" value="0">
+                                <span class="text-sm text-gray-500">days</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                <%= locale.dashboard.apply.minimumGuildAge %>
+                            </label>
+                            <div class="flex items-center gap-2">
+                                <input type="number" id="new-position-minGuildAge" class="input-field" 
+                                       min="0" value="0">
+                                <span class="text-sm text-gray-500">days</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            <%= locale.dashboard.apply.requiredRoles %>
+                        </label>
+                        <select id="new-position-requiredRoles" multiple class="input-field min-h-[120px]">
+                            <% roles.forEach(role => { %>
+                                <option value="<%= role.id %>" data-role-color="<%= role.color %>" style="color: <%= role.color %>">
+                                    <%= role.name %>
+                                </option>
+                            <% }) %>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            <%= locale.dashboard.apply.blacklistedRoles %>
+                        </label>
+                        <select id="new-position-blacklistedRoles" multiple class="input-field min-h-[120px]">
+                            <% roles.forEach(role => { %>
+                                <option value="<%= role.id %>" data-role-color="<%= role.color %>" style="color: <%= role.color %>">
+                                    <%= role.name %>
+                                </option>
+                            <% }) %>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group col-span-2">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <%= locale.dashboard.apply.reviewerRoles %>
+                    </label>
+                    <select id="new-position-reviewerRoles" multiple class="input-field min-h-[120px]" required>
+                        <% roles.forEach(role => { %>
+                            <option value="<%= role.id %>" data-role-color="<%= role.color %>" style="color: <%= role.color %>">
+                                <%= role.name %>
+                            </option>
+                        <% }) %>
+                    </select>
+                </div>
+
+                <div class="form-group col-span-2">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <%= locale.dashboard.apply.acceptRoles %>
+                    </label>
+                    <select id="new-position-acceptRoles" multiple class="input-field min-h-[120px]">
+                        <% roles.forEach(role => { %>
+                            <option value="<%= role.id %>" data-role-color="<%= role.color %>" style="color: <%= role.color %>">
+                                <%= role.name %>
+                            </option>
+                        <% }) %>
+                    </select>
+                </div>
+
+                <div class="form-group col-span-2">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <%= locale.dashboard.apply.acceptMessage %>
+                    </label>
+                    <textarea id="new-position-acceptMessage" class="input-field" rows="3" 
+                              maxlength="1500" placeholder="Max 1500 characters"></textarea>
+                    <div class="text-sm text-gray-500 mt-1">
+                        <span id="acceptMessage-counter">0</span>/1500 characters
+                    </div>
+                </div>
+
+                <div class="form-group col-span-2">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <%= locale.dashboard.apply.questions %>
+                    </label>
+                    <div class="questions-container space-y-2" id="new-position-questions">
+                        <div class="flex items-center gap-2">
+                            <input type="text" class="question-input input-field flex-1" 
+                                   placeholder="Enter your question (max 45 chars)" required maxlength="45">
+                            <button type="button" class="delete-question px-2 py-1 text-red-500 hover:text-red-600">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button type="button" id="new-position-add-question" class="mt-2 text-blue-500 hover:text-blue-600">
+                        <i class="fas fa-plus mr-1"></i> Add Question
+                    </button>
+                    <p class="text-sm text-gray-500 mt-1">Min: 1 question, Max: 5 questions</p>
+                </div>
+
+                <div class="form-group">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <%= locale.dashboard.apply.cooldown %>
+                    </label>
+                    <div class="flex items-center gap-2">
+                        <input type="number" id="new-position-cooldown" class="input-field" min="0" value="24" required>
+                        <span class="text-sm text-gray-500">hours</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 flex justify-end space-x-4">
+                <button type="button" id="cancelNewPosition" class="px-4 py-2 text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200">
+                    <%= locale.dashboard.common.cancel %>
+                </button>
+                <button type="button" id="submitNewPosition" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all">
+                    <%= locale.dashboard.common.add %>
+                </button>
+            </div>
+        </div>
+
+        <div class="save-bar" id="saveBar">
+            <div class="save-bar-content">
+                <div class="save-bar-text">
+                    <i class="fas fa-info-circle"></i>
+                    <span><%= locale.dashboard.common.unsavedChanges %></span>
+                </div>
+                <div class="save-bar-buttons">
+                    <button class="reset-button" id="resetApplySettings">
+                        <i class="fas fa-undo"></i>
+                        <%= locale.dashboard.common.resetDefaults %>
+                    </button>
+                    <button class="save-button" id="saveApplySettings">
+                        <i class="fas fa-save"></i>
+                        <%= locale.dashboard.common.saveChanges %>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

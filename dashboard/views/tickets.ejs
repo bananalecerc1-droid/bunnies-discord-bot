@@ -1,0 +1,57 @@
+<%- contentFor('body') %>
+
+<div class="tickets-page space-y-6">
+  <div class="stats-grid">
+    <div class="stat-card blue-glow"><div class="stat-icon text-blue-500"><i class="fas fa-ticket-alt"></i></div><div class="stat-content"><h3 class="stat-value" id="tkPanelCount"><%= (settings.ticketPanels || []).length %></h3><p class="stat-label">Ticket Panels</p></div></div>
+    <div class="stat-card green-glow"><div class="stat-icon text-green-500"><i class="fas fa-layer-group"></i></div><div class="stat-content"><h3 class="stat-value" id="tkButtonCount">0</h3><p class="stat-label">Configured Buttons</p></div></div>
+    <div class="stat-card purple-glow"><div class="stat-icon text-purple-500"><i class="fas fa-shield-alt"></i></div><div class="stat-content"><h3 class="stat-value" id="tkRoleCount"><%= roles.length %></h3><p class="stat-label">Available Staff Roles</p></div></div>
+    <div class="stat-card red-glow"><div class="stat-icon text-red-500"><i class="fas fa-server"></i></div><div class="stat-content"><h3 class="stat-value">Multi-panel</h3><p class="stat-label">Ticket System</p></div></div>
+  </div>
+
+  <div class="tickets-settings-shell bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+    <div class="flex items-center justify-between mb-6">
+      <div><h2 class="text-2xl font-bold text-gray-800 dark:text-white">Ticket Panels</h2><p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Create multiple ticket panels while keeping the shared dashboard theme.</p></div>
+      <div class="flex items-center gap-3"><button id="tkNewBtn" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all"><i class="fas fa-plus mr-2"></i>New Panel</button><button id="tkSaveBtn" type="button" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all"><i class="fas fa-save mr-2"></i>Save Changes</button><button id="tkSendBtn" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all"><i class="fas fa-paper-plane mr-2"></i>Send Panel</button></div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <aside class="lg:col-span-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-3">
+        <div class="flex items-center justify-between px-2 pb-3"><h3 class="font-semibold text-gray-800 dark:text-white">Panels</h3><span id="tkPanelBadge" class="text-xs text-gray-500"><%= (settings.ticketPanels || []).length %></span></div>
+        <div id="tkPanelList" class="space-y-1"></div>
+      </aside>
+
+      <main class="lg:col-span-9 space-y-5">
+        <section class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5">
+          <div class="flex items-center justify-between mb-4"><h3 class="text-lg font-semibold text-gray-800 dark:text-white">Panel Settings</h3><span id="tkEditingLabel" class="text-xs text-gray-500">New panel</span></div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="form-group"><label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Panel name</label><input id="tkPanelName" class="input-field w-full" maxlength="80" placeholder="Support Panel"></div>
+            <div class="form-group"><label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Panel channel</label><select id="tkPanelChannel" class="input-field w-full"><option value="">Select channel</option><% channels.forEach(c => { %><option value="<%= c.id %>">#<%= c.name %></option><% }) %></select></div>
+            <div class="form-group"><label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Default ticket category</label><select id="tkDefaultCategory" class="input-field w-full"><option value="">No default category</option><% categories.forEach(c => { %><option value="<%= c.id %>"><%= c.name %></option><% }) %></select></div>
+            <div class="form-group"><label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Embed title</label><input id="tkEmbedTitle" class="input-field w-full" maxlength="256" placeholder="🎫 Open a ticket"></div>
+            <div class="form-group"><label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Embed color</label><input id="tkEmbedColor" type="color" class="w-full h-10 rounded-lg cursor-pointer" value="#5865F2"></div>
+            <div class="form-group md:col-span-2"><label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Embed description</label><textarea id="tkEmbedDesc" class="input-field w-full" rows="3" maxlength="4096" placeholder="Press a button below to open a ticket."></textarea></div>
+            <div class="form-group"><label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Embed image URL</label><input id="tkEmbedImage" class="input-field w-full" placeholder="https://..."></div>
+            <div class="form-group"><label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Staff role</label><select id="tkStaffRole" class="input-field w-full"><option value="">Manage Channels permission</option><% roles.forEach(r => { %><option value="<%= r.id %>">@<%= r.name %></option><% }) %></select></div>
+            <div class="form-group"><label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Ticket log channel</label><select id="tkLogChannel" class="input-field w-full"><option value="">No transcript channel</option><% channels.forEach(c => { %><option value="<%= c.id %>">#<%= c.name %></option><% }) %></select></div>
+            <div class="form-group md:col-span-2"><label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Welcome message</label><textarea id="tkWelcomeMessage" class="input-field w-full" rows="2" maxlength="2000" placeholder="مرحباً! سيقوم أحد أعضاء الفريق بالرد عليك قريباً."></textarea></div>
+          </div>
+        </section>
+
+        <section class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5"><div class="flex items-center justify-between mb-4"><div><h3 class="text-lg font-semibold text-gray-800 dark:text-white">Select Menus <span id="tkSelectMenuCount" class="text-xs text-gray-500">0</span></h3><p class="text-xs text-gray-500 mt-1">Add a select menu, then add the options members will see inside it.</p></div><button id="tkAddSelectMenu" type="button" class="px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"><i class="fas fa-plus mr-1"></i>Add select menu</button></div><div id="tkSelectMenusList"></div><div id="tkSelectMenusEmpty" class="text-sm text-gray-500 p-3">No select menus yet. Click Add select menu.</div></section>
+
+        <section class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5">
+          <div class="flex items-center justify-between mb-4"><div><h3 class="text-lg font-semibold text-gray-800 dark:text-white">Panel Buttons</h3><p class="text-xs text-gray-500 mt-1">Each button can use its own category and channel name.</p></div><button id="tkAddButton" class="px-3 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600"><i class="fas fa-plus mr-1"></i>Add button</button></div>
+          <div id="tkButtonsList"></div>
+        </section>
+
+        <section class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-5">
+          <div class="flex items-center justify-between mb-4"><h3 class="text-lg font-semibold text-gray-800 dark:text-white">Live Preview</h3><button id="tkDeleteBtn" class="px-3 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">Delete panel</button></div>
+          <div id="tkPreview" class="rounded-lg border-l-4 p-5 bg-gray-50 dark:bg-gray-900"><h4 id="tkPreviewTitle" class="font-bold text-gray-800 dark:text-white">🎫 Open a ticket</h4><p id="tkPreviewDesc" class="text-sm text-gray-600 dark:text-gray-300 mt-2">Press a button below to open a ticket.</p><img id="tkPreviewImg" class="hidden rounded-lg max-h-48 object-cover mt-4" alt="Preview"><div id="tkPreviewButtons" class="flex flex-wrap gap-2 mt-5"></div></div>
+        </section>
+      </main>
+    </div>
+  </div>
+</div>
+
+<script>window.__TICKET_PANELS__ = <%- JSON.stringify(settings.ticketPanels || []) %>; window.__TICKET_CATEGORIES__ = <%- JSON.stringify(categories || []) %>; window.__TICKET_ROLES__ = <%- JSON.stringify(roles || []) %>;</script>
+<script src="/js/tickets.js"></script>

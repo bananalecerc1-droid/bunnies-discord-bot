@@ -1,0 +1,1003 @@
+{
+    "dashboard": {
+        "title": "Dashboard",
+        "subtitle": "Discord Bot Dashboard",
+        "madeBy": "Made with ❤️ by",
+        "navigation": {
+            "main": "MAIN",
+            "configuration": "CONFIGURATION",
+            "home": "Home",
+            "commands": "COMMANDS",
+            "logs": "Logs",
+            "protection": "PROTECTION",
+            "settings": "Settings",
+            "language": "Language",
+            "tickets": "Tickets",
+            "rules": "Rules",
+            "apply": "Apply",
+            "giveaway": "Giveaways",
+            "tempChannels": "Temp Channels",
+            "autoReply": "Auto Reply",
+            "suggestions": "Suggestions",
+            "docs": "Documentation",
+            "leveling": "Leveling System",
+            "selectRoles": "Select Roles Manager",
+            "embeds": "Embed Studio",
+            "embedBuilder": "Embed Builder",
+            "welcomeSystem": "Welcome System",
+            "economy": "Economy"
+        },
+        "stats": {
+            "servers": "Servers",
+            "users": "Users",
+            "commands": "Commands",
+            "uptime": "Uptime",
+            "ping": "Ping"
+        },
+        "status": {
+            "online": "Online",
+            "offline": "Offline",
+            "enabled": "Enabled",
+            "disabled": "Disabled"
+        },
+        "activity": {
+            "title": "Recent Activity",
+            "initialized": "Dashboard Initialized",
+            "ready": "The dashboard is ready to use",
+            "timeAgo": "Just now"
+        },
+        "error": {
+            "404": {
+                "title": "Page Not Found",
+                "message": "Don't worry, you can find your way back to the dashboard.",
+                "goHome": "Go Home",
+                "goBack": "Go Back",
+                "needHelp": "Need help? Join our Discord server"
+            }
+        },
+        "footer": {
+            "madeWith": "Made with ❤️ by",
+            "copyright": "© 2024. All rights reserved."
+        },
+        "theme": {
+            "light": "Light Mode",
+            "dark": "Dark Mode"
+        },
+        "languages": {
+            "en": "English",
+            "ar": "العربية"
+        },
+        "moduleStatus": "Module Status",
+        "botHealth": "Bot Health",
+        "quickActions": "Quick Actions",
+        "languageSettings": "Bot Language Settings",
+        "defaultLanguage": "Default Language",
+        "supportedLanguages": "Supported Languages",
+        "supportedLanguagesHint": "Select at least one language. Default language must be included.",
+        "saveChanges": "Save Changes",
+        "autoRoles": {
+            "title": "Auto Roles Settings",
+            "enabled": "Enabled",
+            "members": "Member Auto Roles",
+            "membersDescription": "These roles will be automatically assigned to new members when they join the server.",
+            "bots": "Bot Auto Roles",
+            "botsDescription": "These roles will be automatically assigned to new bots when they are added to the server.",
+            "selectRoles": "Select Roles",
+            "noRolesSelected": "No roles selected"
+        },
+        "economy": {
+            "eyebrow": "Virtual economy",
+            "title": "Economy Settings",
+            "subtitle": "Control your server currency, rewards, transfers, and DISBOARD bump bonuses from one place.",
+            "virtualOnly": "Virtual server currency only — no real payments or bank accounts.",
+            "currencyTitle": "Currency",
+            "currencyDescription": "Choose how virtual coins appear in the bot.",
+            "enabled": "Enable economy",
+            "enabledHint": "Disable all economy commands and rewards.",
+            "currencyName": "Currency name",
+            "currencyEmoji": "Currency emoji",
+            "startingCash": "Starting balance for new users",
+            "startingCashHint": "Only new economy accounts receive this amount.",
+            "dailyTitle": "Daily rewards",
+            "dailyDescription": "Set the random reward range and claim cooldown.",
+            "dailyEnabled": "Enable daily rewards",
+            "dailyEnabledHint": "Allow users to claim a daily reward.",
+            "minimum": "Minimum reward",
+            "maximum": "Maximum reward",
+            "dailyCooldown": "Claim cooldown (hours)",
+            "transferTitle": "Transfers",
+            "transferDescription": "Allow members to send virtual coins to each other.",
+            "transfersEnabled": "Enable coin transfers",
+            "transfersHint": "Controls the transfer command for this server.",
+            "bumpTitle": "DISBOARD bump rewards",
+            "bumpDescription": "Reward the member who bumps the server with a random amount.",
+            "bumpEnabled": "Enable bump rewards",
+            "bumpEnabledHint": "Listen for successful DISBOARD bumps.",
+            "bumpCooldown": "Reward cooldown (minutes)",
+            "disboardBotId": "DISBOARD bot ID",
+            "bumpHint": "The user must run the bump command in a channel, then DISBOARD must confirm it within one minute.",
+            "saveTitle": "Sync economy settings with the bot",
+            "saveDescription": "Changes are saved to the bot settings and picked up automatically.",
+            "save": "Save economy settings"
+        },
+        "commands": {
+            "title": "Commands",
+            "general": "General Commands",
+            "moderation": "Moderation Commands",
+            "utility": "Utility Commands",
+            "search": "Search commands...",
+            "managePermissions": "Manage Permissions",
+            "permissionsTitle": "Command Permissions",
+            "enabledRoles": "Enabled Roles",
+            "disabledRoles": "Disabled Roles",
+            "save": "Save Changes",
+            "cancel": "Cancel",
+            "cooldown": "Cooldown",
+            "aliases": "Aliases",
+            "newAlias": "New Alias",
+            "add": "Add",
+            "manageCategory": "Manage Commands",
+            "description": "View and manage all bot commands",
+            "generalDescription": "Basic commands for general server use",
+            "moderationDescription": "Commands for server moderation and administration",
+            "utilityDescription": "Helpful utility commands for various purposes"
+        },
+        "commandDescriptions": {
+            "avatar": "View user's avatar",
+            "banner": "View user's banner",
+            "ping": "Check bot's latency",
+            "roles": "View server roles",
+            "server": "View server information",
+            "user": "View user information",
+            "ban": "Ban a member",
+            "kick": "Kick a member",
+            "mute": "Mute a member",
+            "unmute": "Unmute a member",
+            "warn": "Warn a member",
+            "unwarn": "Remove a warning",
+            "clear": "Clear messages",
+            "lock": "Lock a channel",
+            "unlock": "Unlock a channel",
+            "hide": "Hide a channel from users",
+            "unhide": "Unhide a hidden channel",
+            "move": "Move a user to another voice channel",
+            "timeout": "Timeout a member",
+            "rtimeout": "Remove timeout from a member",
+            "setnick": "Set a nickname for a user",
+            "role": "Add role to a user",
+            "rrole": "Remove role from a user",
+            "warns": "View warnings of a user",
+            "apply": "Submit a staff application",
+            "ticket": "Create a support ticket",
+            "unban": "Unban a banned user"
+        },
+        "logs": {
+            "title": "Log Settings",
+            "enableAll": "Enable All",
+            "disableAll": "Disable All",
+            "search": "Search logs...",
+            "channel": "Log Channel",
+            "selectChannel": "Select a channel",
+            "embedColor": "Embed Color",
+            "ignoreBots": "Ignore Bot Actions",
+            "saveChanges": "Save Changes",
+            "saveChangesDescription": "Are you sure you want to save these changes?",
+            "cancel": "Cancel",
+            "save": "Save Changes",
+            "types": {
+                "messageDelete": "Message Deletion",
+                "messageEdit": "Message Edits",
+                "roleCreate": "Role Creation",
+                "roleDelete": "Role Deletion",
+                "roleUpdate": "Role Updates",
+                "memberJoin": "Member Joins",
+                "memberLeave": "Member Leaves",
+                "memberBan": "Member Bans",
+                "memberUnban": "Member Unbans",
+                "memberKick": "Member Kicks",
+                "memberTimeout": "Member Timeouts",
+                "memberUntimeout": "Member Untimeouts",
+                "channelCreate": "Channel Creation",
+                "channelDelete": "Channel Deletion",
+                "channelUpdate": "Channel Updates",
+                "emojiCreate": "Emoji Creation",
+                "emojiDelete": "Emoji Deletion",
+                "emojiUpdate": "Emoji Updates",
+                "stickerCreate": "Sticker Creation",
+                "stickerDelete": "Sticker Deletion",
+                "stickerUpdate": "Sticker Updates",
+                "threadCreate": "Thread Creation",
+                "threadDelete": "Thread Deletion",
+                "threadUpdate": "Thread Updates",
+                "voiceJoin": "Voice Channel Joins",
+                "voiceLeave": "Voice Channel Leaves",
+                "voiceMove": "Voice Channel Moves",
+                "voiceServerMute": "Server Voice Mutes",
+                "voiceServerDeafen": "Server Voice Deafens",
+                "inviteCreate": "Invite Creation",
+                "messageBulkDelete": "Bulk Message Deletion",
+                "nicknameUpdate": "Nickname Updates",
+                "serverUpdate": "Server Updates",
+                "roleGive": "Role Assignments",
+                "roleRemove": "Role Removals"
+            },
+            "descriptions": {
+                "messageDelete": "Logs when messages are deleted",
+                "messageEdit": "Logs when messages are edited",
+                "roleCreate": "Logs when roles are created",
+                "roleDelete": "Logs when roles are deleted",
+                "roleUpdate": "Logs when roles are updated",
+                "memberJoin": "Logs when members join the server",
+                "memberLeave": "Logs when members leave the server",
+                "memberBan": "Logs when members are banned",
+                "memberUnban": "Logs when members are unbanned",
+                "memberKick": "Logs when members are kicked",
+                "memberTimeout": "Logs when members are timed out",
+                "memberUntimeout": "Logs when members are untimed out",
+                "channelCreate": "Logs when channels are created",
+                "channelDelete": "Logs when channels are deleted",
+                "channelUpdate": "Logs when channels are updated",
+                "emojiCreate": "Logs when emojis are added to the server",
+                "emojiDelete": "Logs when emojis are removed from the server",
+                "emojiUpdate": "Logs when emojis are updated",
+                "stickerCreate": "Logs when stickers are added to the server",
+                "stickerDelete": "Logs when stickers are removed from the server",
+                "stickerUpdate": "Logs when stickers are updated",
+                "threadCreate": "Logs when threads are created",
+                "threadDelete": "Logs when threads are deleted",
+                "threadUpdate": "Logs when threads are updated",
+                "voiceJoin": "Logs when members join voice channels",
+                "voiceLeave": "Logs when members leave voice channels",
+                "voiceMove": "Logs when members move between voice channels",
+                "voiceServerMute": "Logs when members are server muted in voice",
+                "voiceServerDeafen": "Logs when members are server deafened in voice",
+                "inviteCreate": "Logs when new invites are created",
+                "messageBulkDelete": "Logs when multiple messages are deleted at once",
+                "nicknameUpdate": "Logs when member nicknames are changed",
+                "serverUpdate": "Logs when server settings are updated",
+                "roleGive": "Logs when roles are assigned to members",
+                "roleRemove": "Logs when roles are removed from members"
+            }
+        },
+        "protection": {
+            "title": "Protection Settings",
+            "description": "Configure server protection settings and limits",
+            "stats": {
+                "activeProtections": "Active Protections",
+                "protectedRoles": "Protected Roles",
+                "whitelistedBots": "Whitelisted Bots",
+                "actionsBlocked": "Actions Blocked"
+            },
+            "antispam": {
+                "title": "Anti-Spam Protection",
+                "messageLimit": "Message Limit",
+                "timeWindow": "Time Window (seconds)",
+                "duplicateLimit": "Duplicate Limit",
+                "timeoutDuration": "Timeout Duration (minutes)",
+                "ignoredChannels": "Ignored Channels",
+                "ignoredRoles": "Ignored Roles for Anti-Spam",
+                "messageSettings": "Message Settings",
+                "actionSettings": "Action Settings"
+            },
+            "server": {
+                "title": "Server Protection",
+                "updateLimit": "Update Limit"
+            },
+            "antibot": {
+                "title": "Anti-Bot Protection",
+                "whitelistedBots": "Whitelisted Bots (IDs)",
+                "placeholder": "Enter bot IDs separated by commas"
+            },
+            "role": {
+                "title": "Role Protection",
+                "createLimit": "Create Limit",
+                "deleteLimit": "Delete Limit",
+                "updateLimit": "Update Limit",
+                "addLimit": "Add Limit",
+                "removeLimit": "Remove Limit",
+                "protectedRoles": "Protected roles",
+                "protectedRolesDescription": "Changes to these roles are reverted and the person attempting them loses their roles. The server owner is exempt."
+            },
+            "channel": {
+                "title": "Channel Protection",
+                "createLimit": "Create Limit",
+                "deleteLimit": "Delete Limit",
+                "updateLimit": "Update Limit"
+            },
+            "timeout": {
+                "title": "Timeout Protection",
+                "timeoutLimit": "Timeout Limit",
+                "untimeoutLimit": "Untimeout Limit"
+            },
+            "moderation": {
+                "title": "Moderation Protection",
+                "kickLimit": "Kick Limit",
+                "banLimit": "Ban Limit",
+                "unbanLimit": "Unban Limit"
+            },
+            "common": {
+                "timeWindow": "Time Window (seconds)",
+                "actionType": "Action Type",
+                "actions": {
+                    "timeout": "Timeout",
+                    "kick": "Kick",
+                    "ban": "Ban",
+                    "removeRoles": "Remove Roles"
+                },
+                "unsavedChanges": "You have unsaved changes",
+                "resetDefaults": "Reset to Defaults",
+                "saveChanges": "Save Changes",
+                "confirmReset": "Are you sure you want to reset all protection settings to defaults?",
+                "ignoredRoles": "Ignored Roles",
+                "ignoredChannels": "Ignored Channels",
+                "selectRoles": "Select roles to ignore",
+                "selectChannels": "Select channels to ignore",
+                "whitelistedBots": "Whitelisted Bots",
+                "enterBotIds": "Enter bot IDs (comma separated)",
+                "banDeleteDays": "Delete Messages Days",
+                "actionSettings": "Action Settings",
+                "limits": "Limits",
+                "protectionSettings": "Protection Settings"
+            }
+        },
+        "tickets": {
+            "title": "Ticket Settings",
+            "globalSettings": "Global Settings",
+            "systemEnabled": "Ticket System Enabled",
+            "embedSettings": "Embed Settings",
+            "embedColor": "Embed Color",
+            "thumbnailUrl": "Thumbnail URL",
+            "footerText": "Footer Text",
+            "footerIcon": "Footer Icon",
+            "sectionName": "Section Name",
+            "emoji": "Emoji",
+            "description": "Description",
+            "categoryId": "Category",
+            "logChannel": "Log Channel",
+            "adminRoles": "Admin Roles",
+            "cooldown": "Cooldown (hours)",
+            "enableAll": "Enable All",
+            "disableAll": "Disable All",
+            "messages": {
+                "saved": "Ticket settings saved successfully",
+                "error": "Failed to save ticket settings",
+                "confirmReset": "Are you sure you want to reset all ticket settings?",
+                "sectionAdded": "Ticket section added successfully",
+                "sectionDeleted": "Ticket section deleted successfully",
+                "addError": "Failed to add ticket section",
+                "deleteError": "Failed to delete ticket section",
+                "confirmDelete": "Are you sure you want to delete this ticket section?"
+            },
+            "stats": {
+                "activeTickets": "Active Tickets",
+                "adminRoles": "Admin Roles",
+                "categories": "Categories",
+                "avgCooldown": "Avg. Cooldown"
+            },
+            "addSection": "Add Section",
+            "addSectionText": "Click to add a new ticket section"
+        },
+        "common": {
+            "unsavedChanges": "You have unsaved changes",
+            "resetDefaults": "Reset to Defaults",
+            "saveChanges": "Save Changes",
+            "confirmReset": "Are you sure you want to reset all settings to defaults?",
+            "saved": "Settings saved successfully",
+            "error": "Failed to save settings",
+            "add": "Add",
+            "remove": "Remove",
+            "edit": "Edit",
+            "delete": "Delete",
+            "cancel": "Cancel",
+            "confirm": "Confirm",
+            "enabled": "Enabled",
+            "disabled": "Disabled",
+            "inDevelopment": "In Development",
+            "aboutFeature": "About This Feature",
+            "keyFeatures": "Key Features",
+            "faq": "Frequently Asked Questions",
+            "success": "Success",
+            "validEmail": "Please enter a valid email address"
+        },
+        "apply": {
+            "title": "Application Settings",
+            "globalSettings": "Global Settings",
+            "systemEnabled": "Application System Enabled",
+            "embedSettings": "Embed Settings",
+            "embedColor": "Embed Color",
+            "thumbnailUrl": "Thumbnail URL",
+            "footerText": "Footer Text",
+            "footerIcon": "Footer Icon",
+            "addPosition": "Add Position",
+            "enableAll": "Enable All",
+            "disableAll": "Disable All",
+            "positionName": "Position Name",
+            "emoji": "Emoji",
+            "positionColor": "Position Color",
+            "logChannel": "Log Channel",
+            "reviewerRoles": "Reviewer Roles",
+            "questions": "Questions",
+            "requirements": "Requirements",
+            "minimumAccountAge": "Account Age Requirement",
+            "minimumGuildAge": "Minimum Server Age",
+            "requiredRoles": "Required Roles",
+            "blacklistedRoles": "Blacklisted Roles",
+            "acceptRoles": "Accept Roles",
+            "acceptMessage": "Accept Message",
+            "stats": {
+                "activePositions": "Active Positions",
+                "totalAccepted": "Total Accepted",
+                "avgCooldown": "Avg. Cooldown",
+                "reviewerRoles": "Reviewer Roles"
+            },
+            "messages": {
+                "saved": "Application settings saved successfully",
+                "error": "Failed to save application settings",
+                "confirmReset": "Are you sure you want to reset all application settings?",
+                "positionAdded": "Position added successfully",
+                "positionDeleted": "Position deleted successfully",
+                "addError": "Failed to add position",
+                "deleteError": "Failed to delete position",
+                "confirmDelete": "Are you sure you want to delete this position?"
+            }
+        },
+        "rules": {
+            "title": "Rules Settings",
+            "globalSettings": "Global Settings",
+            "systemEnabled": "Rules System Enabled",
+            "systemEnabledDesc": "Enable or disable the rules system",
+            "stats": {
+                "activeSections": "Active Sections",
+                "totalRules": "Total Rules",
+                "interfaceType": "Interface Type"
+            },
+            "interface": {
+                "title": "Interface Settings",
+                "type": "Interface Type",
+                "style": "Button Style",
+                "buttons": "Buttons",
+                "select": "Select Menu"
+            },
+            "mainEmbed": {
+                "title": "Main Embed",
+                "description": "Description",
+                "color": "Color",
+                "thumbnail": "Thumbnail",
+                "thumbnailUrl": "Thumbnail URL",
+                "image": "Image",
+                "imageUrl": "Image URL",
+                "footer": "Footer",
+                "footerText": "Footer Text",
+                "footerIcon": "Footer Icon URL"
+            },
+            "sections": {
+                "title": "Rule Sections",
+                "add": "Add Section",
+                "namePlaceholder": "Section Name",
+                "emoji": "Emoji",
+                "description": "Description",
+                "rules": "Rules",
+                "addRule": "Add Rule",
+                "embedSettings": "Section Embed Settings",
+                "embedColor": "Embed Color",
+                "thumbnail": "Thumbnail",
+                "thumbnailUrl": "Thumbnail URL",
+                "image": "Image",
+                "imageUrl": "Image URL",
+                "footer": "Footer",
+                "footerText": "Footer Text",
+                "footerIcon": "Footer Icon URL"
+            },
+            "messages": {
+                "saved": "Rules settings saved successfully",
+                "error": "Failed to save rules settings",
+                "confirmReset": "Are you sure you want to reset all rules settings?",
+                "confirmDelete": "Are you sure you want to delete this section?",
+                "minimumRule": "Each section must have at least one rule"
+            },
+            "enableAll": "Enable All",
+            "disableAll": "Disable All"
+        },
+        "giveaway": {
+            "title": "Giveaway Settings",
+            "globalSettings": "Global Settings",
+            "systemEnabled": "Giveaway System Enabled",
+            "systemEnabledDesc": "Enable or disable the giveaway system",
+            "stats": {
+                "activeGiveaways": "Active Giveaways",
+                "totalWinners": "Total Winners",
+                "avgDuration": "Avg. Duration",
+                "totalParticipants": "Total Participants"
+            },
+            "defaultDuration": "Default Duration",
+            "maxDuration": "Maximum Duration",
+            "minWinners": "Minimum Winners",
+            "maxWinners": "Maximum Winners",
+            "buttonSettings": "Button Settings",
+            "enterButton": "Enter Button Text",
+            "leaveButton": "Leave Button Text",
+            "rerollButton": "Reroll Button Text",
+            "endButton": "End Button Text",
+            "embedSettings": "Embed Settings",
+            "embedColor": "Embed Color",
+            "embedThumbnail": "Thumbnail URL",
+            "embedFooter": "Footer Text",
+            "requirements": "Requirements",
+            "minAccountAge": "Minimum Account Age",
+            "minGuildAge": "Minimum Server Age",
+            "allowedRoles": "Allowed Roles",
+            "blacklistedRoles": "Blacklisted Roles",
+            "channelSettings": "Channel Settings",
+            "allowedChannels": "Allowed Channels",
+            "blacklistedChannels": "Blacklisted Channels",
+            "messages": {
+                "saved": "Giveaway settings saved successfully",
+                "error": "Failed to save giveaway settings",
+                "confirmReset": "Are you sure you want to reset all giveaway settings?"
+            }
+        },
+        "tempChannels": {
+            "title": "Temporary Voice Channels",
+            "stats": {
+                "activeChannels": "Active Channels",
+                "totalUsers": "Total Users",
+                "avgDuration": "Avg. Duration",
+                "totalCreated": "Total Created"
+            },
+            "settings": {
+                "title": "Channel Settings",
+                "parentChannel": "Parent Channel",
+                "category": "Category",
+                "defaultName": "Default Channel Name",
+                "defaultNamePlaceholder": "🔊 {user}'s Channel",
+                "defaultNameHelp": "Use {user} to include the user's name",
+                "userLimit": "User Limit",
+                "userLimitHelp": "0 for unlimited",
+                "channelSettingsTitle": "Channel Settings",
+                "multipleAllowed": "Allow Multiple Channels per User",
+                "fullPermissions": "Full Permissions for Channel Owner",
+                "deleteWhenEmpty": "Delete When Empty",
+                "deleteDelay": "Delete Delay",
+                "permissionsTitle": "Permissions",
+                "allowedRoles": "Allowed Roles",
+                "blacklistedRoles": "Blacklisted Roles"
+            }
+        },
+        "autoReply": {
+            "title": "Auto Reply Settings",
+            "stats": {
+                "activeSections": "Active Sections",
+                "totalTriggers": "Total Triggers",
+                "cooldown": "Cooldown",
+                "chance": "Reply Chance"
+            },
+            "settings": {
+                "globalTitle": "Global Settings",
+                "mentionUser": "Mention User",
+                "replyToMessage": "Reply to Message",
+                "caseSensitive": "Case Sensitive",
+                "matchType": "Match Type",
+                "matchTypes": {
+                    "exact": "Exact Match",
+                    "includes": "Contains",
+                    "startsWith": "Starts With",
+                    "endsWith": "Ends With",
+                    "regex": "Regular Expression"
+                },
+                "chance": "Reply Chance",
+                "cooldown": "Cooldown",
+                "sectionsTitle": "Auto Reply Sections",
+                "addSection": "Add Section",
+                "sectionNamePlaceholder": "Section Name",
+                "newSectionDefault": "New Section",
+                "triggers": "Triggers",
+                "triggerPlaceholder": "Enter trigger text...",
+                "responses": "Responses",
+                "responsePlaceholder": "Enter response text..."
+            },
+            "messages": {
+                "saved": "Auto reply settings saved successfully",
+                "error": "Failed to save auto reply settings",
+                "confirmReset": "Are you sure you want to reset all auto reply settings?"
+            }
+        },
+        "suggestions": {
+            "title": "Suggestion Settings",
+            "stats": {
+                "status": "Status",
+                "cooldown": "Cooldown",
+                "images": "Images",
+                "channels": "Channels"
+            },
+            "settings": {
+                "globalTitle": "Global Settings",
+                "systemEnabled": "Suggestion System Enabled",
+                "embedColor": "Embed Color",
+                "cooldown": "Cooldown (seconds)",
+                "contentLimits": "Content Limits",
+                "minLength": "Minimum Length",
+                "maxLength": "Maximum Length",
+                "maxImageSize": "Max Image Size (MB)",
+                "allowImages": "Allow Images",
+                "requireContent": "Require Content",
+                "deleteOriginal": "Delete Original Message"
+            },
+            "channels": {
+                "title": "Suggestion Channels",
+                "addChannel": "Add Channel",
+                "selectChannel": "Select Channel",
+                "noChannels": "No channels configured"
+            },
+            "reactions": {
+                "title": "Reaction Settings",
+                "enabled": "Reactions Enabled",
+                "upvote": "Upvote Emoji",
+                "downvote": "Downvote Emoji",
+                "star": "Star Emoji"
+            },
+            "thread": {
+                "title": "Thread Settings",
+                "enabled": "Create Discussion Threads",
+                "nameFormat": "Thread Name Format",
+                "nameFormatHelp": "Use {title} to include suggestion content",
+                "archiveDuration": "Auto Archive Duration (minutes)"
+            },
+            "messages": {
+                "saved": "Suggestion settings saved successfully",
+                "error": "Failed to save suggestion settings",
+                "confirmReset": "Are you sure you want to reset all suggestion settings?"
+            }
+        },
+        "settings": {
+            "title": "Bot Settings",
+            "subtitle": "Configure your bot's language, roles, and other settings.",
+            "languageSettings": "Language Settings",
+            "defaultLanguage": "Default Bot Language",
+            "supportedLanguages": "Supported Languages",
+            "saveChanges": "Save Changes",
+            "settingsSaved": "Settings saved successfully"
+        },
+        "leveling": {
+            "roleRewards": "Role Rewards",
+            "levelingSystem": "Leveling System",
+            "keepHighest": "Keep only highest earned role",
+            "selectRole": "-- Select role --",
+            "saveSettings": "Save Settings",
+            "leaderboard": "Leaderboard",
+            "noRewards": "No role rewards yet.",
+            "enterReward": "Enter a level and choose a role.",
+            "saved": "Leveling settings saved.",
+            "saveError": "Error saving settings: ",
+            "ignoredRolesTitle": "Roles excluded from XP",
+            "ignoredRolesDescription": "Members with any selected role will not gain XP or levels from messages or voice.",
+            "ignoredRolesHint": "Hold Ctrl/Cmd to select multiple roles."
+        },
+        "assetImporter": {
+            "title": "Asset importer",
+            "description": "Send custom emoji markup, stickers, images, forwarded messages, or webhook messages in the selected channels to add them to this server. Existing names are skipped.",
+            "emojiChannel": "Emoji import channel",
+            "stickerChannel": "Sticker import channel",
+            "disabled": "Disabled",
+            "save": "Save asset importer",
+            "saved": "Asset importer settings saved",
+            "failed": "Failed to save settings"
+        }
+    },
+    "docs": {
+        "title": "Documentation",
+        "subtitle": "Complete guide to your Discord bot's features and functionality",
+        "video": {
+            "title": "Bot Preview",
+            "description": "Watch our comprehensive video guide showcasing all the bot's features and capabilities."
+        },
+        "overview": {
+            "title": "Bot Overview",
+            "serverManagement": {
+                "title": "Server Management",
+                "description": "Comprehensive server administration and moderation tools"
+            },
+            "protection": {
+                "title": "Advanced Protection",
+                "description": "Multi-layer security and anti-raid protection systems"
+            },
+            "community": {
+                "title": "Community Features",
+                "description": "Engage your community with interactive features"
+            },
+            "configuration": {
+                "title": "Easy Configuration",
+                "description": "User-friendly dashboard for all settings"
+            }
+        },
+        "gettingStarted": {
+            "title": "Getting Started",
+            "initialSetup": {
+                "title": "Initial Setup",
+                "steps": {
+                    "invite": {
+                        "title": "Invite the Bot",
+                        "description": "Use our OAuth2 link to invite the bot to your server with the required permissions."
+                    },
+                    "configure": {
+                        "title": "Configure Basic Settings",
+                        "description": "Set up your preferred language, prefix, and basic server configurations."
+                    },
+                    "permissions": {
+                        "title": "Set Up Permissions",
+                        "description": "Configure role permissions and access levels for different commands."
+                    },
+                    "features": {
+                        "title": "Enable Features",
+                        "description": "Activate and configure the specific features you want to use."
+                    }
+                }
+            },
+            "requirements": {
+                "title": "System Requirements",
+                "items": [
+                    "Discord server with \"Manage Server\" permissions",
+                    "Stable internet connection",
+                    "Proper role hierarchy setup",
+                    "Required bot permissions enabled"
+                ]
+            }
+        },
+        "features": {
+            "autoReply": {
+                "title": "Auto Reply",
+                "description": "Set up automated responses to specific messages in your server.",
+                "features": {
+                    "sections": "Multiple Sections",
+                    "triggers": "Customizable Triggers",
+                    "responses": "Response Options",
+                    "settings": "Advanced Settings"
+                }
+            },
+            "tempChannels": {
+                "title": "Temporary Channels",
+                "description": "Create dynamic voice channels that are automatically managed by the bot.",
+                "features": {
+                    "creation": "Dynamic Creation",
+                    "names": "Custom Names",
+                    "management": "Auto Management",
+                    "permissions": "Permission Control"
+                }
+            },
+            "suggestions": {
+                "title": "Suggestions",
+                "description": "Allow members to submit and vote on server suggestions.",
+                "features": {
+                    "voting": "Voting System",
+                    "threads": "Thread Support",
+                    "images": "Image Support",
+                    "content": "Content Control"
+                }
+            },
+            "protection": {
+                "title": "Protection",
+                "description": "Comprehensive security features to protect your server.",
+                "features": {
+                    "antispam": "Anti-Spam",
+                    "antibot": "Anti-Bot",
+                    "raid": "Raid Protection",
+                    "channel": "Channel Protection"
+                }
+            },
+            "tickets": {
+                "title": "Tickets",
+                "description": "Support ticket system for member assistance.",
+                "features": {
+                    "creation": "Ticket Creation",
+                    "management": "Staff Management",
+                    "categories": "Category System",
+                    "logging": "Comprehensive Logging"
+                }
+            }
+        },
+        "commands": {
+            "title": "Commands Reference",
+            "general": {
+                "title": "General Commands",
+                "help": {
+                    "title": "help",
+                    "description": "Display all available commands and their usage"
+                },
+                "ping": {
+                    "title": "ping",
+                    "description": "Check bot's response time and status"
+                },
+                "server": {
+                    "title": "server",
+                    "description": "Display server information and statistics"
+                },
+                "user": {
+                    "title": "user",
+                    "description": "Show user information and stats"
+                }
+            },
+            "moderation": {
+                "title": "Moderation Commands",
+                "ban": {
+                    "title": "ban",
+                    "description": "Ban a user from the server",
+                    "usage": "ban @user [reason]"
+                },
+                "kick": {
+                    "title": "kick",
+                    "description": "Kick a user from the server",
+                    "usage": "kick @user [reason]"
+                },
+                "mute": {
+                    "title": "mute",
+                    "description": "Mute a user in the server",
+                    "usage": "mute @user [duration] [reason]"
+                },
+                "clear": {
+                    "title": "clear",
+                    "description": "Delete multiple messages at once",
+                    "usage": "clear [amount]"
+                }
+            }
+        },
+        "troubleshooting": {
+            "title": "Troubleshooting",
+            "commonIssues": {
+                "title": "Common Issues",
+                "botNotResponding": {
+                    "title": "Bot Not Responding",
+                    "description": "If the bot stops responding to commands:",
+                    "steps": [
+                        "Check if the bot is online",
+                        "Verify bot has proper permissions",
+                        "Ensure commands are used in allowed channels",
+                        "Check if the command syntax is correct"
+                    ]
+                },
+                "permissionErrors": {
+                    "title": "Permission Errors",
+                    "description": "If you encounter permission issues:",
+                    "steps": [
+                        "Check bot role hierarchy",
+                        "Verify channel permissions",
+                        "Ensure required permissions are enabled",
+                        "Review role configurations"
+                    ]
+                }
+            },
+            "support": {
+                "title": "Support",
+                "description": "Need help? Here's how to get support:",
+                "discord": {
+                    "title": "Join Our Discord",
+                    "description": "Get help from our community"
+                },
+                "github": {
+                    "title": "GitHub Issues",
+                    "description": "Report bugs and suggestions"
+                }
+            }
+        }
+    },
+    "comingSoon": {
+        "title": "Coming Soon",
+        "subtitle": "This feature is under development",
+        "description": "We're working hard to bring you this feature soon.",
+        "noFaq": "No FAQs available for this feature yet.",
+        "features": {
+            "welcomeSystem": {
+                "title": "Welcome System",
+                "subtitle": "Create custom welcome messages for new members",
+                "description": "Automatically welcome new members with customizable messages, roles, and embeds.",
+                "features": {
+                    "customMessages": "Customizable welcome messages",
+                    "autoRole": "Auto role assignment",
+                    "memberCount": "Member count tracking",
+                    "customEmbeds": "Custom embeds and images",
+                    "channelManagement": "Welcome channels management",
+                    "dmWelcome": "DM new members",
+                    "templates": "Multiple welcome message templates",
+                    "variables": "Variables support"
+                }
+            },
+            "selectRoles": {
+                "title": "Select Roles Manager",
+                "subtitle": "Create interactive role selection menus",
+                "description": "Create interactive role selection menus for your members with buttons, dropdowns, and more.",
+                "features": {
+                    "buttonRoles": "Button-based role selection",
+                    "dropdowns": "Dropdown menus for roles",
+                    "categories": "Role categories and groups",
+                    "customization": "Custom role icons and colors",
+                    "descriptions": "Role descriptions",
+                    "permissions": "Required roles and permissions",
+                    "multiSelect": "Multi-select options",
+                    "reactionRoles": "Reaction roles legacy support"
+                }
+            },
+            "games": {
+                "title": "Discord Games",
+                "subtitle": "Engage your community with interactive games",
+                "description": "Engage your community with interactive games, trivia, competitions, and more.",
+                "features": {
+                    "trivia": "Trivia competitions",
+                    "wordGames": "Word games",
+                    "numberGuessing": "Number guessing",
+                    "reactionGames": "Reaction games",
+                    "multiplayer": "Multiplayer challenges",
+                    "economy": "Economy integration",
+                    "rewards": "Customizable rewards",
+                    "leaderboards": "Leaderboards and stats"
+                }
+            },
+            "autoMod": {
+                "title": "AutoMod System",
+                "subtitle": "Advanced automatic moderation",
+                "description": "Advanced automatic moderation system to keep your server safe and clean.",
+                "features": {
+                    "antiSpam": "Anti-spam protection",
+                    "profanityFilter": "Profanity filtering",
+                    "linkBlocking": "Link and invite blocking",
+                    "raidDetection": "Raid detection",
+                    "mentionPrevention": "Mass mention prevention",
+                    "attachmentScanning": "Attachment scanning",
+                    "wordFilters": "Custom word filters",
+                    "punishments": "Automated actions and punishments"
+                }
+            },
+            "autoLines": {
+                "title": "Auto Lines",
+                "subtitle": "Scheduled messages system",
+                "description": "Schedule automatic messages to be sent to your channels on a regular basis.",
+                "features": {
+                    "scheduledAnnouncements": "Scheduled announcements",
+                    "recurringReminders": "Recurring reminders",
+                    "customIntervals": "Custom intervals",
+                    "dynamicContent": "Dynamic content with variables",
+                    "randomMessages": "Random message selection",
+                    "multiChannel": "Multiple channel support",
+                    "embedMessages": "Embed messages",
+                    "conditionalMessages": "Conditional messages"
+                }
+            },
+            "leveling": {
+                "title": "Leveling System",
+                "subtitle": "XP and level progression for members",
+                "description": "Engage your community with a customizable XP and leveling system with rewards.",
+                "features": {
+                    "xpTracking": "Voice and text XP tracking",
+                    "levelingCurves": "Custom leveling curves",
+                    "roleRewards": "Role rewards",
+                    "announcements": "Level-up announcements",
+                    "leaderboards": "XP leaderboards",
+                    "rankCards": "Custom rank cards",
+                    "multipliers": "XP multipliers",
+                    "statistics": "Activity statistics"
+                }
+            }
+        },
+        "developmentStatus": {
+            "title": "Development Progress",
+            "designPhase": "Design Phase",
+            "development": "Development",
+            "testing": "Testing",
+            "estimatedRelease": "Estimated Release",
+            "releaseDate": "2025"
+        },
+        "stayUpdated": {
+            "title": "Stay Updated",
+            "description": "Follow us to get the latest updates about this feature and other upcoming features.",
+            "discord": {
+                "title": "Join Our Discord",
+                "description": "For support and live updates"
+            },
+            "github": {
+                "title": "Follow on GitHub",
+                "description": "To track project development"
+            },
+            "youtube": {
+                "title": "Watch on YouTube",
+                "description": "For tutorials and announcements"
+            }
+        }
+    }
+}

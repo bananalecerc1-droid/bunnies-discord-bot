@@ -1,0 +1,1432 @@
+{
+    "economy": {
+        "enabled": true,
+        "currencyName": "Coins",
+        "currencyEmoji": "🪙",
+        "accentColor": "#8B5CF6",
+        "startingCash": 5000,
+        "dailyRewardEnabled": true,
+        "dailyRewardMin": 500,
+        "dailyRewardMax": 1000000,
+        "dailyCooldownHours": 24,
+        "transfersEnabled": true,
+        "bumpRewardEnabled": true,
+        "bumpRewardMin": 100,
+        "bumpRewardMax": 500,
+        "bumpCooldownMinutes": 120,
+        "disboardBotId": "302050872383242240",
+        "gameRewards": {
+            "colors": {
+                "min": 25,
+                "max": 250
+            },
+            "emoji": {
+                "min": 25,
+                "max": 250
+            },
+            "crash": {
+                "min": 25,
+                "max": 250
+            },
+            "dice": {
+                "min": 25,
+                "max": 250
+            },
+            "button": {
+                "min": 25,
+                "max": 250
+            },
+            "challenge": {
+                "min": 25,
+                "max": 250
+            },
+            "numbers": {
+                "min": 25,
+                "max": 250
+            },
+            "xo": {
+                "min": 25,
+                "max": 250
+            },
+            "guess": {
+                "min": 250,
+                "max": 250
+            },
+            "wheel": {
+                "min": 100,
+                "max": 1000
+            },
+            "letter": {
+                "min": 25,
+                "max": 250
+            },
+            "connect": {
+                "min": 25,
+                "max": 250
+            },
+            "match": {
+                "min": 25,
+                "max": 250
+            },
+            "fruits": {
+                "min": 25,
+                "max": 250
+            },
+            "roulette": {
+                "min": 100,
+                "max": 1000
+            },
+            "hide": {
+                "min": 25,
+                "max": 250
+            },
+            "risk": {
+                "min": 25,
+                "max": 250
+            },
+            "pattern": {
+                "min": 25,
+                "max": 250
+            },
+            "mystery": {
+                "min": 25,
+                "max": 250
+            }
+        }
+    },
+    "commands": {
+        "user": {
+            "enabled": true,
+            "aliases": [
+                "u"
+            ],
+            "cooldown": 5,
+            "permissions": {
+                "enabledRoleIds": [],
+                "disabledRoleIds": []
+            }
+        },
+        "server": {
+            "enabled": true,
+            "aliases": [
+                "s"
+            ],
+            "cooldown": 5,
+            "permissions": {
+                "enabledRoleIds": [],
+                "disabledRoleIds": []
+            }
+        },
+        "avatar": {
+            "enabled": false,
+            "aliases": [
+                "av"
+            ],
+            "cooldown": 5,
+            "permissions": {
+                "enabledRoleIds": [
+                    "1498473661378596935"
+                ],
+                "disabledRoleIds": []
+            }
+        },
+        "banner": {
+            "enabled": true,
+            "aliases": [
+                "ba"
+            ],
+            "cooldown": 5,
+            "permissions": {
+                "enabledRoleIds": [],
+                "disabledRoleIds": []
+            }
+        },
+        "roles": {
+            "enabled": true,
+            "aliases": [],
+            "cooldown": 5,
+            "permissions": {
+                "enabledRoleIds": [
+                    "1498477478925176984",
+                    "1498475455626346556",
+                    "1498312832008327268",
+                    "1498669881044897942",
+                    "1498669985684262982"
+                ],
+                "disabledRoleIds": [
+                    "1499076506608074842",
+                    "1499077647802831048",
+                    "1499077860260839629",
+                    "1499078048203542718",
+                    "1499079003208679608",
+                    "1499079738675826738",
+                    "1499079947644305531",
+                    "1499080205459914792",
+                    "1499080902494654476",
+                    "1499081043293241447",
+                    "1499081256753823845",
+                    "1499082060353245316",
+                    "1499083509728280798",
+                    "1499083715853291540",
+                    "1499083797260664943",
+                    "1499083853111885854",
+                    "1499083916370382901",
+                    "1510368231586664448",
+                    "1498559605012299787",
+                    "1498475999506071684",
+                    "1498362615481499760",
+                    "1498559292024950854",
+                    "1498471840312459325",
+                    "1498471968654233712",
+                    "1498472262238605312",
+                    "1498472504078110810",
+                    "1498472646130663494",
+                    "1498473015674142872",
+                    "1498473101019844679",
+                    "1498473259568599170",
+                    "1498473358939914270",
+                    "1498473445225140306",
+                    "1498473661378596935",
+                    "1498488616245006436",
+                    "1498329258207215797",
+                    "1513644599040544778",
+                    "1498432469542637599",
+                    "1498329379309097090",
+                    "1498329304755339335"
+                ]
+            }
+        },
+        "ping": {
+            "enabled": true,
+            "aliases": [],
+            "cooldown": 5,
+            "permissions": {
+                "enabledRoleIds": [],
+                "disabledRoleIds": []
+            }
+        },
+        "kick": {
+            "enabled": true,
+            "aliases": [
+                ".k"
+            ],
+            "cooldown": 5,
+            "permissions": {
+                "enabledRoleIds": [],
+                "disabledRoleIds": []
+            }
+        },
+        "ban": {
+            "enabled": true,
+            "aliases": [
+                "امشطلعبرا",
+                ".b",
+                "اوت"
+            ],
+            "cooldown": 5,
+            "permissions": {
+                "enabledRoleIds": [
+                    "1498477478925176984",
+                    "1498475455626346556",
+                    "1498312832008327268",
+                    "1498669881044897942",
+                    "1498669985684262982"
+                ],
+                "disabledRoleIds": []
+            }
+        },
+        "timeout": {
+            "enabled": true,
+            "aliases": [
+                "اص",
+                "ولا حرف",
+                "اسكتي",
+                ".t"
+            ],
+            "cooldown": 5,
+            "permissions": {
+                "enabledRoleIds": [
+                    "1498477478925176984",
+                    "1498475455626346556",
+                    "1498312832008327268",
+                    "1498669881044897942",
+                    "1498669985684262982"
+                ],
+                "disabledRoleIds": []
+            }
+        },
+        "lock": {
+            "enabled": true,
+            "aliases": [
+                "قفل",
+                ".l"
+            ],
+            "cooldown": 5,
+            "permissions": {
+                "enabledRoleIds": [
+                    "1498477478925176984",
+                    "1498475455626346556",
+                    "1498312832008327268",
+                    "1498669881044897942",
+                    "1498669985684262982",
+                    "1535710676985847808"
+                ],
+                "disabledRoleIds": []
+            }
+        },
+        "unlock": {
+            "enabled": true,
+            "aliases": [
+                "فتح",
+                ".unl"
+            ],
+            "cooldown": 5,
+            "permissions": {
+                "enabledRoleIds": [
+                    "1498477478925176984",
+                    "1498475455626346556",
+                    "1498312832008327268",
+                    "1498669881044897942",
+                    "1498669985684262982",
+                    "1535710676985847808"
+                ],
+                "disabledRoleIds": []
+            }
+        },
+        "hide": {
+            "enabled": true,
+            "aliases": [],
+            "cooldown": 5,
+            "permissions": {
+                "enabledRoleIds": [],
+                "disabledRoleIds": []
+            }
+        },
+        "unhide": {
+            "enabled": true,
+            "aliases": [],
+            "cooldown": 5,
+            "permissions": {
+                "enabledRoleIds": [],
+                "disabledRoleIds": []
+            }
+        },
+        "clear": {
+            "enabled": true,
+            "aliases": [
+                "مسح",
+                ".c"
+            ],
+            "cooldown": 5,
+            "permissions": {
+                "enabledRoleIds": [
+                    "1498477478925176984",
+                    "1498475455626346556",
+                    "1498312832008327268",
+                    "1498669881044897942",
+                    "1498669985684262982"
+                ],
+                "disabledRoleIds": []
+            }
+        },
+        "setnick": {
+            "enabled": true,
+            "aliases": [],
+            "cooldown": 5,
+            "permissions": {
+                "enabledRoleIds": [],
+                "disabledRoleIds": []
+            }
+        },
+        "role": {
+            "enabled": true,
+            "aliases": [
+                "give role",
+                ".r"
+            ],
+            "cooldown": 5,
+            "permissions": {
+                "enabledRoleIds": [
+                    "1498477478925176984",
+                    "1498475455626346556",
+                    "1498312832008327268",
+                    "1498669881044897942",
+                    "1498669985684262982"
+                ],
+                "disabledRoleIds": []
+            }
+        },
+        "rrole": {
+            "enabled": true,
+            "aliases": [
+                "remove role"
+            ],
+            "cooldown": 5,
+            "permissions": {
+                "enabledRoleIds": [
+                    "1498477478925176984",
+                    "1498475455626346556",
+                    "1498312832008327268",
+                    "1498669881044897942",
+                    "1498669985684262982"
+                ],
+                "disabledRoleIds": []
+            }
+        },
+        "rtimeout": {
+            "enabled": true,
+            "aliases": [
+                "سامحتك",
+                ".unt"
+            ],
+            "cooldown": 5,
+            "permissions": {
+                "enabledRoleIds": [
+                    "1498477478925176984",
+                    "1498475455626346556",
+                    "1498312832008327268",
+                    "1498669881044897942",
+                    "1498669985684262982"
+                ],
+                "disabledRoleIds": []
+            }
+        },
+        "mute": {
+            "enabled": false,
+            "aliases": [
+                ".m"
+            ],
+            "cooldown": 5,
+            "permissions": {
+                "enabledRoleIds": [
+                    "1498477478925176984",
+                    "1498475455626346556",
+                    "1498669881044897942",
+                    "1498669985684262982"
+                ],
+                "disabledRoleIds": []
+            }
+        },
+        "unmute": {
+            "enabled": true,
+            "aliases": [
+                ".unm"
+            ],
+            "cooldown": 5,
+            "permissions": {
+                "enabledRoleIds": [
+                    "1498477478925176984",
+                    "1498475455626346556",
+                    "1498312832008327268",
+                    "1498669881044897942",
+                    "1498669985684262982"
+                ],
+                "disabledRoleIds": []
+            }
+        },
+        "move": {
+            "enabled": true,
+            "aliases": [],
+            "cooldown": 5,
+            "permissions": {
+                "enabledRoleIds": [],
+                "disabledRoleIds": []
+            }
+        },
+        "warn": {
+            "enabled": true,
+            "aliases": [
+                ".w"
+            ],
+            "cooldown": 5,
+            "permissions": {
+                "enabledRoleIds": [],
+                "disabledRoleIds": []
+            }
+        },
+        "warns": {
+            "enabled": true,
+            "aliases": [
+                "warns"
+            ],
+            "cooldown": 5,
+            "permissions": {
+                "enabledRoleIds": [
+                    "1498477478925176984",
+                    "1498475455626346556",
+                    "1547728173033070703",
+                    "1498669881044897942",
+                    "1498669985684262982"
+                ],
+                "disabledRoleIds": []
+            }
+        },
+        "unwarn": {
+            "enabled": true,
+            "aliases": [
+                ".unw"
+            ],
+            "cooldown": 5,
+            "permissions": {
+                "enabledRoleIds": [],
+                "disabledRoleIds": []
+            }
+        },
+        "unban": {
+            "enabled": true,
+            "aliases": [],
+            "cooldown": 5,
+            "permissions": {
+                "enabledRoleIds": [],
+                "disabledRoleIds": []
+            }
+        },
+        "jail": {
+            "enabled": true,
+            "aliases": [],
+            "cooldown": 5,
+            "permissions": {
+                "enabledRoleIds": [],
+                "disabledRoleIds": []
+            }
+        },
+        "vcafk": {
+            "enabled": true,
+            "aliases": [],
+            "cooldown": 5,
+            "permissions": {
+                "enabledRoleIds": [],
+                "disabledRoleIds": []
+            }
+        },
+        "apply": {
+            "enabled": true,
+            "aliases": [],
+            "cooldown": 10,
+            "category": "Admin",
+            "userPermissions": [
+                "Administrator"
+            ],
+            "botPermissions": [
+                "SendMessages",
+                "EmbedLinks",
+                "ManageMessages"
+            ],
+            "permissions": {
+                "enabledRoleIds": [],
+                "disabledRoleIds": []
+            }
+        },
+        "ticket": {
+            "enabled": true,
+            "aliases": [],
+            "cooldown": 5,
+            "permissions": {
+                "enabledRoleIds": [],
+                "disabledRoleIds": []
+            }
+        },
+        "steal": {
+            "enabled": true,
+            "aliases": [
+                "steal"
+            ],
+            "cooldown": 5,
+            "permissions": {
+                "enabledRoleIds": [],
+                "disabledRoleIds": []
+            }
+        },
+        "setbg": {
+            "enabled": true,
+            "aliases": [
+                "setbg"
+            ],
+            "cooldown": 5,
+            "permissions": {
+                "enabledRoleIds": [
+                    "1498477478925176984",
+                    "1498475455626346556",
+                    "1547728173033070703",
+                    "1498471840312459325",
+                    "1498471968654233712",
+                    "1498472262238605312",
+                    "1498472504078110810",
+                    "1498472646130663494",
+                    "1498473015674142872",
+                    "1498473101019844679"
+                ],
+                "disabledRoleIds": []
+            }
+        },
+        "resetbg": {
+            "enabled": true,
+            "aliases": [
+                "resetbg"
+            ],
+            "cooldown": 5,
+            "permissions": {
+                "enabledRoleIds": [
+                    "1498477478925176984",
+                    "1498475455626346556",
+                    "1547728173033070703",
+                    "1498471840312459325",
+                    "1498471968654233712",
+                    "1498472262238605312",
+                    "1498472504078110810",
+                    "1498472646130663494",
+                    "1498473015674142872",
+                    "1498473101019844679"
+                ],
+                "disabledRoleIds": []
+            }
+        },
+        "leaderboard": {
+            "enabled": true,
+            "aliases": [
+                "leaderboard",
+                "lb"
+            ],
+            "cooldown": 5,
+            "permissions": {
+                "enabledRoleIds": [],
+                "disabledRoleIds": []
+            }
+        },
+        "rank": {
+            "enabled": true,
+            "aliases": [
+                "r"
+            ],
+            "cooldown": 5,
+            "permissions": {
+                "enabledRoleIds": [
+                    "1498329258207215797"
+                ],
+                "disabledRoleIds": [
+                    "1498432469542637599",
+                    "1498329379309097090",
+                    "1498329304755339335"
+                ]
+            }
+        },
+        "setlevel": {
+            "enabled": true,
+            "aliases": [
+                "setlevel"
+            ],
+            "cooldown": 5,
+            "permissions": {
+                "enabledRoleIds": [],
+                "disabledRoleIds": []
+            }
+        }
+    },
+    "autoRoles": {
+        "enabled": false,
+        "members": {
+            "enabled": true,
+            "roleIds": []
+        },
+        "bots": {
+            "enabled": true,
+            "roleIds": []
+        }
+    },
+    "defaultLanguage": "en",
+    "supportedLanguages": [
+        "en"
+    ],
+    "logs": {
+        "enabled": true,
+        "messageDelete": {
+            "enabled": false,
+            "channelId": "1498551261291614249",
+            "color": "#777bc9",
+            "ignoreBots": false,
+            "ignoredChannels": []
+        },
+        "messageEdit": {
+            "enabled": true,
+            "channelId": "1498551371568386128",
+            "color": "#777bc9",
+            "ignoreBots": false,
+            "ignoredChannels": []
+        },
+        "roleCreate": {
+            "enabled": true,
+            "channelId": "1498553220463591517",
+            "color": "#777bc9"
+        },
+        "roleDelete": {
+            "enabled": true,
+            "channelId": "1498553220463591517",
+            "color": "#777bc9"
+        },
+        "roleUpdate": {
+            "enabled": true,
+            "channelId": "1498553220463591517",
+            "color": "#777bc9"
+        },
+        "channelCreate": {
+            "enabled": true,
+            "channelId": "1498553220463591517",
+            "color": "#777bc9"
+        },
+        "channelDelete": {
+            "enabled": true,
+            "channelId": "1498553220463591517",
+            "color": "#777bc9"
+        },
+        "channelUpdate": {
+            "enabled": true,
+            "channelId": "1498553220463591517",
+            "color": "#777bc9"
+        },
+        "memberJoin": {
+            "enabled": true,
+            "channelId": "1498553220463591517",
+            "color": "#777bc9"
+        },
+        "memberLeave": {
+            "enabled": true,
+            "channelId": "1498553220463591517",
+            "color": "#777bc9"
+        },
+        "roleGive": {
+            "enabled": true,
+            "channelId": "",
+            "color": "#777bc9"
+        },
+        "roleRemove": {
+            "enabled": true,
+            "channelId": "",
+            "color": "#777bc9"
+        },
+        "messageBulkDelete": {
+            "enabled": true,
+            "channelId": "",
+            "color": "#777bc9"
+        },
+        "nicknameUpdate": {
+            "enabled": false,
+            "channelId": "",
+            "color": "#777bc9"
+        },
+        "serverUpdate": {
+            "enabled": true,
+            "channelId": "1498553220463591517",
+            "color": "#777bc9"
+        },
+        "memberBan": {
+            "enabled": true,
+            "channelId": "1498551808375783474",
+            "color": "#777bc9"
+        },
+        "memberUnban": {
+            "enabled": true,
+            "channelId": "1498551808375783474",
+            "color": "#777bc9"
+        },
+        "memberKick": {
+            "enabled": true,
+            "channelId": "1498551808375783474",
+            "color": "#777bc9"
+        },
+        "memberTimeout": {
+            "enabled": true,
+            "channelId": "1498551904672809010",
+            "color": "#777bc9"
+        },
+        "memberUntimeout": {
+            "enabled": true,
+            "channelId": "1498551904672809010",
+            "color": "#777bc9"
+        },
+        "emojiCreate": {
+            "enabled": false,
+            "channelId": "",
+            "color": "#777bc9"
+        },
+        "emojiDelete": {
+            "enabled": false,
+            "channelId": "",
+            "color": "#777bc9"
+        },
+        "emojiUpdate": {
+            "enabled": false,
+            "channelId": "",
+            "color": "#777bc9"
+        },
+        "stickerCreate": {
+            "enabled": false,
+            "channelId": "",
+            "color": "#777bc9"
+        },
+        "stickerDelete": {
+            "enabled": false,
+            "channelId": "",
+            "color": "#777bc9"
+        },
+        "stickerUpdate": {
+            "enabled": false,
+            "channelId": "",
+            "color": "#777bc9"
+        },
+        "threadCreate": {
+            "enabled": false,
+            "channelId": "",
+            "color": "#777bc9"
+        },
+        "threadDelete": {
+            "enabled": false,
+            "channelId": "",
+            "color": "#777bc9"
+        },
+        "threadUpdate": {
+            "enabled": false,
+            "channelId": "",
+            "color": "#777bc9"
+        },
+        "voiceJoin": {
+            "enabled": true,
+            "channelId": "1498554812550090793",
+            "color": "#777bc9"
+        },
+        "voiceLeave": {
+            "enabled": true,
+            "channelId": "1498554812550090793",
+            "color": "#777bc9"
+        },
+        "voiceMove": {
+            "enabled": true,
+            "channelId": "1498554812550090793",
+            "color": "#777bc9"
+        },
+        "voiceServerMute": {
+            "enabled": true,
+            "channelId": "1498554812550090793",
+            "color": "#777bc9"
+        },
+        "voiceServerDeafen": {
+            "enabled": true,
+            "channelId": "1498554812550090793",
+            "color": "#777bc9"
+        },
+        "inviteCreate": {
+            "enabled": true,
+            "channelId": "1498551684622975016",
+            "color": "#777bc9"
+        }
+    },
+    "protection": {
+        "enabled": true,
+        "logChannelId": "1499511011575861338",
+        "antispam": {
+            "enabled": false,
+            "limits": {
+                "messageLimit": 4,
+                "duplicateLimit": 5,
+                "timeWindow": 7000
+            },
+            "action": {
+                "type": "timeout",
+                "reason": "Antispam Protection Triggered",
+                "color": "#ff0000",
+                "duration": 300000,
+                "ignoredRoles": [
+                    "1498477478925176984",
+                    "1542950659941204100",
+                    "1498475455626346556"
+                ],
+                "ignoredChannels": []
+            }
+        },
+        "server": {
+            "enabled": false,
+            "limits": {
+                "updateLimit": 1,
+                "timeWindow": 10000
+            },
+            "action": {
+                "type": "removeRoles",
+                "reason": "Server Protection Triggered",
+                "color": "#ff0000",
+                "ignoredRoles": []
+            }
+        },
+        "antibot": {
+            "enabled": true,
+            "limits": {},
+            "action": {
+                "type": "removeRoles",
+                "reason": "Antibot Protection Triggered",
+                "color": "#ff0000",
+                "ignoredRoles": [
+                    "1498477478925176984",
+                    "1542950659941204100",
+                    "1498475455626346556"
+                ]
+            },
+            "whitelistedBots": []
+        },
+        "channel": {
+            "enabled": true,
+            "limits": {
+                "createLimit": 4,
+                "deleteLimit": 2,
+                "updateLimit": 3,
+                "timeWindow": 10000
+            },
+            "action": {
+                "type": "removeRoles",
+                "reason": "Channel Protection Triggered",
+                "color": "#ff0000",
+                "ignoredRoles": []
+            }
+        },
+        "role": {
+            "enabled": false,
+            "limits": {
+                "createLimit": 5,
+                "deleteLimit": 3,
+                "updateLimit": 5,
+                "addLimit": 3,
+                "removeLimit": 3,
+                "protectedRoleRemoveLimit": 4,
+                "timeWindow": 55000
+            },
+            "action": {
+                "type": "removeRoles",
+                "reason": "Role Protection Triggered",
+                "color": "#ff0000",
+                "ignoredRoles": [],
+                "protectedRoles": [
+                    "1546499850294665348",
+                    "1552750381975736350",
+                    "1552750382881702072"
+                ],
+                "protectedRoleRemoveLimit": 4
+            }
+        },
+        "timeout": {
+            "enabled": true,
+            "limits": {
+                "timeoutLimit": 6,
+                "untimeoutLimit": 7,
+                "timeWindow": 40000
+            },
+            "action": {
+                "type": "removeRoles",
+                "reason": "Timeout Protection Triggered",
+                "color": "#ff0000",
+                "ignoredRoles": []
+            }
+        },
+        "moderation": {
+            "enabled": true,
+            "limits": {
+                "kickLimit": 1,
+                "banLimit": 4,
+                "unbanLimit": 4,
+                "timeWindow": 10000
+            },
+            "action": {
+                "type": "removeRoles",
+                "reason": "Moderation Protection Triggered",
+                "color": "#ff0000",
+                "ignoredRoles": []
+            }
+        }
+    },
+    "suggestions": {
+        "enabled": true,
+        "channels": [],
+        "thread": {
+            "enabled": true,
+            "name": "💬 Discussion: {title}",
+            "archiveDuration": 1440
+        },
+        "reactions": {
+            "enabled": true,
+            "upvote": "👍",
+            "downvote": "👎",
+            "star": "⭐"
+        },
+        "color": "#777bc9",
+        "deleteOriginal": true,
+        "allowImages": true,
+        "maxImageSize": 2199023255552,
+        "requireContent": true,
+        "minContentLength": 10,
+        "maxContentLength": 2000,
+        "cooldown": 300000,
+        "minLength": 10,
+        "maxLength": 2000
+    },
+    "tempChannels": {
+        "enabled": true,
+        "parentChannelId": "1546607108450164796",
+        "category": "",
+        "multipleAllowed": true,
+        "fullPermissions": true,
+        "defaultName": "🔊 {user}'s Channel",
+        "defaultUserLimit": 0,
+        "deleteWhenEmpty": true,
+        "deleteDelay": 10000,
+        "permissions": {
+            "enabledRoleIds": [],
+            "disabledRoleIds": []
+        },
+        "userPermissions": {
+            "manage": [
+                "ManageChannels",
+                "ManageRoles",
+                "MuteMembers",
+                "DeafenMembers",
+                "MoveMembers",
+                "PrioritySpeaker",
+                "Stream",
+                "Connect",
+                "Speak",
+                "UseVAD",
+                "ViewChannel"
+            ]
+        }
+    },
+    "autoReply": {
+        "enabled": true,
+        "mentionUser": false,
+        "replyToMessage": true,
+        "channels": {
+            "enabled": [],
+            "disabled": []
+        },
+        "roles": {
+            "enabled": [],
+            "disabled": []
+        },
+        "sections": {
+            "New Section": {
+                "enabled": true,
+                "triggers": [
+                    "جرجر"
+                ],
+                "responses": [
+                    "زوجه دوتوري جايه بالطريق <@1470364219139559589>"
+                ]
+            },
+            "New Section 2": {
+                "enabled": true,
+                "triggers": [
+                    "مياوي"
+                ],
+                "responses": [
+                    "بسبسبس رد يا عبد <@924389981936578622>"
+                ]
+            },
+            "New Section 3": {
+                "enabled": true,
+                "triggers": [
+                    "ريني"
+                ],
+                "responses": [
+                    "ميووو <@1273977864563462250>"
+                ]
+            },
+            "New Section 4": {
+                "enabled": true,
+                "triggers": [
+                    "كايا"
+                ],
+                "responses": [
+                    "استدعاء فاشل، يرجى المحاولة لاحقا <@1291081816324833504>"
+                ]
+            },
+            "New Section 5": {
+                "enabled": true,
+                "triggers": [
+                    "باني"
+                ],
+                "responses": [
+                    "اصبر للملكا <@1362815799017869452>"
+                ]
+            },
+            "New Section 6": {
+                "enabled": true,
+                "triggers": [
+                    "ري"
+                ],
+                "responses": [
+                    "نايمه مو فاضية لك <@1268002215566770288>"
+                ]
+            },
+            "New Section 7": {
+                "enabled": true,
+                "triggers": [
+                    "مينت"
+                ],
+                "responses": [
+                    "أنا التي سميت نفسي mint  لدي حنكة اجدادي وحكمتهم اطلب تطلب @999mint"
+                ]
+            },
+            "New Section 8": {
+                "enabled": true,
+                "triggers": [
+                    "<@924389981936578622>"
+                ],
+                "responses": [
+                    "Daddy went to get milk brb <@924389981936578622>"
+                ]
+            },
+            "New Section 9": {
+                "enabled": true,
+                "triggers": [
+                    "هارو"
+                ],
+                "responses": [
+                    "شتبي"
+                ]
+            }
+        },
+        "matchType": "exact",
+        "caseSensitive": false,
+        "chance": 78,
+        "cooldown": 2000
+    },
+    "giveaway": {
+        "enabled": true,
+        "defaultDuration": 3600000,
+        "maxDuration": 2592000000,
+        "minWinners": 1,
+        "maxWinners": 20,
+        "aliases": [
+            "giveaway"
+        ],
+        "cooldown": 10000,
+        "requiredRole": "",
+        "buttons": {
+            "enter": "Enter",
+            "leave": "Leave",
+            "reroll": "Reroll",
+            "end": "End"
+        },
+        "embed": {
+            "color": "#777bc9",
+            "thumbnail": "",
+            "footer": ""
+        },
+        "allowedChannels": [],
+        "blacklistedChannels": [],
+        "allowedRoles": [],
+        "blacklistedRoles": [],
+        "minimumAccountAge": 0,
+        "minimumGuildAge": 0,
+        "interaction": "buttons"
+    },
+    "apply": {
+        "enabled": true,
+        "embed": {
+            "color": "#777bc9",
+            "thumbnail": "",
+            "footer": "",
+            "footerIcon": "",
+            "timestamp": true
+        },
+        "positions": []
+    },
+    "ticket": {
+        "enabled": true,
+        "embed": {
+            "color": "#777bc9",
+            "thumbnail": "https://cdn.discordapp.com/attachments/1506419946270363883/1547282424097022053/cb02552e-4170-41f5-8fd9-f2dfacd9ae3d.png?ex=6aa6264d&is=6aa4d4cd&hm=90308b77500eda4f2ddea976b0fb231d229d51248f7564536198619fdb46f735&",
+            "footer": "Support System",
+            "footerIcon": null,
+            "timestamp": true
+        },
+        "sections": [
+            {
+                "enabled": true,
+                "name": "Other",
+                "emoji": "📩",
+                "description": ".",
+                "categoryId": "1498368297597534288",
+                "logChannelId": "1498551084623466627",
+                "adminRoles": [
+                    "1498509821085876305"
+                ],
+                "cooldown": 0,
+                "imageUrl": "https://cdn.discordapp.com/attachments/1506419946270363883/1547282424097022053/cb02552e-4170-41f5-8fd9-f2dfacd9ae3d.png?ex=6aa6264d&is=6aa4d4cd&hm=90308b77500eda4f2ddea976b0fb231d229d51248f7564536198619fdb46f735&"
+            },
+            {
+                "enabled": true,
+                "name": "Report user",
+                "emoji": "📩",
+                "description": ".",
+                "categoryId": "1498368297597534288",
+                "logChannelId": "1498551084623466627",
+                "adminRoles": [
+                    "1498509821085876305"
+                ],
+                "cooldown": 0,
+                "imageUrl": "https://cdn.discordapp.com/attachments/1506419946270363883/1547282424097022053/cb02552e-4170-41f5-8fd9-f2dfacd9ae3d.png?ex=6aa6264d&is=6aa4d4cd&hm=90308b77500eda4f2ddea976b0fb231d229d51248f7564536198619fdb46f735&"
+            },
+            {
+                "enabled": true,
+                "name": "Report staff",
+                "emoji": "📩",
+                "description": ".",
+                "categoryId": "1498573219014119525",
+                "logChannelId": "1498551084623466627",
+                "adminRoles": [
+                    "1498477478925176984",
+                    "1498475455626346556"
+                ],
+                "cooldown": 0,
+                "imageUrl": "https://cdn.discordapp.com/attachments/1506419946270363883/1547282424097022053/cb02552e-4170-41f5-8fd9-f2dfacd9ae3d.png?ex=6aa6264d&is=6aa4d4cd&hm=90308b77500eda4f2ddea976b0fb231d229d51248f7564536198619fdb46f735&"
+            }
+        ],
+        "command": {
+            "enabled": false,
+            "aliases": [],
+            "cooldown": 5,
+            "permissions": {
+                "enabledRoleIds": [],
+                "disabledRoleIds": []
+            }
+        }
+    },
+    "rules": {
+        "enabled": true,
+        "interface": {
+            "type": "buttons",
+            "style": "Primary"
+        },
+        "mainEmbed": {
+            "title": "Server Rules",
+            "description": "Please read our server rules",
+            "color": "#777bc9",
+            "thumbnail": {
+                "enabled": true,
+                "url": null
+            },
+            "image": {
+                "enabled": true,
+                "url": null
+            },
+            "footer": {
+                "text": "Server Rules",
+                "iconUrl": null
+            }
+        },
+        "sections": []
+    },
+    "leveling": {
+        "enabled": true,
+        "xpPerMessage": {
+            "min": 7,
+            "max": 100
+        },
+        "messageCooldown": 60000,
+        "xpPerVoiceMinute": 5,
+        "ignoredChannels": [],
+        "ignoredRoles": [
+            "1498432469542637599",
+            "1498329379309097090",
+            "1498329304755339335"
+        ],
+        "levelUpMessage": {
+            "enabled": true,
+            "channelId": "1498345936462549074",
+            "content": "໒୧　　꒰ <a:Blue_144:1546603155112857610>  　　{mention} just reached {level} !!\n\n　　　　　　╰୧ <a:blue_sundae:1546603305076007004> 　　 ׂ   　˳݂　for being active bunny <a:008Cinnamoroll_Shake:1499853317004726453>"
+        },
+        "roleRewards": [
+            {
+                "level": 5,
+                "roleId": "1498473661378596935"
+            },
+            {
+                "level": 10,
+                "roleId": "1498473445225140306"
+            },
+            {
+                "level": 20,
+                "roleId": "1498473358939914270"
+            },
+            {
+                "level": 30,
+                "roleId": "1498473259568599170"
+            },
+            {
+                "level": 40,
+                "roleId": "1498473101019844679"
+            },
+            {
+                "level": 50,
+                "roleId": "1498473015674142872"
+            },
+            {
+                "level": 60,
+                "roleId": "1498472646130663494"
+            },
+            {
+                "level": 70,
+                "roleId": "1498472504078110810"
+            },
+            {
+                "level": 80,
+                "roleId": "1498472262238605312"
+            },
+            {
+                "level": 90,
+                "roleId": "1498471968654233712"
+            },
+            {
+                "level": 100,
+                "roleId": "1498471840312459325"
+            }
+        ],
+        "removeLowerRewards": false
+    },
+    "selectRoles": {
+        "menus": []
+    },
+    "voiceAfk": {
+        "enabled": true,
+        "channelId": "1532616555131699272",
+        "timeoutMinutes": 5,
+        "exemptRoleIds": [],
+        "permanentChannelId": "1532616555131699272"
+    },
+    "tagRoles": {
+        "enabled": false,
+        "mappings": []
+    },
+    "assetImport": {
+        "enabled": true,
+        "emojiChannelId": "1547344738359971992",
+        "stickerChannelId": "1547344738359971992",
+        "logBypassRoleIds": [
+            "1498477478925176984"
+        ]
+    },
+    "ticketPanels": [
+        {
+            "id": "section-0",
+            "name": "Other",
+            "embedTitle": "Support System",
+            "embedDescription": ".",
+            "embedColor": "#777bc9",
+            "embedImage": "https://cdn.discordapp.com/attachments/1506419946270363883/1547282424097022053/cb02552e-4170-41f5-8fd9-f2dfacd9ae3d.png?ex=6aa6264d&is=6aa4d4cd&hm=90308b77500eda4f2ddea976b0fb231d229d51248f7564536198619fdb46f735&",
+            "panelChannelId": "1498368351800397936",
+            "defaultCategoryId": "",
+            "staffRoleId": "1498509821085876305",
+            "logChannelId": "1498551084623466627",
+            "welcomeMessage": "**هلا باني اكتبي مشكلتك وانتظري الادمنز يجون ولاتكثرين منشنز عشان عليها__ تايم اوت__ <a:000045:1498404358239289658>**",
+            "selectMenus": [],
+            "buttons": [
+                {
+                    "label": "📩 Other",
+                    "ticketName": "support",
+                    "style": "Primary",
+                    "categoryId": "1498368297597534288",
+                    "emoji": ""
+                }
+            ]
+        },
+        {
+            "id": "section-1",
+            "name": "Report user",
+            "embedTitle": "Support System",
+            "embedDescription": ".",
+            "embedColor": "#777bc9",
+            "embedImage": "https://cdn.discordapp.com/attachments/1506419946270363883/1547282424097022053/cb02552e-4170-41f5-8fd9-f2dfacd9ae3d.png?ex=6aa6264d&is=6aa4d4cd&hm=90308b77500eda4f2ddea976b0fb231d229d51248f7564536198619fdb46f735&",
+            "panelChannelId": "",
+            "staffRoleId": "1498509821085876305",
+            "logChannelId": "1498551084623466627",
+            "welcomeMessage": "",
+            "buttons": [
+                {
+                    "label": "📩 Report user",
+                    "ticketName": "support",
+                    "style": "Primary",
+                    "categoryId": "1498368297597534288",
+                    "emoji": ""
+                }
+            ]
+        },
+        {
+            "id": "section-2",
+            "name": "Report staff",
+            "embedTitle": "Support System",
+            "embedDescription": ".",
+            "embedColor": "#777bc9",
+            "embedImage": "https://cdn.discordapp.com/attachments/1506419946270363883/1547282424097022053/cb02552e-4170-41f5-8fd9-f2dfacd9ae3d.png?ex=6aa6264d&is=6aa4d4cd&hm=90308b77500eda4f2ddea976b0fb231d229d51248f7564536198619fdb46f735&",
+            "panelChannelId": "",
+            "staffRoleId": "1498477478925176984",
+            "logChannelId": "1498551084623466627",
+            "welcomeMessage": "",
+            "buttons": [
+                {
+                    "label": "📩 Report staff",
+                    "ticketName": "support",
+                    "style": "Primary",
+                    "categoryId": "1498573219014119525",
+                    "emoji": ""
+                }
+            ]
+        },
+        {
+            "id": "panel-1789228275076-qda218",
+            "name": "support",
+            "embedTitle": "⊹   ︵   ✦    ˚  .    __** Ticket **__",
+            "embedDescription": "꒰ ✧ press the \"Ticket\" button to open an ticket  ⋄",
+            "embedColor": "#59a8f3",
+            "embedImage": "https://cdn.discordapp.com/attachments/1546502059321331782/1548357674637201469/cb02552e-4170-41f5-8fd9-f2dfacd9ae3d.png?ex=6aa6c3f4&is=6aa57274&hm=e8ab87ad2983f763db10fca018fd952475b70f32da91249b6dec9db0c1305c76&",
+            "panelChannelId": "1498368351800397936",
+            "defaultCategoryId": "1498567964968882176",
+            "staffRoleId": "1498509821085876305",
+            "logChannelId": "1498551084623466627",
+            "welcomeMessage": "**هلا باني اكتبي مشكلتك وانتظري الادمنز يجون ولاتكثرين منشنز عشان عليها__ تايم اوت__ <a:000045:1498404358239289658>**",
+            "selectMenus": [
+                {
+                    "placeholder": "⊹   ︵   ✦    ˚  .    _Ticket ",
+                    "options": [
+                        {
+                            "label": "Support",
+                            "value": "Support",
+                            "description": "Support",
+                            "emoji": "",
+                            "ticketName": "Support",
+                            "categoryId": "",
+                            "mentionRoleIds": []
+                        },
+                        {
+                            "label": "Report User",
+                            "value": "Report User",
+                            "description": "Report User",
+                            "emoji": "",
+                            "ticketName": "Report User",
+                            "categoryId": "",
+                            "mentionRoleIds": [
+                                "1518134710403072141"
+                            ]
+                        },
+                        {
+                            "label": "Report Staff",
+                            "value": "Report Staff",
+                            "description": "Report Staff",
+                            "emoji": "",
+                            "ticketName": "Report Staff",
+                            "categoryId": "",
+                            "mentionRoleIds": [
+                                "1498477478925176984"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "buttons": []
+        }
+    ]
+}

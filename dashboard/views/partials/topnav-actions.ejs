@@ -1,0 +1,94 @@
+<div class="flex items-center space-x-4">
+    <div class="language-selector">
+        <select id="languageSelect" class="language-select" onchange="changeLanguage(this.value)">
+            <option value="en" <%= currentLang === 'en' ? 'selected' : '' %>>
+                <span class="flag-icon">🇺🇸</span> English
+            </option>
+            <option value="ar" <%= currentLang === 'ar' ? 'selected' : '' %>>
+                <span class="flag-icon">🇸🇦</span> العربية
+            </option>
+        </select>
+    </div>
+    
+    <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+        <i class="fas fa-moon"></i>
+    </button>
+</div>
+
+<div id="mobileLangSelector" class="mobile-lang-selector">
+    <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-semibold text-gray-800 dark:text-white">
+            <%= currentLang === 'ar' ? 'اختر اللغة' : 'Select Language' %>
+        </h3>
+        <button id="closeMobileLang" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    <div class="grid grid-cols-1 gap-3">
+        <a href="#" data-lang="en" class="lang-option <%= currentLang === 'en' ? 'active' : '' %>">
+            <span class="flag-icon">🇺🇸</span>
+            <span>English</span>
+            <% if (currentLang === 'en') { %>
+                <i class="fas fa-check ml-auto"></i>
+            <% } %>
+        </a>
+        <a href="#" data-lang="ar" class="lang-option <%= currentLang === 'ar' ? 'active' : '' %>">
+            <span class="flag-icon">🇸🇦</span>
+            <span>العربية</span>
+            <% if (currentLang === 'ar') { %>
+                <i class="fas fa-check ml-auto"></i>
+            <% } %>
+        </a>
+    </div>
+</div>
+
+<button id="mobileLangButton" class="mobile-lang-button" aria-label="Change language">
+    <i class="fas fa-globe"></i>
+</button>
+
+<style>
+.language-option {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s;
+    color: var(--text-primary);
+    background-color: var(--background-secondary);
+}
+
+.language-option:hover {
+    background-color: var(--background-tertiary);
+}
+
+.language-option.active {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.flag-icon {
+    margin-right: 0.75rem;
+    font-size: 1.25rem;
+}
+
+[dir="rtl"] .flag-icon {
+    margin-right: 0;
+    margin-left: 0.75rem;
+}
+
+.theme-toggle {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-primary);
+    background-color: var(--background-secondary);
+    transition: all 0.2s;
+}
+
+.theme-toggle:hover {
+    background-color: var(--background-tertiary);
+}
+</style> 

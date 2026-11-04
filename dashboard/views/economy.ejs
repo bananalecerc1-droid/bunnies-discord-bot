@@ -1,0 +1,168 @@
+<%- contentFor('body') %>
+
+<%
+const economy = settings.economy || {};
+const defaults = {
+  enabled: true,
+  currencyName: 'Coins',
+  currencyEmoji: '🪙',
+  startingCash: 5000,
+  dailyRewardEnabled: true,
+  dailyRewardMin: 500,
+  dailyRewardMax: 1500,
+  dailyCooldownHours: 24,
+  transfersEnabled: true,
+  bumpRewardEnabled: true,
+  bumpRewardMin: 100,
+  bumpRewardMax: 500,
+  bumpCooldownMinutes: 120,
+  disboardBotId: '302050872383242240',
+  gameRewards: {"colors": {"min": 250, "max": 250}, "emoji": {"min": 250, "max": 250}, "crash": {"min": 250, "max": 250}, "dice": {"min": 250, "max": 250}, "button": {"min": 250, "max": 250}, "challenge": {"min": 250, "max": 250}, "numbers": {"min": 250, "max": 250}, "xo": {"min": 250, "max": 250}, "guess": {"min": 250, "max": 250}, "wheel": {"min": 100, "max": 1000}, "letter": {"min": 250, "max": 250}, "connect": {"min": 250, "max": 250}, "match": {"min": 250, "max": 250}, "fruits": {"min": 250, "max": 250}, "roulette": {"min": 100, "max": 1000}, "hide": {"min": 250, "max": 250}, "risk": {"min": 250, "max": 250}, "pattern": {"min": 250, "max": 250}, "mystery": {"min": 250, "max": 250}}
+};
+const value = (key) => economy[key] ?? defaults[key];
+const gameRewards = value('gameRewards');
+const t = locale.dashboard.economy || {};
+%>
+
+<main class="rules-ui economy-page economy-rules-page">
+  <header class="rules-page-header">
+    <div>
+      <div class="rules-breadcrumb"><span>WORKSPACE</span><i class="fas fa-chevron-right"></i><strong><%= t.title || 'ECONOMY SETTINGS' %></strong></div>
+      <div class="rules-title-row">
+        <div class="rules-title-icon"><i class="fas fa-coins"></i></div>
+        <div>
+          <span class="rules-eyebrow">COMMUNITY REWARDS</span>
+          <h1>Make your economy easy to manage.</h1>
+        </div>
+      </div>
+      <p><%= t.subtitle || 'Set up your currency, rewards, and community incentives in one clear workspace.' %></p>
+    </div>
+    <div class="rules-header-actions">
+      <div class="rules-status" id="syncStatus"><span class="rules-status-dot economy-sync-dot"></span><span id="syncStatusText">All changes saved</span></div>
+      <a class="rules-button rules-button-secondary" href="#economySettingsForm"><i class="fas fa-circle-info"></i><span>How it works</span></a>
+    </div>
+  </header>
+
+  <section class="rules-stat-grid" aria-label="Economy overview">
+    <div class="rules-stat-card">
+      <span class="rules-stat-icon purple"><i class="fas fa-coins"></i></span>
+      <div class="rules-stat-copy"><span>Current currency</span><strong id="overviewCurrency"><%= value('currencyEmoji') %> <%= value('currencyName') %></strong><small>member-facing identity</small></div>
+    </div>
+    <div class="rules-stat-card">
+      <span class="rules-stat-icon blue"><i class="fas fa-wallet"></i></span>
+      <div class="rules-stat-copy"><span>Starting balance</span><strong id="overviewStarting"><%= Number(value('startingCash')).toLocaleString('en-US') %></strong><small>new members</small></div>
+    </div>
+    <div class="rules-stat-card">
+      <span class="rules-stat-icon green"><i class="fas fa-calendar-day"></i></span>
+      <div class="rules-stat-copy"><span>Daily reward</span><strong id="overviewDaily"><%= Number(value('dailyRewardMin')).toLocaleString('en-US') %> – <%= Number(value('dailyRewardMax')).toLocaleString('en-US') %></strong><small>per claim</small></div>
+    </div>
+    <div class="rules-stat-card">
+      <span class="rules-stat-icon rose"><i class="fas fa-bolt"></i></span>
+      <div class="rules-stat-copy"><span>Bump reward</span><strong id="overviewBump"><%= Number(value('bumpRewardMin')).toLocaleString('en-US') %> – <%= Number(value('bumpRewardMax')).toLocaleString('en-US') %></strong><small>per bump</small></div>
+    </div>
+  </section>
+
+  <div class="economy-layout">
+    <form id="economySettingsForm" class="economy-form" novalidate>
+      <section id="basics" class="rules-card economy-card economy-section">
+        <div class="rules-card-header">
+          <div class="economy-card-heading">
+            <div class="economy-card-icon purple"><i class="fas fa-sliders"></i></div>
+            <div><span class="economy-card-kicker">01 / IDENTITY</span><h2>Currency basics</h2><p>Choose how your economy looks and where new members begin.</p></div>
+          </div>
+        </div>
+        <div class="rules-card-body">
+          <div class="economy-setting-row featured">
+            <div class="economy-setting-icon"><i class="fas fa-power-off"></i></div>
+            <div class="economy-setting-copy"><b>Economy system</b><span>Allow members to earn, save, and spend virtual currency.</span></div>
+            <button type="button" class="economy-switch" data-toggle="economyEnabled" role="switch" aria-checked="<%= value('enabled') ? 'true' : 'false' %>"><span></span></button>
+          </div>
+          <div class="economy-field-grid three">
+            <label class="economy-field"><span>Currency name</span><input id="currencyName" maxlength="24" required value="<%= value('currencyName') %>" placeholder="Coins"><small>Shown in balances and bot messages.</small></label>
+            <label class="economy-field"><span>Currency emoji</span><input id="currencyEmoji" maxlength="8" required value="<%= value('currencyEmoji') %>" placeholder="🪙"><small>A short visual identity.</small></label>
+            <label class="economy-field"><span>Starting balance</span><div class="economy-input-suffix"><input id="startingCash" type="number" min="0" step="1" required value="<%= value('startingCash') %>"><em>coins</em></div><small>For new members only.</small></label>
+          </div>
+        </div>
+      </section>
+
+      <section id="rewards" class="rules-card economy-card economy-section">
+        <div class="rules-card-header">
+          <div class="economy-card-heading">
+            <div class="economy-card-icon blue"><i class="fas fa-gift"></i></div>
+            <div><span class="economy-card-kicker">02 / MOMENTUM</span><h2>Daily rewards</h2><p>Make returning to the server worthwhile with a predictable reward range.</p></div>
+          </div>
+        </div>
+        <div class="rules-card-body">
+          <div class="economy-setting-row">
+            <div class="economy-setting-icon"><i class="fas fa-calendar-day"></i></div>
+            <div class="economy-setting-copy"><b>Daily rewards</b><span>Members can claim a random reward on a repeating cooldown.</span></div>
+            <button type="button" class="economy-switch" data-toggle="dailyRewardEnabled" role="switch" aria-checked="<%= value('dailyRewardEnabled') ? 'true' : 'false' %>"><span></span></button>
+          </div>
+          <div class="economy-rule">
+            <div class="economy-range-label"><span>Reward range</span><output id="dailyRangeOutput"><%= Number(value('dailyRewardMin')).toLocaleString('en-US') %> – <%= Number(value('dailyRewardMax')).toLocaleString('en-US') %> coins</output></div>
+            <div class="economy-field-grid two">
+              <label class="economy-field"><span>Minimum</span><div class="economy-input-suffix"><input id="dailyRewardMin" type="number" min="0" step="1" required value="<%= value('dailyRewardMin') %>"><em>coins</em></div></label>
+              <label class="economy-field"><span>Maximum</span><div class="economy-input-suffix"><input id="dailyRewardMax" type="number" min="0" step="1" required value="<%= value('dailyRewardMax') %>"><em>coins</em></div></label>
+            </div>
+          </div>
+          <div class="economy-field-grid two economy-lower-grid">
+            <div class="economy-field"><span>Claim cooldown</span><div class="custom-select" data-select="dailyCooldownHours"><button type="button" class="custom-select-button" aria-haspopup="listbox" aria-expanded="false"><span></span><i class="fas fa-chevron-down"></i></button><div class="custom-select-menu" role="listbox"><% [[12,'12 hours'],[24,'24 hours'],[48,'48 hours'],[72,'72 hours']].forEach(option => { %><button type="button" role="option" data-value="<%= option[0] %>" class="<%= Number(value('dailyCooldownHours')) === option[0] ? 'is-selected' : '' %>"><span><%= option[1] %></span><i class="fas fa-check"></i></button><% }); %></div><input type="hidden" id="dailyCooldownHours" value="<%= value('dailyCooldownHours') %>"></div><small>How often a member can claim.</small></div>
+            <div class="economy-callout"><i class="fas fa-lightbulb"></i><span>Level bonuses can add a small boost on top of this range.</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="community" class="rules-card economy-card economy-section">
+        <div class="rules-card-header">
+          <div class="economy-card-heading">
+            <div class="economy-card-icon rose"><i class="fas fa-users"></i></div>
+            <div><span class="economy-card-kicker">03 / COMMUNITY</span><h2>Community activity</h2><p>Choose how members support one another and bring attention to your server.</p></div>
+          </div>
+        </div>
+        <div class="rules-card-body">
+          <div class="economy-setting-row">
+            <div class="economy-setting-icon"><i class="fas fa-arrow-right-arrow-left"></i></div>
+            <div class="economy-setting-copy"><b>Member transfers</b><span>Allow members to send coins directly to one another.</span></div>
+            <button type="button" class="economy-switch" data-toggle="transfersEnabled" role="switch" aria-checked="<%= value('transfersEnabled') ? 'true' : 'false' %>"><span></span></button>
+          </div>
+          <div class="economy-rule">
+            <div class="economy-setting-row compact">
+              <div class="economy-setting-icon bump"><i class="fas fa-bolt"></i></div>
+              <div class="economy-setting-copy"><b>DISBOARD bump rewards</b><span>Reward the member who successfully bumps your server.</span></div>
+              <button type="button" class="economy-switch" data-toggle="bumpRewardEnabled" role="switch" aria-checked="<%= value('bumpRewardEnabled') ? 'true' : 'false' %>"><span></span></button>
+            </div>
+            <div class="economy-range-label"><span>Bump reward range</span><output id="bumpRangeOutput"><%= Number(value('bumpRewardMin')).toLocaleString('en-US') %> – <%= Number(value('bumpRewardMax')).toLocaleString('en-US') %> coins</output></div>
+            <div class="economy-field-grid two">
+              <label class="economy-field"><span>Minimum</span><div class="economy-input-suffix"><input id="bumpRewardMin" type="number" min="0" step="1" required value="<%= value('bumpRewardMin') %>"><em>coins</em></div></label>
+              <label class="economy-field"><span>Maximum</span><div class="economy-input-suffix"><input id="bumpRewardMax" type="number" min="0" step="1" required value="<%= value('bumpRewardMax') %>"><em>coins</em></div></label>
+            </div>
+          </div>
+          <div class="economy-field-grid two">
+            <div class="economy-field"><span>Reward cooldown</span><div class="custom-select" data-select="bumpCooldownMinutes"><button type="button" class="custom-select-button" aria-haspopup="listbox" aria-expanded="false"><span></span><i class="fas fa-chevron-down"></i></button><div class="custom-select-menu" role="listbox"><% [[30,'30 minutes'],[60,'1 hour'],[120,'2 hours'],[240,'4 hours']].forEach(option => { %><button type="button" role="option" data-value="<%= option[0] %>" class="<%= Number(value('bumpCooldownMinutes')) === option[0] ? 'is-selected' : '' %>"><span><%= option[1] %></span><i class="fas fa-check"></i></button><% }); %></div><input type="hidden" id="bumpCooldownMinutes" value="<%= value('bumpCooldownMinutes') %>"></div><small>Prevents duplicate rewards.</small></div>
+            <label class="economy-field"><span>DISBOARD bot ID</span><input id="disboardBotId" pattern="[0-9]{15,22}" required value="<%= value('disboardBotId') %>"><small>Only change for a custom bump bot.</small></label>
+          </div>
+        </div>
+      </section>
+
+      <section id="games" class="rules-card economy-card economy-section">
+        <div class="rules-card-header"><div class="economy-card-heading"><div class="economy-card-icon green"><i class="fas fa-gamepad"></i></div><div><span class="economy-card-kicker">04 / GAMES</span><h2>Game prizes</h2><p>Select a game to view and change its prize range.</p></div></div></div>
+        <div class="rules-card-body">
+          <div class="economy-field-grid three">
+            <label class="economy-field"><span>Game</span><select id="gameRewardGame" class="economy-game-select"><option value="colors">Colors</option><option value="emoji">Emoji</option><option value="crash">Crash</option><option value="dice">Dice</option><option value="button">Button</option><option value="challenge">Challenge</option><option value="numbers">Numbers</option><option value="xo">XO</option><option value="guess">Guess</option><option value="wheel">Wheel / Luck</option><option value="letter">Letter</option><option value="connect">Connect</option><option value="match">Match</option><option value="fruits">Fruits</option><option value="roulette">Roulette</option><option value="hide">Hide</option><option value="risk">Risk</option><option value="pattern">Pattern</option><option value="mystery">Mystery</option></select></label>
+            <label class="economy-field"><span>Minimum prize</span><div class="economy-input-suffix"><input id="gameRewardMin" type="number" min="0" step="1"><em>coins</em></div></label>
+            <label class="economy-field"><span>Maximum prize</span><div class="economy-input-suffix"><input id="gameRewardMax" type="number" min="0" step="1"><em>coins</em></div></label>
+          </div>
+          <small>Changes apply to the selected game when you save.</small>
+        </div>
+      </section>
+
+      <div class="rules-card economy-savebar">
+        <div class="economy-save-icon"><i class="fas fa-cloud-arrow-up"></i></div>
+        <div><b>Ready to sync?</b><span>Save to write these settings to the bot immediately.</span></div>
+        <button id="saveEconomySettings" class="rules-button rules-button-primary" type="submit"><span class="button-label">Save changes</span><i class="fas fa-arrow-right"></i></button>
+      </div>
+    </form>
+
+  </div>
+</main>
+<script>window.economyGameRewards = <%- JSON.stringify(gameRewards) %>;</script>

@@ -1,0 +1,322 @@
+<%- contentFor('body') %>
+
+<div class="container mx-auto px-4 py-8">
+    <div class="stats-grid">
+        <div class="stat-card blue-glow">
+            <div class="stat-icon text-blue-500">
+                <i class="fas fa-lightbulb"></i>
+            </div>
+            <div class="stat-content">
+                <h3 class="stat-value" id="activeStatus"><%= settings.suggestions?.enabled ? 'Enabled' : 'Disabled' %></h3>
+                <p class="stat-label"><%= locale.dashboard.suggestions.stats.status %></p>
+            </div>
+        </div>
+        
+        <div class="stat-card green-glow">
+            <div class="stat-icon text-green-500">
+                <i class="fas fa-clock"></i>
+            </div>
+            <div class="stat-content">
+                <h3 class="stat-value" id="cooldownValue"><%= Math.round(settings.suggestions?.cooldown / 1000) %>s</h3>
+                <p class="stat-label"><%= locale.dashboard.suggestions.stats.cooldown %></p>
+            </div>
+        </div>
+
+        <div class="stat-card purple-glow">
+            <div class="stat-icon text-purple-500">
+                <i class="fas fa-image"></i>
+            </div>
+            <div class="stat-content">
+                <h3 class="stat-value" id="imagesStatus"><%= settings.suggestions?.allowImages ? 'Allowed' : 'Disabled' %></h3>
+                <p class="stat-label"><%= locale.dashboard.suggestions.stats.images %></p>
+            </div>
+        </div>
+
+        <div class="stat-card red-glow">
+            <div class="stat-icon text-red-500">
+                <i class="fas fa-hashtag"></i>
+            </div>
+            <div class="stat-content">
+                <h3 class="stat-value" id="channelsCount"><%= (settings.suggestions?.channels || []).length %></h3>
+                <p class="stat-label"><%= locale.dashboard.suggestions.stats.channels %></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md">
+        <div class="section-header">
+            <div class="section-title">
+                <div class="section-icon">
+                    <i class="fas fa-cog"></i>
+                </div>
+                <h2 class="text-xl font-semibold text-gray-800 dark:text-white">
+                    <%= locale.dashboard.suggestions.settings.globalTitle %>
+                </h2>
+            </div>
+            <label class="switch-large">
+                <input type="checkbox" id="suggestions-enabled" 
+                       <%= settings.suggestions?.enabled ? 'checked' : '' %>>
+                <span class="slider-large"></span>
+            </label>
+        </div>
+
+        <div class="p-6 space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="form-group">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <%= locale.dashboard.suggestions.settings.cooldown %>
+                    </label>
+                    <input type="number" id="cooldown" class="input-field" 
+                           value="<%= Math.round(settings.suggestions?.cooldown / 1000) %>" min="0">
+                </div>
+                <div class="form-group">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <%= locale.dashboard.suggestions.settings.embedColor %>
+                    </label>
+                    <div class="color-input-group">
+                        <input type="color" id="color" class="input-field" 
+                               value="<%= settings.suggestions?.color || '#777bc9' %>">
+                        <input type="text" id="color-text" class="input-field flex-1" 
+                               value="<%= settings.suggestions?.color || '#777bc9' %>">
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="form-group">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <%= locale.dashboard.suggestions.settings.minLength %>
+                    </label>
+                    <input type="number" id="min-length" class="input-field" 
+                           value="<%= settings.suggestions?.minLength || 10 %>" min="1">
+                </div>
+                <div class="form-group">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <%= locale.dashboard.suggestions.settings.maxLength %>
+                    </label>
+                    <input type="number" id="max-length" class="input-field" 
+                           value="<%= settings.suggestions?.maxLength || 2000 %>" min="1">
+                </div>
+                <div class="form-group">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <%= locale.dashboard.suggestions.settings.maxImageSize %>
+                    </label>
+                    <input type="number" id="max-image-size" class="input-field" 
+                           value="<%= (settings.suggestions?.maxImageSize || 8) %>" min="0" step="1">
+                </div>
+            </div>
+
+            <div class="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
+                <div class="space-y-4">
+                    <div class="settings-toggle-label">
+                        <span class="text-gray-700 dark:text-gray-300">
+                            <%= locale.dashboard.suggestions.settings.allowImages %>
+                        </span>
+                        <label class="switch">
+                            <input type="checkbox" id="allow-images" 
+                                   <%= settings.suggestions?.allowImages ? 'checked' : '' %>>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="settings-toggle-label">
+                        <span class="text-gray-700 dark:text-gray-300">
+                            <%= locale.dashboard.suggestions.settings.requireContent %>
+                        </span>
+                        <label class="switch">
+                            <input type="checkbox" id="require-content" 
+                                   <%= settings.suggestions?.requireContent ? 'checked' : '' %>>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="settings-toggle-label">
+                        <span class="text-gray-700 dark:text-gray-300">
+                            <%= locale.dashboard.suggestions.settings.deleteOriginal %>
+                        </span>
+                        <label class="switch">
+                            <input type="checkbox" id="delete-original" 
+                                   <%= settings.suggestions?.deleteOriginal ? 'checked' : '' %>>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md mt-6">
+        <div class="section-header">
+            <div class="section-title">
+                <div class="section-icon">
+                    <i class="fas fa-hashtag"></i>
+                </div>
+                <h2 class="text-xl font-semibold text-gray-800 dark:text-white">
+                    <%= locale.dashboard.suggestions.channels.title %>
+                </h2>
+            </div>
+            <button id="add-channel" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all">
+                <i class="fas fa-plus mr-2"></i>
+                <%= locale.dashboard.suggestions.channels.addChannel %>
+            </button>
+        </div>
+
+        <div class="p-6">
+            <div id="channels-container" class="space-y-4">
+                <% (settings.suggestions?.channels || []).forEach(function(channelId) { %>
+                    <div class="channel-item flex items-center justify-between bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                        <span class="text-gray-700 dark:text-gray-300">#<%= channelId %></span>
+                        <button class="remove-channel text-red-500 hover:text-red-600" data-channel="<%= channelId %>">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                <% }); %>
+                <% if (!(settings.suggestions?.channels || []).length) { %>
+                    <div class="text-center text-gray-500 dark:text-gray-400 py-4">
+                        <%= locale.dashboard.suggestions.channels.noChannels %>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md mt-6">
+        <div class="section-header">
+            <div class="section-title">
+                <div class="section-icon">
+                    <i class="fas fa-smile"></i>
+                </div>
+                <h2 class="text-xl font-semibold text-gray-800 dark:text-white">
+                    <%= locale.dashboard.suggestions.reactions.title %>
+                </h2>
+            </div>
+            <label class="switch-large">
+                <input type="checkbox" id="reactions-enabled" 
+                       <%= settings.suggestions?.reactions?.enabled ? 'checked' : '' %>>
+                <span class="slider-large"></span>
+            </label>
+        </div>
+
+        <div class="p-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="form-group">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <%= locale.dashboard.suggestions.reactions.upvote %>
+                    </label>
+                    <div class="flex gap-2">
+                        <input type="text" id="upvote-emoji" class="input-field" 
+                               value="<%= settings.suggestions?.reactions?.upvote || '👍' %>">
+                        <button class="emoji-picker-btn px-3 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg">
+                            <i class="fas fa-smile"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <%= locale.dashboard.suggestions.reactions.downvote %>
+                    </label>
+                    <div class="flex gap-2">
+                        <input type="text" id="downvote-emoji" class="input-field" 
+                               value="<%= settings.suggestions?.reactions?.downvote || '👎' %>">
+                        <button class="emoji-picker-btn px-3 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg">
+                            <i class="fas fa-smile"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <%= locale.dashboard.suggestions.reactions.star %>
+                    </label>
+                    <div class="flex gap-2">
+                        <input type="text" id="star-emoji" class="input-field" 
+                               value="<%= settings.suggestions?.reactions?.star || '⭐' %>">
+                        <button class="emoji-picker-btn px-3 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg">
+                            <i class="fas fa-smile"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md mt-6">
+        <div class="section-header">
+            <div class="section-title">
+                <div class="section-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <h2 class="text-xl font-semibold text-gray-800 dark:text-white">
+                    <%= locale.dashboard.suggestions.thread.title %>
+                </h2>
+            </div>
+            <label class="switch-large">
+                <input type="checkbox" id="thread-enabled" 
+                       <%= settings.suggestions?.thread?.enabled ? 'checked' : '' %>>
+                <span class="slider-large"></span>
+            </label>
+        </div>
+
+        <div class="p-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="form-group">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <%= locale.dashboard.suggestions.thread.nameFormat %>
+                    </label>
+                    <input type="text" id="thread-name" class="input-field" 
+                           value="<%= settings.suggestions?.thread?.name || 'Suggestion: {title}' %>">
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                        <%= locale.dashboard.suggestions.thread.nameFormatHelp %>
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <%= locale.dashboard.suggestions.thread.archiveDuration %>
+                    </label>
+                    <input type="number" id="archive-duration" class="input-field" 
+                           value="<%= settings.suggestions?.thread?.archiveDuration || 1440 %>" min="60" step="60">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="channelModal" class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white dark:bg-gray-800 rounded-lg p-6 w-full max-w-md">
+        <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">
+            <%= locale.dashboard.suggestions.channels.selectChannel %>
+        </h3>
+        <select id="channelSelect" class="input-field mb-4">
+            <option value="">Select a channel</option>
+        </select>
+        <div class="flex justify-end gap-4">
+            <button id="cancelChannel" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600">
+                <%= locale.dashboard.common.cancel %>
+            </button>
+            <button id="confirmChannel" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+                <%= locale.dashboard.common.add %>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="save-bar" id="saveBar">
+    <div class="save-bar-content">
+        <div class="save-bar-text">
+            <i class="fas fa-info-circle"></i>
+            <span><%= locale.dashboard.common.unsavedChanges %></span>
+        </div>
+        <div class="save-bar-buttons">
+            <button id="resetBtn" class="reset-button">
+                <i class="fas fa-undo mr-2"></i>
+                <%= locale.dashboard.common.resetDefaults %>
+            </button>
+            <button id="saveBtn" class="save-button">
+                <i class="fas fa-save mr-2"></i>
+                <%= locale.dashboard.common.saveChanges %>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="toast" role="alert">
+    <i class="fas fa-check-circle"></i>
+    <span class="toast-message"></span>
+</div>

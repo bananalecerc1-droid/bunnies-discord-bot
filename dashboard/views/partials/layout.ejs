@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="<%= currentLanguage %>" dir="<%= currentLanguage === 'ar' ? 'rtl' : 'ltr' %>" class="h-full bg-gray-900">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <%- contentFor('styles') %>
+</head>
+<body class="h-full bg-gray-900">
+    <%- include('sidebar', { path: locals.path, currentLang: locals.currentLang, locale: locals.locale }) %>
+    
+    <div class="lg:pl-64 min-h-screen">
+        <div class="bg-white dark:bg-gray-800 shadow-sm animate-fade-in">
+            <div class="container mx-auto px-8 py-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <h2 class="text-xl font-semibold text-gray-800 dark:text-white">
+                            <%= title %>
+                        </h2>
+                    </div>
+
+                    <%- include('topnav-actions', { currentLang: locals.currentLang }) %>
+                </div>
+            </div>
+        </div>
+
+        <div class="container mx-auto px-8 py-6">
+            <%- contentFor('body') %>
+        </div>
+    </div>
+
+    <div id="toastContainer" class="fixed bottom-4 right-4 z-50"></div>
+
+    <script src="/js/main.js"></script>
+    <script src="/js/utils.js"></script>
+    <script src="/js/theme.js"></script>
+    <script src="/js/toast.js"></script>
+    <script src="/js/api.js"></script>
+
+    <%- contentFor('scripts') %>
+</body>
+</html> 

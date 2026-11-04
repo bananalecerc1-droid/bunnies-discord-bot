@@ -1,0 +1,291 @@
+<%- contentFor('body') %>
+
+<div class="stats-grid">
+    <div class="stat-card blue-glow">
+        <div class="stat-icon text-blue-500">
+            <i class="fas fa-gift"></i>
+        </div>
+        <div class="stat-content">
+            <h3 class="stat-value" id="activeGiveaways">0</h3>
+            <p class="stat-label"><%= locale.dashboard.giveaway.stats.activeGiveaways %></p>
+        </div>
+    </div>
+    
+    <div class="stat-card green-glow">
+        <div class="stat-icon text-green-500">
+            <i class="fas fa-trophy"></i>
+        </div>
+        <div class="stat-content">
+            <h3 class="stat-value" id="totalWinners">0</h3>
+            <p class="stat-label"><%= locale.dashboard.giveaway.stats.totalWinners %></p>
+        </div>
+    </div>
+
+    <div class="stat-card purple-glow">
+        <div class="stat-icon text-purple-500">
+            <i class="fas fa-clock"></i>
+        </div>
+        <div class="stat-content">
+            <h3 class="stat-value" id="avgDuration">0h</h3>
+            <p class="stat-label"><%= locale.dashboard.giveaway.stats.avgDuration %></p>
+        </div>
+    </div>
+
+    <div class="stat-card red-glow">
+        <div class="stat-icon text-red-500">
+            <i class="fas fa-users"></i>
+        </div>
+        <div class="stat-content">
+            <h3 class="stat-value" id="totalParticipants">0</h3>
+            <p class="stat-label"><%= locale.dashboard.giveaway.stats.totalParticipants %></p>
+        </div>
+    </div>
+</div>
+
+<div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mt-6">
+    <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-bold text-gray-800 dark:text-white">
+            <%= locale.dashboard.giveaway.title %>
+        </h2>
+        <label class="switch-large">
+            <input type="checkbox" id="giveaway-enabled" 
+                   <%= settings.giveaway?.enabled ? 'checked' : '' %>>
+            <span class="slider-large"></span>
+        </label>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="form-group">
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <%= locale.dashboard.giveaway.defaultDuration %>
+            </label>
+            <div class="flex items-center gap-2">
+                <input type="number" id="giveaway-default-duration" class="input-field"
+                       value="<%= Math.floor(settings.giveaway?.defaultDuration / 3600000) %>"
+                       min="1">
+                <span class="text-sm text-gray-500">hours</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <%= locale.dashboard.giveaway.maxDuration %>
+            </label>
+            <div class="flex items-center gap-2">
+                <input type="number" id="giveaway-max-duration" class="input-field"
+                       value="<%= Math.floor(settings.giveaway?.maxDuration / 86400000) %>"
+                       min="1">
+                <span class="text-sm text-gray-500">days</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <%= locale.dashboard.giveaway.minWinners %>
+            </label>
+            <input type="number" id="giveaway-min-winners" class="input-field"
+                   value="<%= settings.giveaway?.minWinners %>"
+                   min="1" max="10">
+        </div>
+
+        <div class="form-group">
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <%= locale.dashboard.giveaway.maxWinners %>
+            </label>
+            <input type="number" id="giveaway-max-winners" class="input-field"
+                   value="<%= settings.giveaway?.maxWinners %>"
+                   min="1" max="50">
+        </div>
+    </div>
+
+    <div class="mb-6">
+        <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">
+            <%= locale.dashboard.giveaway.buttonSettings %>
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="form-group">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <%= locale.dashboard.giveaway.enterButton %>
+                </label>
+                <input type="text" id="giveaway-button-enter" class="input-field"
+                       value="<%= settings.giveaway?.buttons?.enter %>"
+                       maxlength="80">
+            </div>
+
+            <div class="form-group">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <%= locale.dashboard.giveaway.leaveButton %>
+                </label>
+                <input type="text" id="giveaway-button-leave" class="input-field"
+                       value="<%= settings.giveaway?.buttons?.leave %>"
+                       maxlength="80">
+            </div>
+
+            <div class="form-group">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <%= locale.dashboard.giveaway.rerollButton %>
+                </label>
+                <input type="text" id="giveaway-button-reroll" class="input-field"
+                       value="<%= settings.giveaway?.buttons?.reroll %>"
+                       maxlength="80">
+            </div>
+
+            <div class="form-group">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <%= locale.dashboard.giveaway.endButton %>
+                </label>
+                <input type="text" id="giveaway-button-end" class="input-field"
+                       value="<%= settings.giveaway?.buttons?.end %>"
+                       maxlength="80">
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-6">
+        <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">
+            <%= locale.dashboard.giveaway.embedSettings %>
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="form-group">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <%= locale.dashboard.giveaway.embedColor %>
+                </label>
+                <input type="color" id="giveaway-embed-color" class="input-field"
+                       value="<%= settings.giveaway?.embed?.color %>">
+            </div>
+
+            <div class="form-group">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <%= locale.dashboard.giveaway.embedThumbnail %>
+                </label>
+                <input type="text" id="giveaway-embed-thumbnail" class="input-field"
+                       value="<%= settings.giveaway?.embed?.thumbnail %>"
+                       placeholder="Thumbnail URL">
+            </div>
+
+            <div class="form-group col-span-2">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <%= locale.dashboard.giveaway.embedFooter %>
+                </label>
+                <input type="text" id="giveaway-embed-footer" class="input-field"
+                       value="<%= settings.giveaway?.embed?.footer %>"
+                       maxlength="2048">
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-6">
+        <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">
+            <%= locale.dashboard.giveaway.requirements %>
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="form-group">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <%= locale.dashboard.giveaway.minAccountAge %>
+                </label>
+                <div class="flex items-center gap-2">
+                    <input type="number" id="giveaway-min-account-age" class="input-field"
+                           value="<%= Math.floor(settings.giveaway?.minimumAccountAge / 86400000) %>"
+                           min="0">
+                    <span class="text-sm text-gray-500">days</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <%= locale.dashboard.giveaway.minGuildAge %>
+                </label>
+                <div class="flex items-center gap-2">
+                    <input type="number" id="giveaway-min-guild-age" class="input-field"
+                           value="<%= Math.floor(settings.giveaway?.minimumGuildAge / 86400000) %>"
+                           min="0">
+                    <span class="text-sm text-gray-500">days</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <%= locale.dashboard.giveaway.allowedRoles %>
+                </label>
+                <select multiple id="giveaway-allowed-roles" class="input-field min-h-[120px]">
+                    <% roles.forEach(role => { %>
+                        <option value="<%= role.id %>"
+                                <%= settings.giveaway?.allowedRoles?.includes(role.id) ? 'selected' : '' %>
+                                data-role-color="<%= role.color %>" style="color: <%= role.color %>">
+                            <%= role.name %>
+                        </option>
+                    <% }) %>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <%= locale.dashboard.giveaway.blacklistedRoles %>
+                </label>
+                <select multiple id="giveaway-blacklisted-roles" class="input-field min-h-[120px]">
+                    <% roles.forEach(role => { %>
+                        <option value="<%= role.id %>"
+                                <%= settings.giveaway?.blacklistedRoles?.includes(role.id) ? 'selected' : '' %>
+                                data-role-color="<%= role.color %>" style="color: <%= role.color %>">
+                            <%= role.name %>
+                        </option>
+                    <% }) %>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-6">
+        <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">
+            <%= locale.dashboard.giveaway.channelSettings %>
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="form-group">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <%= locale.dashboard.giveaway.allowedChannels %>
+                </label>
+                <select multiple id="giveaway-allowed-channels" class="input-field min-h-[120px]">
+                    <% channels.forEach(channel => { %>
+                        <option value="<%= channel.id %>"
+                                <%= settings.giveaway?.allowedChannels?.includes(channel.id) ? 'selected' : '' %>>
+                            #<%= channel.name %>
+                        </option>
+                    <% }) %>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <%= locale.dashboard.giveaway.blacklistedChannels %>
+                </label>
+                <select multiple id="giveaway-blacklisted-channels" class="input-field min-h-[120px]">
+                    <% channels.forEach(channel => { %>
+                        <option value="<%= channel.id %>"
+                                <%= settings.giveaway?.blacklistedChannels?.includes(channel.id) ? 'selected' : '' %>>
+                            #<%= channel.name %>
+                        </option>
+                    <% }) %>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="save-bar" id="saveBar">
+    <div class="save-bar-content">
+        <div class="save-bar-text">
+            <i class="fas fa-info-circle"></i>
+            <span><%= locale.dashboard.common.unsavedChanges %></span>
+        </div>
+        <div class="save-bar-buttons">
+            <button class="reset-button" id="resetGiveawaySettings">
+                <i class="fas fa-undo"></i>
+                <%= locale.dashboard.common.resetDefaults %>
+            </button>
+            <button class="save-button" id="saveGiveawaySettings">
+                <i class="fas fa-save"></i>
+                <%= locale.dashboard.common.saveChanges %>
+            </button>
+        </div>
+    </div>
+</div> 

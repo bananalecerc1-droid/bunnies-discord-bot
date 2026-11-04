@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="<%= locals.currentLang %>" dir="<%= locals.currentLang === 'ar' ? 'rtl' : 'ltr' %>">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= locals.title %></title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/dashboard-theme.css?v=55">
+    <link rel="stylesheet" href="/css/rules-style-pages.css?v=17">
+    <% if (locals.path === '/welcome') { %>
+        <link rel="stylesheet" href="/css/welcome.css?v=2">
+    <% } %>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/emoji-mart@latest/dist/browser.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/emoji-mart@latest/css/emoji-mart.css">
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+        <script src="/js/main.js?v=11"></script>
+    <script src="/js/theme.js?v=6"></script>
+    <script src="/js/utils.js"></script>
+    
+    <script>
+        console.log('Current path:', '<%= locals.path %>');
+    </script>
+    
+    <%
+    const pagePath = locals.path || '';
+    console.log('Detected page path:', pagePath);
+    %>
+    <%
+    const pageMatches = (pattern) => {
+        if (typeof pattern === 'string') {
+            const match = pagePath === pattern;
+            console.log(`Matching ${pattern} against ${pagePath}: ${match}`);
+            return match;
+        }
+        const match = pattern.test(pagePath);
+        console.log(`Matching ${pattern} against ${pagePath}: ${match}`);
+        return match;
+    };
+    
+    const pageScripts = [
+        { path: /^\/commands/, script: 'commands.js?v=2' },
+        { path: '/logs', script: 'logs.js' },
+        { path: '/protection', script: 'protection.js' },
+        { path: '/tickets', script: 'tickets.js' },
+        { path: '/apply', script: 'apply.js' },
+        { path: '/rules', script: 'rules.js' },
+        { path: '/giveaway', script: 'giveaway.js' },
+        { path: '/tempchannels', script: 'tempChannels.js' },
+        { path: '/autoreply', script: 'autoReply.js' },
+        { path: '/suggestions', script: 'suggestions.js' },
+        { path: '/settings', script: 'settings.js' },
+        { path: '/economy', script: 'economy.js?v=2' },
+        { path: '/embeds', script: 'embed-builder.js?v=9' },
+         { path: '/welcome', script: 'welcome-system.js?v=2' }
+    ];
+    
+    pageScripts.forEach(item => {
+        if (pageMatches(item.path)) { 
+    %>
+        <script src="/js/<%= item.script %>" defer></script>
+        <script>console.log('Loaded script: <%= item.script %> for path: <%= pagePath %>');</script>
+    <% 
+        }
+    });
+    %>
+
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes fadeOut {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(10px); }
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+        
+        .animate-fade-out {
+            animation: fadeOut 0.3s ease-out forwards;
+        }
+        
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+    </style>
+</head>
+<body class="dashboard-shell bg-gray-100 dark:bg-gray-900 <%= locals.path === '/settings' ? 'settings-page' : locals.path === '/leveling' ? 'leveling-page' : locals.path === '/autoreply' ? 'autoreply-page' : '' %>">
+    <header class="dashboard-topbar">
+        <div class="dashboard-topbar-brand"><span class="topbar-dot"></span><strong>BUNNIES</strong><span class="topbar-slash">/</span><span class="topbar-context"><%= currentLang === 'ar' ? 'لوحة تحكم السيرفر' : 'SERVER CONTROL CENTER' %></span></div>
+        <div class="dashboard-topbar-meta">
+            <span><i class="fas fa-circle online-dot"></i> <%= locale.dashboard.status.online %></span>
+            <span class="topbar-divider"></span>
+            <span>BUNNIES 001</span>
+            <button id="themeToggleTopbar" class="topbar-theme-toggle theme-toggle-control" type="button" aria-label="Switch to dark mode" title="Switch to dark mode" aria-pressed="false">
+                <i class="fas fa-moon" aria-hidden="true"></i>
+            </button>
+        </div>
+    </header>
+    <%- typeof renderPartial === 'function' ? renderPartial('sidebar') : '<div class="error">Sidebar could not be loaded</div>' %>
+    
+    <button id="mobileNavToggle" class="mobile-nav-toggle" aria-label="Toggle mobile navigation" aria-expanded="false">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <div id="mobileNavOverlay" class="mobile-nav-overlay"></div>
+
+    <div class="main-content">
+        <%- body %>
+    </div>
+    
+    <div id="mobileLangSelector" class="fixed bottom-0 left-0 right-0 transform translate-y-full transition-transform duration-300 ease-in-out bg-white dark:bg-gray-800 rounded-t-xl shadow-lg z-50 p-4">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-semibold text-gray-800 dark:text-white">🌐 <%= locale.dashboard.languageSelector %></h3>
+            <button id="closeMobileLang" class="p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="grid grid-cols-1 gap-3">
+            <a href="?lang=en" class="flex items-center p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition <%= currentLang === 'en' ? 'bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500' : '' %>">
+                <span class="w-8 h-6 relative overflow-hidden rounded mr-3">
+                    <img src="https://flagcdn.com/w40/us.png" alt="English" class="absolute inset-0 w-full h-full object-cover">
+                </span>
+                <span class="text-gray-800 dark:text-white">🇺🇸 English</span>
+                <% if (currentLang === 'en') { %>
+                    <i class="fas fa-check ml-auto text-blue-500"></i>
+                <% } %>
+            </a>
+            <a href="?lang=ar" class="flex items-center p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition <%= currentLang === 'ar' ? 'bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500' : '' %>" dir="rtl">
+                <span class="w-8 h-6 relative overflow-hidden rounded ml-3 mr-0">
+                    <img src="https://flagcdn.com/w40/sa.png" alt="العربية" class="absolute inset-0 w-full h-full object-cover">
+                </span>
+                <span class="text-gray-800 dark:text-white">🇸🇦 العربية</span>
+                <% if (currentLang === 'ar') { %>
+                    <i class="fas fa-check mr-auto ml-0 text-blue-500"></i>
+                <% } %>
+            </a>
+        </div>
+    </div>
+
+    <button id="mobileLangButton" class="fixed bottom-4 left-4 z-40 w-12 h-12 rounded-full bg-primary text-white shadow-lg flex items-center justify-center">
+        <i class="fas fa-globe"></i>
+    </button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileLangButton = document.getElementById('mobileLangButton');
+            const mobileLangSelector = document.getElementById('mobileLangSelector');
+            const closeMobileLang = document.getElementById('closeMobileLang');
+            
+            if (mobileLangButton && mobileLangSelector) {
+                mobileLangButton.addEventListener('click', function() {
+                    mobileLangSelector.classList.toggle('translate-y-full');
+                    mobileLangSelector.classList.toggle('translate-y-0');
+                });
+                
+                closeMobileLang.addEventListener('click', function() {
+                    mobileLangSelector.classList.add('translate-y-full');
+                    mobileLangSelector.classList.remove('translate-y-0');
+                });
+            }
+        });
+    </script>
+    
+    <%- typeof script !== 'undefined' ? script : '' %>
+    <%- defineContent('scripts') %>
+</body>
+</html> 

@@ -1,0 +1,46 @@
+<%- contentFor('body') %>
+
+<div class="space-y-6">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+        <div class="mb-6">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4"><%= locale.dashboard.commands.title %></h2>
+            <p class="text-gray-600 dark:text-gray-400"><%= locale.dashboard.commands.description || "Manage and configure all bot commands" %></p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <% categories.forEach(category => { %>
+                <a href="/commands/<%= category.id %>" class="bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded-lg p-6 transition-all transform hover:scale-105 hover:shadow-md">
+                    <div class="flex items-center space-x-4 mb-4">
+                        <div class="bg-<%= category.color %>-100 dark:bg-<%= category.color %>-900 p-3 rounded-full">
+                            <i class="fas fa-<%= category.icon %> text-<%= category.color %>-500 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-white"><%= category.name %></h3>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4">
+                        <%= locale.dashboard.commands[`${category.id}Description`] || `Manage ${category.name.toLowerCase()} commands` %>
+                    </p>
+                    <div class="flex items-center text-<%= category.color %>-500">
+                        <span><%= locale.dashboard.commands.manageCategory %></span>
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </div>
+                </a>
+            <% }) %>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        const response = await fetch('/api/commands/list');
+        const data = await response.json();
+        
+        if (data.success) {
+            console.log('Available commands:', data.allCommands);
+            console.log('Commands by category:', data.categories);
+        }
+    } catch (error) {
+        console.error('Error fetching commands:', error);
+    }
+});
+</script> 

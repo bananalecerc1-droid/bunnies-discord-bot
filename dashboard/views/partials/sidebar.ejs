@@ -1,0 +1,135 @@
+<div class="sidebar app-sidebar animate-mobile fixed inset-y-0 left-0 w-64 bg-white dark:bg-gray-800 shadow-xl border-r border-gray-200 dark:border-gray-700 z-60">
+    <div class="flex flex-col h-full">
+        <nav class="sidebar-content flex-1 px-4 py-4 overflow-y-auto custom-scrollbar">
+            <div class="mb-6 transform hover:scale-[1.01] transition-transform">
+                <div class="space-y-1">
+                    <a href="/" class="nav-link flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 rounded-xl transition-all duration-300 group <%= path === '/' ? 'active bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-900/10 border-r-4 border-blue-500' : '' %>">
+                        <i class="fas fa-home w-6 text-gray-400 group-hover:text-blue-500 transform group-hover:scale-110 transition-transform"></i>
+                        <span class="ml-2"><%= locale.dashboard.navigation.home || (currentLang === 'ar' ? 'الرئيسية' : 'Home') %></span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="nav-section mb-6 transform hover:scale-[1.01] transition-transform">
+                <h2 class="nav-section-title px-4 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3 flex items-center">
+                    <%= currentLang === 'ar' ? 'الأوامر' : 'COMMANDS' %>
+                </h2>
+                <div class="nav-links space-y-1">
+                    <a href="/commands/general" class="nav-link flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 rounded-xl transition-all duration-300 group <%= path.startsWith('/commands/general') ? 'active bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-900/10 border-r-4 border-blue-500' : '' %>">
+                        <i class="fas fa-terminal w-6 text-gray-400 group-hover:text-blue-500 transform group-hover:scale-110 transition-transform"></i>
+                        <span class="ml-2"><%= currentLang === 'ar' ? 'الأوامر العامة' : 'General Commands' %></span>
+                    </a>
+                    <a href="/commands/moderation" class="nav-link flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 rounded-xl transition-all duration-300 group <%= path.startsWith('/commands/moderation') ? 'active bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-900/10 border-r-4 border-blue-500' : '' %>">
+                        <i class="fas fa-shield-alt w-6 text-gray-400 group-hover:text-blue-500 transform group-hover:scale-110 transition-transform"></i>
+                        <span class="ml-2"><%= currentLang === 'ar' ? 'أوامر الإشراف' : 'Moderation Commands' %></span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="mb-6 transform hover:scale-[1.01] transition-transform">
+                <h2 class="px-4 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3 flex items-center">
+                    <%= currentLang === 'ar' ? 'الإعدادات' : 'CONFIGURATION' %>
+                </h2>
+                <div class="space-y-1">
+                    <% const configLinks = [
+                        { path: '/logs', icon: 'fa-history', name: 'logs' },
+                        { path: '/protection', icon: 'fa-shield-alt', name: 'protection' },
+                        { path: '/tickets', icon: 'fa-ticket-alt', name: 'tickets' },
+                        { path: '/rules', icon: 'fa-gavel', name: 'rules' },
+                        { path: '/suggestions', icon: 'fa-lightbulb', name: 'suggestions' },
+                        { path: '/apply', icon: 'fa-user-plus', name: 'apply' },
+                        { path: '/giveaway', icon: 'fa-gift', name: 'giveaway' },
+                        { path: '/tempChannels', icon: 'fa-microphone', name: 'tempChannels' },
+                        { path: '/autoreply', icon: 'fa-reply', name: 'autoReply' },
+                        { path: '/leveling', icon: 'fa-chart-line', name: 'leveling' },
+                        { path: '/economy', icon: 'fa-coins', name: 'economy' },
+                        { path: '/embeds', icon: 'fa-layer-group', name: 'embedBuilder' },
+                        { path: '/welcome', icon: 'fa-hand-sparkles', name: 'welcomeSystem' }
+                    ] %>
+                    
+                    <% configLinks.forEach(link => { %>
+                        <a href="<%= link.path %>" 
+                           class="nav-link flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 rounded-xl transition-all duration-300 group <%= path === link.path ? 'active bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-900/10 border-r-4 border-blue-500' : '' %>">
+                            <i class="fas <%= link.icon %> w-6 text-gray-400 group-hover:text-blue-500 transform group-hover:scale-110 transition-transform"></i>
+                             <span class="ml-2"><%= locale.dashboard.navigation[link.name] || 'Embed Studio' %></span>
+                        </a>
+                    <% }) %>
+                </div>
+            </div>
+
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="sidebar-status-card" title="<%= locale.dashboard.status.online %>">
+                <span class="status-indicator" aria-hidden="true"></span>
+                <span class="sidebar-status-copy"><%= locale.dashboard.status.online %></span>
+            </div>
+
+            <div class="sidebar-footer-actions">
+                <button id="themeToggle" class="sidebar-footer-action sidebar-theme-toggle theme-toggle-control" type="button" aria-label="Switch to dark mode" title="Switch to dark mode" aria-pressed="false">
+                    <i class="fas fa-moon" aria-hidden="true"></i>
+                </button>
+                <label class="sidebar-footer-action sidebar-language-control" title="<%= locale.dashboard.languageSelector %>">
+                    <i class="fas fa-globe" aria-hidden="true"></i>
+                    <select id="languageSelect" aria-label="<%= locale.dashboard.languageSelector %>">
+                        <option value="en" <%= currentLang === 'en' ? 'selected' : '' %>>English</option>
+                        <option value="ar" <%= currentLang === 'ar' ? 'selected' : '' %>>العربية</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(99, 102, 241, 0.2);
+    border-radius: 2px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(99, 102, 241, 0.4);
+}
+
+@keyframes status-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+
+.status-indicator {
+    animation: status-pulse 2s infinite;
+}
+
+.nav-link {
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #3B82F6;
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.active.nav-link::after {
+    width: 100%;
+}
+</style>

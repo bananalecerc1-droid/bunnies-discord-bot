@@ -1,0 +1,1147 @@
+<%- contentFor('body') %>
+
+<div class="mb-6 hidden md:hidden">
+    <h1 class="text-2xl font-bold text-gray-800 dark:text-white mb-2"><%= locale.dashboard.protection.title %></h1>
+    <p class="text-gray-600 dark:text-gray-400"><%= locale.dashboard.protection.description %></p>
+</div>
+
+<div class="stats-grid">
+    <div class="stat-card blue-glow fade-in-mobile">
+        <div class="stat-icon text-blue-500">
+            <i class="fas fa-shield-alt"></i>
+        </div>
+        <div class="stat-content">
+            <h3 class="stat-value" id="activeProtections">0</h3>
+            <p class="stat-label"><%= locale.dashboard.protection.stats.activeProtections %></p>
+        </div>
+    </div>
+    
+    <div class="stat-card green-glow fade-in-mobile" style="animation-delay: 0.1s;">
+        <div class="stat-icon text-green-500">
+            <i class="fas fa-user-shield"></i>
+        </div>
+        <div class="stat-content">
+            <h3 class="stat-value" id="protectedRoles">0</h3>
+            <p class="stat-label"><%= locale.dashboard.protection.stats.protectedRoles %></p>
+        </div>
+    </div>
+
+    <div class="stat-card purple-glow fade-in-mobile" style="animation-delay: 0.2s;">
+        <div class="stat-icon text-purple-500">
+            <i class="fas fa-robot"></i>
+        </div>
+        <div class="stat-content">
+            <h3 class="stat-value" id="whitelistedBots">0</h3>
+            <p class="stat-label"><%= locale.dashboard.protection.stats.whitelistedBots %></p>
+        </div>
+    </div>
+
+    <div class="stat-card red-glow fade-in-mobile" style="animation-delay: 0.3s;">
+        <div class="stat-icon text-red-500">
+            <i class="fas fa-ban"></i>
+        </div>
+        <div class="stat-content">
+            <h3 class="stat-value" id="blockedActions">0</h3>
+            <p class="stat-label"><%= locale.dashboard.protection.stats.actionsBlocked %></p>
+        </div>
+    </div>
+</div>
+
+<div class="px-4 mt-6 px-2 sm:px-4">
+    <div class="flex items-center gap-4 flex-wrap sm:flex-nowrap">
+        <div class="section-icon">
+            <i class="fas fa-scroll"></i>
+        </div>
+        <div class="select-container flex-1" style="margin-top: 0">
+            <label class="select-label mb-2">Protection Log Channel</label>
+            <select class="action-type-select" id="protection-logChannel">
+                <option value="">None</option>
+                <% channels.forEach(channel => { %>
+                    <option value="<%= channel.id %>"
+                            <%= settings.protection?.logChannelId === channel.id ? 'selected' : '' %>>
+                        <%= channel.name %>
+                    </option>
+                <% }); %>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="protection-grid px-4 mt-4">
+    <div class="protection-card">
+        <div class="section-header">
+            <div class="section-title">
+                <div class="section-icon">
+                    <i class="fas fa-shield-virus"></i>
+                </div>
+                <h2><%= locale.dashboard.protection.antispam.title %></h2>
+            </div>
+            <label class="switch-large">
+                <input type="checkbox" id="antispam-enabled" class="protection-toggle" data-section="antispam"
+                       <%= settings.protection?.antispam?.enabled ? 'checked' : '' %>>
+                <span class="slider-large"></span>
+            </label>
+        </div>
+
+        <div class="protection-body" id="antispam-settings">
+            <div class="control-group">
+                <div class="slider-container">
+                    <label class="control-label"><%= locale.dashboard.protection.antispam.messageLimit %></label>
+                    <span class="slider-value" id="antispam-messageLimit-value">
+                        <%= settings.protection?.antispam?.limits?.messageLimit || 5 %>
+                    </span>
+                    <input type="range" class="slider-input" 
+                           min="1" max="20" step="1"
+                           value="<%= settings.protection?.antispam?.limits?.messageLimit || 5 %>"
+                           id="antispam-messageLimit">
+                </div>
+
+                <div class="slider-container">
+                    <label class="control-label"><%= locale.dashboard.protection.common.timeWindow %></label>
+                    <span class="slider-value" id="antispam-timeWindow-value">
+                        <%= (settings.protection?.antispam?.limits?.timeWindow || 3000) / 1000 %>s
+                    </span>
+                    <input type="range" class="slider-input"
+                           min="1" max="30" step="1"
+                           value="<%= (settings.protection?.antispam?.limits?.timeWindow || 3000) / 1000 %>"
+                           id="antispam-timeWindow">
+                </div>
+
+                <div class="slider-container">
+                    <label class="control-label">Duplicate Limit</label>
+                    <span class="slider-value" id="antispam-duplicateLimit-value">
+                        <%= settings.protection?.antispam?.limits?.duplicateLimit || 3 %>
+                    </span>
+                    <input type="range" class="slider-input"
+                           min="1" max="10" step="1"
+                           value="<%= settings.protection?.antispam?.limits?.duplicateLimit || 3 %>"
+                           id="antispam-duplicateLimit">
+                </div>
+
+                <div class="select-container">
+                    <label class="select-label"><%= locale.dashboard.protection.antispam.ignoredChannels %></label>
+                    <div class="channel-selector" id="antispam-ignoredChannels">
+                        <div class="selected-channels">
+                            <% (settings.protection?.antispam?.action?.ignoredChannels || []).forEach(channelId => { 
+                                const channel = channels.find(c => c.id === channelId);
+                                if (channel) { %>
+                                    <div class="selected-channel" data-channel-id="<%= channel.id %>">
+                                        <span><i class="fas fa-hashtag"></i> <%= channel.name %></span>
+                                        <i class="fas fa-times remove-channel"></i>
+                                    </div>
+                                <% }
+                            }); %>
+                        </div>
+                        <div class="channel-dropdown">
+                            <% channels.forEach(channel => { %>
+                                <div class="channel-option" 
+                                     data-channel-id="<%= channel.id %>"
+                                     data-channel-name="<%= channel.name %>">
+                                    <i class="fas fa-hashtag"></i>
+                                    <%= channel.name %>
+                                </div>
+                            <% }); %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group mt-6 pt-6 border-t border-gray-700">
+                <label class="control-label"><%= locale.dashboard.protection.common.actionType %></label>
+                <select class="action-type-select" id="antispam-actionType">
+                    <% ['timeout', 'kick', 'ban', 'removeRoles'].forEach(type => { %>
+                        <option value="<%= type %>" 
+                                <%= settings.protection?.antispam?.action?.type === type ? 'selected' : '' %>>
+                            <%= type.charAt(0).toUpperCase() + type.slice(1) %>
+                        </option>
+                    <% }) %>
+                </select>
+
+                <div id="antispam-duration-container" class="mt-4">
+                    <label class="control-label">Timeout Duration (minutes)</label>
+                    <input type="number" class="text-input"
+                           id="antispam-duration"
+                           value="<%= (settings.protection?.antispam?.action?.duration || 300000) / 60000 %>"
+                           min="1" max="60">
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <label class="control-label"><%= locale.dashboard.protection.common.ignoredRoles %></label>
+                <div class="role-selector" id="antispam-ignoredRoles">
+                    <div class="selected-roles">
+                        <% (settings.protection?.antispam?.action?.ignoredRoles || []).forEach(roleId => { 
+                            const role = roles.find(r => r.id === roleId);
+                            if (role) { %>
+                                <div class="selected-role" data-role-id="<%= role.id %>">
+                                    <span style="color: '<%= role.color %>'"><%= role.name %></span>
+                                    <i class="fas fa-times remove-role"></i>
+                                </div>
+                            <% }
+                        }); %>
+                    </div>
+                    <div class="role-dropdown">
+                        <% roles.forEach(role => { %>
+                            <div class="role-option" 
+                                 data-role-id="<%= role.id %>"
+                                 data-role-name="<%= role.name %>"
+                                 style="color: '<%= role.color %>'">
+                                <%= role.name %>
+                            </div>
+                        <% }); %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="protection-card">
+        <div class="protection-header server">
+            <div class="flex items-center space-x-3">
+                <div class="header-icon">
+                    <i class="fas fa-server"></i>
+                </div>
+                <h2 class="text-lg font-semibold text-white"><%= locale.dashboard.protection.server.title %></h2>
+            </div>
+            <label class="switch-large">
+                <input type="checkbox" id="server-enabled" class="protection-toggle" data-section="server"
+                       <%= settings.protection?.server?.enabled ? 'checked' : '' %>>
+                <span class="slider-large"></span>
+            </label>
+        </div>
+
+        <div class="protection-body" id="server-settings">
+            <div class="control-group">
+                <div class="slider-container">
+                    <label class="control-label"><%= locale.dashboard.protection.server.updateLimit %></label>
+                    <span class="slider-value" id="server-updateLimit-value">
+                        <%= settings.protection?.server?.limits?.updateLimit || 1 %>
+                    </span>
+                    <input type="range" class="slider-input"
+                           min="1" max="10" step="1"
+                           value="<%= settings.protection?.server?.limits?.updateLimit || 1 %>"
+                           id="server-updateLimit">
+                </div>
+
+                <div class="slider-container">
+                    <label class="control-label"><%= locale.dashboard.protection.common.timeWindow %></label>
+                    <span class="slider-value" id="server-timeWindow-value">
+                        <%= (settings.protection?.server?.limits?.timeWindow || 10000) / 1000 %>s
+                    </span>
+                    <input type="range" class="slider-input"
+                           min="5" max="60" step="5"
+                           value="<%= (settings.protection?.server?.limits?.timeWindow || 10000) / 1000 %>"
+                           id="server-timeWindow">
+                </div>
+            </div>
+
+            <div class="control-group mt-6 pt-6 border-t border-gray-700">
+                <label class="control-label"><%= locale.dashboard.protection.common.actionType %></label>
+                <select class="action-type-select" id="server-actionType">
+                    <% ['timeout', 'kick', 'ban', 'removeRoles'].forEach(type => { %>
+                        <option value="<%= type %>" 
+                                <%= settings.protection?.server?.action?.type === type ? 'selected' : '' %>>
+                            <%= type.charAt(0).toUpperCase() + type.slice(1) %>
+                        </option>
+                    <% }) %>
+                </select>
+
+                <div id="server-duration-container" class="mt-4">
+                    <label class="control-label">Timeout Duration (minutes)</label>
+                    <input type="number" class="text-input"
+                           id="server-duration"
+                           value="<%= (settings.protection?.server?.action?.duration || 300000) / 60000 %>"
+                           min="1" max="60">
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <label class="control-label"><%= locale.dashboard.protection.common.ignoredRoles %></label>
+                <div class="role-selector" id="server-ignoredRoles">
+                    <div class="selected-roles"></div>
+                    <div class="role-dropdown">
+                        <% roles.forEach(role => { %>
+                            <div class="role-option" 
+                                 data-role-id="<%= role.id %>" 
+                                 data-role-name="<%= role.name %>"
+                                 style="color: '<%= role.hexColor || '#ffffff' %>'">
+                                <%= role.name %>
+                            </div>
+                        <% }); %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="protection-card">
+        <div class="protection-header antibot">
+            <div class="flex items-center space-x-3">
+                <div class="header-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h2 class="text-lg font-semibold text-white"><%= locale.dashboard.protection.antibot.title %></h2>
+            </div>
+            <label class="switch-large">
+                <input type="checkbox" id="antibot-enabled" class="protection-toggle" data-section="antibot"
+                       <%= settings.protection?.antibot?.enabled ? 'checked' : '' %>>
+                <span class="slider-large"></span>
+            </label>
+        </div>
+
+        <div class="protection-body" id="antibot-settings">
+            <div class="control-group">
+                <div class="whitelist-container">
+                    <label class="select-label"><%= locale.dashboard.protection.antibot.whitelistedBots %></label>
+                    <div class="bot-input-group">
+                        <input type="text" class="text-input" id="bot-id-input"
+                               placeholder="Enter bot IDs separated by commas">
+                        <button class="add-bot-btn primary-button" id="add-bot-btn">
+                            <i class="fas fa-plus"></i> Add Bot
+                        </button>
+                    </div>
+                    <div class="whitelisted-bots-list" id="whitelisted-bots-list">
+                        <% (settings.protection?.antibot?.whitelistedBots || []).forEach(botId => { %>
+                            <div class="bot-item" data-bot-id="<%= botId %>">
+                                <span><%= botId %></span>
+                                <i class="fas fa-times remove-bot"></i>
+                            </div>
+                        <% }); %>
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group mt-6 pt-6 border-t border-gray-700">
+                <label class="control-label">Action Type</label>
+                <select class="action-type-select" id="antibot-actionType">
+                    <% ['removeRoles', 'kick', 'ban'].forEach(type => { %>
+                        <option value="<%= type %>" 
+                                <%= settings.protection?.antibot?.action?.type === type ? 'selected' : '' %>>
+                            <%= type.charAt(0).toUpperCase() + type.slice(1) %>
+                        </option>
+                    <% }) %>
+                </select>
+            </div>
+
+            <div class="mt-4">
+                <label class="select-label"><%= locale.dashboard.protection.common.ignoredRoles %></label>
+                <div class="role-selector" id="antibot-ignoredRoles">
+                    <div class="selected-roles">
+                        <% (settings.protection?.antibot?.action?.ignoredRoles || []).forEach(roleId => { 
+                            const role = roles.find(r => r.id === roleId);
+                            if (role) { %>
+                                <div class="selected-role" data-role-id="<%= role.id %>">
+                                    <span style="color: '<%= role.hexColor || '#ffffff' %>'"><%= role.name %></span>
+                                    <i class="fas fa-times remove-role"></i>
+                                </div>
+                            <% }
+                        }); %>
+                    </div>
+                    <div class="role-dropdown">
+                        <% roles.forEach(role => { %>
+                            <div class="role-option" 
+                                 data-role-id="<%= role.id %>"
+                                 data-role-name="<%= role.name %>"
+                                 style="color: '<%= role.hexColor || '#ffffff' %>'">
+                                <%= role.name %>
+                            </div>
+                        <% }); %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="protection-card">
+        <div class="protection-header role">
+            <div class="flex items-center space-x-3">
+                <div class="header-icon">
+                    <i class="fas fa-user-tag"></i>
+                </div>
+                <h2 class="text-lg font-semibold text-white"><%= locale.dashboard.protection.role.title %></h2>
+            </div>
+            <label class="switch-large">
+                <input type="checkbox" id="role-enabled" class="protection-toggle" data-section="role"
+                       <%= settings.protection?.role?.enabled ? 'checked' : '' %>>
+                <span class="slider-large"></span>
+            </label>
+        </div>
+
+        <div class="protection-body" id="role-settings">
+            <div class="control-group">
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div class="slider-container">
+                        <label class="control-label"><%= locale.dashboard.protection.role.createLimit %></label>
+                        <span class="slider-value" id="role-createLimit-value">
+                            <%= settings.protection?.role?.limits?.createLimit || 3 %>
+                        </span>
+                        <input type="range" class="slider-input"
+                               min="1" max="10" step="1"
+                               value="<%= settings.protection?.role?.limits?.createLimit || 3 %>"
+                               id="role-createLimit">
+                    </div>
+                    <div class="slider-container">
+                        <label class="control-label"><%= locale.dashboard.protection.role.deleteLimit %></label>
+                        <span class="slider-value" id="role-deleteLimit-value">
+                            <%= settings.protection?.role?.limits?.deleteLimit || 3 %>
+                        </span>
+                        <input type="range" class="slider-input"
+                               min="1" max="10" step="1"
+                               value="<%= settings.protection?.role?.limits?.deleteLimit || 3 %>"
+                               id="role-deleteLimit">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="slider-container">
+                        <label class="control-label"><%= locale.dashboard.protection.role.updateLimit %></label>
+                        <span class="slider-value" id="role-updateLimit-value">
+                            <%= settings.protection?.role?.limits?.updateLimit || 5 %>
+                        </span>
+                        <input type="range" class="slider-input"
+                               min="1" max="15" step="1"
+                               value="<%= settings.protection?.role?.limits?.updateLimit || 5 %>"
+                               id="role-updateLimit">
+                    </div>
+                    <div class="slider-container">
+                        <label class="control-label"><%= locale.dashboard.protection.role.addLimit %></label>
+                        <span class="slider-value" id="role-addLimit-value">
+                            <%= settings.protection?.role?.limits?.addLimit || 5 %>
+                        </span>
+                        <input type="range" class="slider-input"
+                               min="1" max="15" step="1"
+                               value="<%= settings.protection?.role?.limits?.addLimit || 5 %>"
+                               id="role-addLimit">
+                    </div>
+                    <div class="slider-container">
+                        <label class="control-label"><%= locale.dashboard.protection.role.removeLimit %></label>
+                        <span class="slider-value" id="role-removeLimit-value">
+                            <%= settings.protection?.role?.limits?.removeLimit || 5 %>
+                        </span>
+                        <input type="range" class="slider-input"
+                               min="1" max="15" step="1"
+                               value="<%= settings.protection?.role?.limits?.removeLimit || 5 %>"
+                               id="role-removeLimit">
+                    </div>
+                </div>
+
+                <div class="slider-container mt-4">
+                    <label class="control-label"><%= locale.dashboard.protection.common.timeWindow %></label>
+                    <span class="slider-value" id="role-timeWindow-value">
+                        <%= (settings.protection?.role?.limits?.timeWindow || 10000) / 1000 %>s
+                    </span>
+                    <input type="range" class="slider-input"
+                           min="5" max="60" step="5"
+                           value="<%= (settings.protection?.role?.limits?.timeWindow || 10000) / 1000 %>"
+                           id="role-timeWindow">
+                </div>
+            </div>
+
+            <div class="control-group mt-6 pt-6 border-t border-gray-700">
+                <label class="control-label"><%= locale.dashboard.protection.common.actionType %></label>
+                <select class="action-type-select" id="role-actionType">
+                    <% ['removeRoles', 'kick', 'ban'].forEach(type => { %>
+                        <option value="<%= type %>" 
+                                <%= settings.protection?.role?.action?.type === type ? 'selected' : '' %>>
+                            <%= type.charAt(0).toUpperCase() + type.slice(1) %>
+                        </option>
+                    <% }) %>
+                </select>
+
+                <div id="role-duration-container" class="mt-4">
+                    <label class="control-label">Timeout Duration (minutes)</label>
+                    <input type="number" class="text-input"
+                           id="role-duration"
+                           value="<%= (settings.protection?.role?.action?.duration || 300000) / 60000 %>"
+                           min="1" max="60">
+                </div>
+            </div>
+
+            <div class="mt-4 p-4 rounded-lg border border-red-500/30 bg-red-500/5">
+                <label class="control-label"><%= locale.dashboard.protection.role.protectedRoles %></label>
+                <p class="text-xs text-gray-400 mb-3"><%= locale.dashboard.protection.role.protectedRolesDescription %></p>
+                <div class="control-group mb-4"><label class="control-label">Protected-role removals per user per day</label><input type="number" class="text-input" id="role-protectedRoleRemoveLimit" min="1" max="100" value="<%= settings.protection?.role?.action?.protectedRoleRemoveLimit || 4 %>"><p class="text-xs text-gray-400 mt-1">After this limit, the user's roles are removed.</p></div>
+                <div class="role-selector" id="role-protectedRoles">
+                    <div class="selected-roles">
+                        <% (settings.protection?.role?.action?.protectedRoles || []).forEach(roleId => {
+                            const role = roles.find(r => r.id === roleId);
+                            if (role) { %>
+                                <div class="selected-role" data-role-id="<%= role.id %>">
+                                    <span style="color: '<%= role.hexColor || '#ffffff' %>'"><%= role.name %></span>
+                                    <i class="fas fa-times remove-role"></i>
+                                </div>
+                            <% }
+                        }); %>
+                    </div>
+                    <div class="role-dropdown">
+                        <% roles.forEach(role => { %>
+                            <div class="role-option" data-role-id="<%= role.id %>" data-role-name="<%= role.name %>" style="color: '<%= role.hexColor || '#ffffff' %>'"><%= role.name %></div>
+                        <% }); %>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <label class="control-label"><%= locale.dashboard.protection.common.ignoredRoles %></label>
+                <div class="role-selector" id="role-ignoredRoles">
+                    <div class="selected-roles"></div>
+                    <div class="role-dropdown">
+                        <% roles.forEach(role => { %>
+                            <div class="role-option" 
+                                 data-role-id="<%= role.id %>" 
+                                 data-role-name="<%= role.name %>"
+                                 style="color: '<%= role.hexColor || '#ffffff' %>'">
+                                <%= role.name %>
+                            </div>
+                        <% }); %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="protection-card">
+        <div class="protection-header channel">
+            <div class="flex items-center space-x-3">
+                <div class="header-icon">
+                    <i class="fas fa-hashtag"></i>
+                </div>
+                <h2 class="text-lg font-semibold text-white"><%= locale.dashboard.protection.channel.title %></h2>
+            </div>
+            <label class="switch-large">
+                <input type="checkbox" id="channel-enabled" class="protection-toggle" data-section="channel"
+                       <%= settings.protection?.channel?.enabled ? 'checked' : '' %>>
+                <span class="slider-large"></span>
+            </label>
+        </div>
+
+        <div class="protection-body" id="channel-settings">
+            <div class="control-group">
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="slider-container">
+                        <label class="control-label"><%= locale.dashboard.protection.channel.createLimit %></label>
+                        <span class="slider-value" id="channel-createLimit-value">
+                            <%= settings.protection?.channel?.limits?.createLimit || 3 %>
+                        </span>
+                        <input type="range" class="slider-input"
+                               min="1" max="10" step="1"
+                               value="<%= settings.protection?.channel?.limits?.createLimit || 3 %>"
+                               id="channel-createLimit">
+                    </div>
+                    <div class="slider-container">
+                        <label class="control-label"><%= locale.dashboard.protection.channel.deleteLimit %></label>
+                        <span class="slider-value" id="channel-deleteLimit-value">
+                            <%= settings.protection?.channel?.limits?.deleteLimit || 3 %>
+                        </span>
+                        <input type="range" class="slider-input"
+                               min="1" max="10" step="1"
+                               value="<%= settings.protection?.channel?.limits?.deleteLimit || 3 %>"
+                               id="channel-deleteLimit">
+                    </div>
+                    <div class="slider-container">
+                        <label class="control-label"><%= locale.dashboard.protection.channel.updateLimit %></label>
+                        <span class="slider-value" id="channel-updateLimit-value">
+                            <%= settings.protection?.channel?.limits?.updateLimit || 5 %>
+                        </span>
+                        <input type="range" class="slider-input"
+                               min="1" max="15" step="1"
+                               value="<%= settings.protection?.channel?.limits?.updateLimit || 5 %>"
+                               id="channel-updateLimit">
+                    </div>
+                </div>
+
+                <div class="slider-container mt-4">
+                    <label class="control-label"><%= locale.dashboard.protection.common.timeWindow %></label>
+                    <span class="slider-value" id="channel-timeWindow-value">
+                        <%= (settings.protection?.channel?.limits?.timeWindow || 10000) / 1000 %>s
+                    </span>
+                    <input type="range" class="slider-input"
+                           min="5" max="60" step="5"
+                           value="<%= (settings.protection?.channel?.limits?.timeWindow || 10000) / 1000 %>"
+                           id="channel-timeWindow">
+                </div>
+            </div>
+
+            <div class="control-group mt-6 pt-6 border-t border-gray-700">
+                <label class="control-label">Action Type</label>
+                <select class="action-type-select" id="channel-actionType">
+                    <% ['removeRoles', 'kick', 'ban'].forEach(type => { %>
+                        <option value="<%= type %>" 
+                                <%= settings.protection?.channel?.action?.type === type ? 'selected' : '' %>>
+                            <%= type.charAt(0).toUpperCase() + type.slice(1) %>
+                        </option>
+                    <% }) %>
+                </select>
+            </div>
+
+            <div class="mt-4">
+                <label class="control-label"><%= locale.dashboard.protection.common.ignoredRoles %></label>
+                <div class="role-selector" id="channel-ignoredRoles">
+                    <div class="selected-roles"></div>
+                    <div class="role-dropdown">
+                        <% roles.forEach(role => { %>
+                            <div class="role-option" 
+                                 data-role-id="<%= role.id %>" 
+                                 data-role-name="<%= role.name %>"
+                                 style="color: '<%= role.hexColor || '#ffffff' %>'">
+                                <%= role.name %>
+                            </div>
+                        <% }); %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="protection-card">
+        <div class="protection-header timeout">
+            <div class="flex items-center space-x-3">
+                <div class="header-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <h2 class="text-lg font-semibold text-white"><%= locale.dashboard.protection.timeout.title %></h2>
+            </div>
+            <label class="switch-large">
+                <input type="checkbox" id="timeout-enabled" class="protection-toggle" data-section="timeout"
+                       <%= settings.protection?.timeout?.enabled ? 'checked' : '' %>>
+                <span class="slider-large"></span>
+            </label>
+        </div>
+
+        <div class="protection-body" id="timeout-settings">
+            <div class="control-group">
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="slider-container">
+                        <label class="control-label"><%= locale.dashboard.protection.timeout.timeoutLimit %></label>
+                        <span class="slider-value" id="timeout-timeoutLimit-value">
+                            <%= settings.protection?.timeout?.limits?.timeoutLimit || 3 %>
+                        </span>
+                        <input type="range" class="slider-input"
+                               min="1" max="10" step="1"
+                               value="<%= settings.protection?.timeout?.limits?.timeoutLimit || 3 %>"
+                               id="timeout-timeoutLimit">
+                    </div>
+                    <div class="slider-container">
+                        <label class="control-label"><%= locale.dashboard.protection.timeout.untimeoutLimit %></label>
+                        <span class="slider-value" id="timeout-untimeoutLimit-value">
+                            <%= settings.protection?.timeout?.limits?.untimeoutLimit || 3 %>
+                        </span>
+                        <input type="range" class="slider-input"
+                               min="1" max="10" step="1"
+                               value="<%= settings.protection?.timeout?.limits?.untimeoutLimit || 3 %>"
+                               id="timeout-untimeoutLimit">
+                    </div>
+                </div>
+
+                <div class="slider-container mt-4">
+                    <label class="control-label">Time Window (seconds)</label>
+                    <span class="slider-value" id="timeout-timeWindow-value">
+                        <%= (settings.protection?.timeout?.limits?.timeWindow || 10000) / 1000 %>s
+                    </span>
+                    <input type="range" class="slider-input"
+                           min="5" max="60" step="5"
+                           value="<%= (settings.protection?.timeout?.limits?.timeWindow || 10000) / 1000 %>"
+                           id="timeout-timeWindow">
+                </div>
+            </div>
+
+            <div class="control-group mt-6 pt-6 border-t border-gray-700">
+                <label class="control-label">Action Type</label>
+                <select class="action-type-select" id="timeout-actionType">
+                    <% ['removeRoles', 'kick', 'ban'].forEach(type => { %>
+                        <option value="<%= type %>" 
+                                <%= settings.protection?.timeout?.action?.type === type ? 'selected' : '' %>>
+                            <%= type.charAt(0).toUpperCase() + type.slice(1) %>
+                        </option>
+                    <% }) %>
+                </select>
+
+                <div id="timeout-duration-container" class="mt-4">
+                    <label class="control-label">Timeout Duration (minutes)</label>
+                    <input type="number" class="text-input"
+                           id="timeout-duration"
+                           value="<%= (settings.protection?.timeout?.action?.duration || 300000) / 60000 %>"
+                           min="1" max="60">
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <label class="control-label"><%= locale.dashboard.protection.common.ignoredRoles %></label>
+                <div class="role-selector" id="timeout-ignoredRoles">
+                    <div class="selected-roles"></div>
+                    <div class="role-dropdown">
+                        <% roles.forEach(role => { %>
+                            <div class="role-option" 
+                                 data-role-id="<%= role.id %>" 
+                                 data-role-name="<%= role.name %>"
+                                 style="color: '<%= role.hexColor || '#ffffff' %>'">
+                                <%= role.name %>
+                            </div>
+                        <% }); %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="protection-card">
+        <div class="protection-header moderation">
+            <div class="flex items-center space-x-3">
+                <div class="header-icon">
+                    <i class="fas fa-gavel"></i>
+                </div>
+                <h2 class="text-lg font-semibold text-white"><%= locale.dashboard.protection.moderation.title %></h2>
+            </div>
+            <label class="switch-large">
+                <input type="checkbox" id="moderation-enabled" class="protection-toggle" data-section="moderation"
+                       <%= settings.protection?.moderation?.enabled ? 'checked' : '' %>>
+                <span class="slider-large"></span>
+            </label>
+        </div>
+
+        <div class="protection-body" id="moderation-settings">
+            <div class="control-group">
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="slider-container">
+                        <label class="control-label"><%= locale.dashboard.protection.moderation.kickLimit %></label>
+                        <span class="slider-value" id="moderation-kickLimit-value">
+                            <%= settings.protection?.moderation?.limits?.kickLimit || 1 %>
+                        </span>
+                        <input type="range" class="slider-input"
+                               min="1" max="10" step="1"
+                               value="<%= settings.protection?.moderation?.limits?.kickLimit || 1 %>"
+                               id="moderation-kickLimit">
+                    </div>
+                    <div class="slider-container">
+                        <label class="control-label"><%= locale.dashboard.protection.moderation.banLimit %></label>
+                        <span class="slider-value" id="moderation-banLimit-value">
+                            <%= settings.protection?.moderation?.limits?.banLimit || 1 %>
+                        </span>
+                        <input type="range" class="slider-input"
+                               min="1" max="10" step="1"
+                               value="<%= settings.protection?.moderation?.limits?.banLimit || 1 %>"
+                               id="moderation-banLimit">
+                    </div>
+                    <div class="slider-container">
+                        <label class="control-label"><%= locale.dashboard.protection.moderation.unbanLimit %></label>
+                        <span class="slider-value" id="moderation-unbanLimit-value">
+                            <%= settings.protection?.moderation?.limits?.unbanLimit || 1 %>
+                        </span>
+                        <input type="range" class="slider-input"
+                               min="1" max="10" step="1"
+                               value="<%= settings.protection?.moderation?.limits?.unbanLimit || 1 %>"
+                               id="moderation-unbanLimit">
+                    </div>
+                </div>
+
+                <div class="slider-container mt-4">
+                    <label class="control-label">Time Window (seconds)</label>
+                    <span class="slider-value" id="moderation-timeWindow-value">
+                        <%= (settings.protection?.moderation?.limits?.timeWindow || 10000) / 1000 %>s
+                    </span>
+                    <input type="range" class="slider-input"
+                           min="5" max="60" step="5"
+                           value="<%= (settings.protection?.moderation?.limits?.timeWindow || 10000) / 1000 %>"
+                           id="moderation-timeWindow">
+                </div>
+            </div>
+
+            <div class="control-group mt-6 pt-6 border-t border-gray-700">
+                <label class="control-label">Action Type</label>
+                <select class="action-type-select" id="moderation-actionType">
+                    <% ['removeRoles', 'kick', 'ban'].forEach(type => { %>
+                        <option value="<%= type %>" 
+                                <%= settings.protection?.moderation?.action?.type === type ? 'selected' : '' %>>
+                            <%= type.charAt(0).toUpperCase() + type.slice(1) %>
+                        </option>
+                    <% }) %>
+                </select>
+
+                <div id="moderation-duration-container" class="mt-4">
+                    <label class="control-label">Timeout Duration (minutes)</label>
+                    <input type="number" class="text-input"
+                           id="moderation-duration"
+                           value="<%= (settings.protection?.moderation?.action?.duration || 300000) / 60000 %>"
+                           min="1" max="60">
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <label class="control-label"><%= locale.dashboard.protection.common.ignoredRoles %></label>
+                <div class="role-selector" id="moderation-ignoredRoles">
+                    <div class="selected-roles"></div>
+                    <div class="role-dropdown">
+                        <% roles.forEach(role => { %>
+                            <div class="role-option" 
+                                 data-role-id="<%= role.id %>" 
+                                 data-role-name="<%= role.name %>"
+                                 style="color: '<%= role.hexColor || '#ffffff' %>'">
+                                <%= role.name %>
+                            </div>
+                        <% }); %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="save-bar" id="saveBar">
+    <div class="save-bar-text">
+        <i class="fas fa-info-circle"></i>
+        <span><%= locale.dashboard.protection.common.unsavedChanges %></span>
+    </div>
+    <div class="save-bar-buttons">
+        <button class="reset-button" id="resetProtectionSettings">
+            <i class="fas fa-undo"></i>
+            <%= locale.dashboard.protection.common.resetDefaults %>
+        </button>
+        <button class="save-button" id="saveProtectionSettings">
+            <i class="fas fa-save"></i>
+            <%= locale.dashboard.protection.common.saveChanges %>
+        </button>
+    </div>
+</div>
+
+<style>
+.switch-large {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch-large input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider-large {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+}
+
+.slider-large:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+}
+
+input:checked + .slider-large {
+    background-color: #777bc9;
+}
+
+input:focus + .slider-large {
+    box-shadow: 0 0 1px #9a98e5;
+}
+
+input:checked + .slider-large:before {
+    transform: translateX(26px);
+}
+
+.slider-large.round {
+    border-radius: 34px;
+}
+
+.slider-large.round:before {
+    border-radius: 50%;
+}
+
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 8px;
+    border-radius: 5px;
+    background: #e5e7eb;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #777bc9;
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+.dark input[type="range"] {
+    background: #374151;
+}
+
+.role-selector {
+    position: relative;
+    border: 1px solid #374151;
+    border-radius: 0.375rem;
+    min-height: 2.5rem;
+    padding: 0.5rem;
+}
+
+.selected-roles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.selected-role {
+    display: flex;
+    align-items: center;
+    background: #374151;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+}
+
+.selected-role .remove-role {
+    margin-left: 0.5rem;
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.selected-role .remove-role:hover {
+    opacity: 1;
+}
+
+.role-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #1F2937;
+    border: 1px solid #374151;
+    border-radius: 0.375rem;
+    margin-top: 0.25rem;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 10;
+}
+
+.role-option {
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+.role-option:hover {
+    background: #374151;
+}
+
+.role-selector.active .role-dropdown {
+    display: block;
+}
+
+.whitelist-input-container {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.add-bot-btn {
+    background: #3B82F6;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.add-bot-btn:hover {
+    background: #2563EB;
+}
+
+.whitelisted-bots-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.bot-item {
+    display: flex;
+    align-items: center;
+    background: #374151;
+    padding: 0.5rem;
+    border-radius: 0.375rem;
+    gap: 0.5rem;
+}
+
+.remove-bot {
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.remove-bot:hover {
+    opacity: 1;
+    color: #EF4444;
+}
+
+.action-type-select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: #1F2937;
+    border: 1px solid #374151;
+    border-radius: 0.5rem;
+    color: white;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.action-type-select:hover {
+    border-color: #4B5563;
+}
+
+.action-type-select:focus {
+    outline: none;
+    border-color: #3B82F6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+}
+
+.select-container {
+    position: relative;
+    margin-top: 1rem;
+}
+
+.select-label {
+    display: block;
+    color: #9CA3AF;
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+}
+
+.multi-select {
+    width: 100%;
+    min-height: 2.5rem;
+    padding: 0.5rem;
+    background: #1F2937;
+    border: 1px solid #374151;
+    border-radius: 0.5rem;
+    color: white;
+    font-size: 0.875rem;
+}
+
+.multi-select option {
+    padding: 0.5rem;
+    background: #1F2937;
+}
+
+.multi-select option:checked {
+    background: #3B82F6;
+    color: white;
+}
+
+.save-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(17, 24, 39, 0.95);
+    backdrop-filter: blur(8px);
+    border-top: 1px solid #374151;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+    z-index: 50;
+}
+
+.save-bar.show {
+    transform: translateY(0);
+}
+
+.save-bar-text {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #9CA3AF;
+    font-size: 0.875rem;
+}
+
+.save-bar-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.save-button, 
+.reset-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.save-button {
+    background: #3B82F6;
+    color: white;
+}
+
+.save-button:hover {
+    background: #2563EB;
+}
+
+.reset-button {
+    background: #374151;
+    color: #9CA3AF;
+}
+
+.reset-button:hover {
+    background: #4B5563;
+    color: white;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    background: #1F2937;
+    border-bottom: 1px solid #374151;
+    border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.section-icon {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(59, 130, 246, 0.1);
+    border-radius: 0.5rem;
+    color: #3B82F6;
+}
+</style>
+
+</body>
+</html> 

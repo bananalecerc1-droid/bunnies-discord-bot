@@ -1,0 +1,53 @@
+<%- contentFor('body') %>
+<main class="dashboard-home bunnies-reference-home">
+  <div class="bunnies-breadcrumb"><span>DASHBOARD</span><i class="fas fa-chevron-right"></i><strong>BUNNIES</strong><span class="breadcrumb-date"><i class="far fa-calendar"></i> <%= new Date().toLocaleDateString(currentLang === 'ar' ? 'ar-SA' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) %></span></div>
+
+  <div class="bunnies-home-head">
+    <div>
+      <h1><%= currentLang === 'ar' ? 'مرحبًا بك في مركز التحكم' : 'Welcome back to your control center' %></h1>
+      <p><%= currentLang === 'ar' ? 'كل أدوات إدارة السيرفر في مساحة هادئة واحدة.' : 'Everything you need to keep your server running smoothly.' %></p>
+    </div>
+    <label class="bunnies-search" for="dashboardSearch">
+      <i class="fas fa-search"></i>
+      <input id="dashboardSearch" type="search" aria-label="<%= currentLang === 'ar' ? 'بحث في لوحة التحكم' : 'Search dashboard' %>" placeholder="<%= currentLang === 'ar' ? 'بحث...' : 'Search...' %>">
+      <span class="search-shortcut">⌘ K</span>
+    </label>
+  </div>
+
+  <section class="bunnies-grid bunnies-grid-top">
+    <div class="bunnies-welcome-card">
+      <div class="welcome-copy">
+        <span class="eyebrow"><i class="fas fa-sparkles"></i> BUNNIES CONTROL</span>
+        <h2><%= currentLang === 'ar' ? 'أدر سيرفرك بسهولة' : 'Everything you need to manage your server' %></h2>
+        <p><%= currentLang === 'ar' ? 'تحكم بالحماية، الأوامر، المستويات والإعدادات من مكان واحد.' : 'Manage protection, commands, leveling and settings from one calm workspace.' %></p>
+        <a class="bunnies-primary-btn" href="/settings"><%= currentLang === 'ar' ? 'ابدأ الآن' : 'Get started' %> <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="welcome-orbit"><div class="orbit-ring"></div><img src="/images/bunnis.png" alt="Bunnies" onerror="this.style.display='none'"></div>
+    </div>
+
+    <div class="bunnies-stack">
+      <a class="bunnies-mini-card" href="/leveling"><span class="mini-icon lilac"><i class="fas fa-chart-line"></i></span><span><b><%= currentLang === 'ar' ? 'بطاقة المجتمع' : 'Collection card' %></b><small><%= stats.users %> <%= currentLang === 'ar' ? 'عضو نشط' : 'active members' %></small></span><i class="fas fa-chevron-right"></i></a>
+      <a class="bunnies-mini-card" href="/settings"><span class="mini-icon peach"><i class="fas fa-sliders-h"></i></span><span><b><%= currentLang === 'ar' ? 'الاشتراك' : 'Subscription' %></b><small><%= moduleStatus.giveaway && moduleStatus.giveaway.enabled ? (currentLang === 'ar' ? 'الخطة القياسية' : 'Standard · Premium') : (currentLang === 'ar' ? 'جاهز للبدء' : 'Ready to configure') %></small></span><i class="fas fa-chevron-right"></i></a>
+    </div>
+
+    <div class="bunnies-notice-panel">
+      <div class="panel-heading"><b><i class="fas fa-bell"></i> <%= currentLang === 'ar' ? 'الإشعارات' : 'Notifications' %></b><span><%= currentLang === 'ar' ? 'عرض الكل' : 'View all' %></span></div>
+      <div class="notice-item"><span class="notice-icon"><i class="fas fa-shield-alt"></i></span><span><b><%= currentLang === 'ar' ? 'الحماية تعمل' : 'Protection is active' %></b><small><%= stats.protection.activeProtections %> <%= currentLang === 'ar' ? 'أنظمة حماية مفعّلة' : 'protection modules enabled' %></small></span></div>
+      <div class="notice-item"><span class="notice-icon"><i class="fas fa-bolt"></i></span><span><b><%= currentLang === 'ar' ? 'البوت متصل' : 'Bot is online' %></b><small><%= stats.ping %>ms ping · <%= stats.uptime %></small></span></div>
+    </div>
+  </section>
+
+  <section class="bunnies-grid bunnies-grid-middle">
+    <div class="bunnies-panel collection-panel"><div class="panel-heading"><b><%= currentLang === 'ar' ? 'دورات جديدة' : 'New courses' %></b><a href="/commands">view all</a></div><div class="quick-grid">
+      <a href="/commands" class="quick-card"><span class="course-icon course-blue"><i class="fas fa-terminal"></i></span><b><%= currentLang === 'ar' ? 'الأوامر والأتمتة' : 'Commands & automation' %></b><small><%= stats.commands %> commands</small></a>
+      <a href="/protection" class="quick-card"><span class="course-icon course-peach"><i class="fas fa-shield-alt"></i></span><b><%= currentLang === 'ar' ? 'حماية السيرفر' : 'Server protection' %></b><small><%= stats.protection.activeProtections %> active</small></a>
+      <a href="/logs" class="quick-card"><span class="course-icon course-green"><i class="fas fa-list-alt"></i></span><b><%= currentLang === 'ar' ? 'السجلات والتحليلات' : 'Logs & analytics' %></b><small><%= stats.protection.activeLogs %> configured</small></a>
+    </div></div>
+    <div class="bunnies-panel activity-panel"><div class="panel-heading"><b><i class="fas fa-comments"></i> <%= currentLang === 'ar' ? 'نشاط السيرفر' : 'Server activity' %></b><span class="activity-live"><i class="fas fa-circle"></i> <%= currentLang === 'ar' ? 'مباشر' : 'Live' %></span></div><div class="activity-bars" id="serverActivityBars"><% (stats.serverActivity?.buckets || []).forEach(bucket => { %><span class="activity-bar" data-count="<%= bucket.count %>" data-label="<%= bucket.label %>" title="<%= bucket.count %> messages at <%= bucket.label %>" style="height:<%= bucket.percentage %>%"></span><% }) %></div><div class="activity-caption"><span><%= currentLang === 'ar' ? 'الرسائل خلال آخر 12 ساعة' : 'Messages in the last 12 hours' %></span><strong><%= stats.serverActivity?.total || 0 %> <%= currentLang === 'ar' ? 'رسالة' : 'messages' %></strong></div></div>
+  </section>
+
+  <section class="bunnies-grid bunnies-grid-bottom">
+    <div class="bunnies-panel health-panel"><div class="panel-heading"><b><%= currentLang === 'ar' ? 'صحة البوت' : 'Bot health' %></b><span class="health-live"><i class="fas fa-circle"></i> <%= locale.dashboard.status.online %></span></div><div class="health-row"><span>Ping</span><strong><%= stats.ping %> ms</strong><div class="health-track"><i style="width:<%= Math.min(100, Math.max(15, 100 - stats.ping / 3)) %>%"></i></div></div><div class="health-row"><span>Memory</span><strong><%= stats.memoryUsage %> MB</strong><div class="health-track"><i style="width:<%= Math.min(100, stats.memoryUsage / 5) %>%"></i></div></div><div class="health-row"><span>Uptime</span><strong><%= stats.uptime %></strong><div class="health-track"><i style="width:84%"></i></div></div></div>
+    <div class="bunnies-panel recent-panel"><div class="panel-heading"><b><%= currentLang === 'ar' ? 'آخر النشاطات' : 'Recent activity' %></b><span>view all</span></div><% (recentActivity || []).slice(0,3).forEach(activity => { %><div class="recent-item"><span class="recent-icon"><i class="fas fa-<%= activity.icon %>"></i></span><span><b><%= activity.title %></b><small><%= activity.timeAgo %></small></span></div><% }); %></div>
+  </section>
+</main>
